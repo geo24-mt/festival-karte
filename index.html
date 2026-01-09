@@ -288,46 +288,46 @@
 		    height: 39px;
 		    object-fit: contain;
 		}   
-			/* --- LEAFLET BUTTONS AN DEINEN STYLE ANPASSEN --- */
-
-		/* 1. Der bunte Rahmen (wie bei deinem menu-wrapper) */
+				/* --- ALLE LEAFLET BUTTONS (ZOOM, MESSEN, SUCHE, ETC.) --- */
+		
+		/* Wir sprechen jeden Button-Container einzeln an */
+		.leaflet-control-zoom, 
+		.leaflet-control-locate, 
+		.leaflet-control-measure, 
+		.leaflet-control-search, 
+		.leaflet-control-geocoder,
 		.leaflet-bar {
-		    padding: 2px; /* Erzeugt den Platz für den Verlauf im Hintergrund */
+		    padding: 2px !important; 
 		    background: linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) !important;
 		    border-radius: 12px !important;
 		    border: none !important;
 		    box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
+		    margin-bottom: 10px !important; /* Abstand zwischen den Blöcken */
 		}
 		
-		/* 2. Die Buttons selbst (Dunkel wie deine Filter) */
+		/* Die schwarzen Buttons im Inneren */
+		.leaflet-control-zoom a, 
+		.leaflet-control-locate a, 
+		.leaflet-control-measure a, 
+		.leaflet-control-search a, 
+		.leaflet-control-geocoder a,
 		.leaflet-bar a {
 		    background-color: rgb(30, 30, 30) !important; 
-		    color: white !important; /* Plus und Minus in Weiß */
+		    color: white !important;
 		    border: none !important;
-		    border-radius: 9px !important; /* Leicht abgerundet passend zu den Filtern */
-		    margin: 1px; /* Damit man den bunten Rand sieht */
-		    width: 30px !important;
-		    height: 30px !important;
-		    line-height: 30px !important;
-		    font-family: 'Montserrat', sans-serif !important;
-		    font-weight: bold !important;
+		    border-radius: 10px !important; 
+		    margin: 1px !important;
+		    display: flex !important;
+		    align-items: center;
+		    justify-content: center;
 		}
 		
-		/*/* 3. Hover-Effekt (wenn man mit der Maus drübergeht) */
-		.leaflet-bar a:hover {
-		    background-color: rgb(50, 50, 50) !important; /* Etwas heller beim Drüberfahren */
-		    color: #f39c12 !important; /* Akzentfarbe beim Hover */
-		}*/
-		
-		/* 4. Spezielle Icons (Lineal, Standort etc.) weiß färben */
+		/* Icons weiß färben */
 		.leaflet-control-measure a, 
-		.leaflet-control-locate a {
-		    filter: invert(100%); /* Macht schwarze Icons weiß */
-		}
-		
-		/* Den Trennstrich zwischen Plus und Minus entfernen */
-		.leaflet-bar a:first-child {
-		    border-bottom: none !important;
+		.leaflet-control-locate a,
+		.leaflet-control-search a,
+		.leaflet-control-geocoder a {
+		    filter: invert(100%) !important;
 		}
 /* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
 	@media (max-width: 768px) {
@@ -566,7 +566,7 @@
         }
         map.createPane('pane_GoogleMaps_0');
         map.getPane('pane_GoogleMaps_0').style.zIndex = 400;
-        var layer_GoogleMaps_0 = L.tileLayer('https://{s}.google.com/vt/lyrs=m&hl=de&x={x}&y={y}&z={z}&hl-de', {
+        var layer_GoogleMaps_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=m&hl=de&x={x}&y={y}&z={z}', {
             pane: 'pane_GoogleMaps_0',
             opacity: 1.0,
             attribution: '© Google Maps',
