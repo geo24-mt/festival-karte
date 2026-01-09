@@ -421,20 +421,12 @@
     .menu-wrapper:has(#reset-button) {
         order: 5; /* Button als allerletztes */
     }
-	/* Die bunten Kreise (SVG) verkleinern */
-    .leaflet-pane [class*="leaflet-interactive"] {
-        /* Wir skalieren den Kreis-Radius im Handy-Modus etwas runter */
-        transform-origin: center;
-        scale: 0.7; 
-    }
-
-    /* Die Icons (Bilder) verkleinern */
-    .leaflet-marker-icon {
-        width: 28px !important;  /* Statt 40px */
-        height: 28px !important; /* Statt 40px */
-        margin-left: -14px !important; /* Zentrierung korrigieren (Hälfte von Breite) */
-        margin-top: -14px !important;  /* Zentrierung korrigieren (Hälfte von Höhe) */
-    }
+	/* Nur die Größe ändern, ohne die Position zu verfälschen */
+.leaflet-marker-icon {
+    width: 30px !important; 
+    height: 30px !important;
+    /* Wir lassen margin-left und margin-top weg, damit Leaflet das Rechnen übernimmt */
+}
 }
   </style>
         <title></title>
@@ -721,19 +713,26 @@
 		
 		function getFestivalIcon(kategorie) {
     var fileName;
-    // Wir mappen die Kategorien auf deine Dateinamen
     switch(kategorie) {
-        case 'Electro Festivals':     fileName = 'Electro_symbol.png'; break;
+        case 'Electro Festivals':      fileName = 'Electro_symbol.png'; break;
         case 'Mittelalter Festivals': fileName = 'Mittelalter-Festival_schwarz_weiss_symbol.png'; break;
-        case 'Punk Festivals':        fileName = 'Punk_symbol.png'; break;
-        case 'Schlager Festivals':    fileName = 'Schlager_symbol.png'; break;
-        default:                      fileName = 'default.png'; 
+        case 'Punk Festivals':         fileName = 'Punk_symbol.png'; break;
+        case 'Schlager Festivals':     fileName = 'Schlager_symbol.png'; break;
+        default:                       fileName = 'default.png'; 
     }
+
+    // --- HIER DIE MOBILE-LOGIK ---
+    // Wir prüfen die aktuelle Breite des Browserfensters
+    var isMobile = window.innerWidth <= 768;
+
+    // Wir definieren zwei verschiedene Größen-Sets
+    var iconSize   = isMobile ? [28, 28] : [40, 40]; // Handy 28px, PC 40px
+    var iconAnchor = isMobile ? [14, 14] : [20, 20]; // Immer die Hälfte für die Mitte
 
     return L.icon({
         iconUrl: 'Symbole/' + fileName,
-        iconSize: [40, 40], // Größe des Symbols (etwas kleiner als der 24er Radius)
-        iconAnchor: [20, 20] // Genau mittig
+        iconSize: iconSize, 
+        iconAnchor: iconAnchor
     });
 }
 		
@@ -930,24 +929,22 @@ function pop_Festivals_kreis_2(feature, layer) {
         ]});
         bounds_group.addLayer(layer_Festivals_kreis_2);
         map.addLayer(layer_Festivals_kreis_2);
-      map.on("zoomend", function(e) {
+    map.on("zoomend", function(e) {
     var zoom = map.getZoom();
-    // Prüfen, ob es ein Handy ist (Breite kleiner 768px)
-    var isMobile = window.innerWidth <= 768;
-    // Auf dem Handy zeigen wir die Marker bis Zoom 7, am PC bis Zoom 9
-    var minZoom = isMobile ? 7 : 9; 
+    
+    // Dynamischer Schwellenwert: Handy darf bis Zoom 7 raus, PC nur bis 9
+    var minZoom = (window.innerWidth <= 768) ? 7 : 9;
 
     if (zoom <= 19 && zoom >= minZoom) {
-        map.addLayer(layer_Festivals_kreis_2);
+        if (!map.hasLayer(layer_Festivals_kreis_2)) {
+            map.addLayer(layer_Festivals_kreis_2);
+        }
     } else {
-        map.removeLayer(layer_Festivals_kreis_2);
+        if (map.hasLayer(layer_Festivals_kreis_2)) {
+            map.removeLayer(layer_Festivals_kreis_2);
+        }
     }
 });
-
-// Diese Prüfung auch einmal beim Laden ausführen
-if (map.getZoom() <= 19 && map.getZoom() >= (window.innerWidth <= 768 ? 7 : 9)) {
-    map.addLayer(layer_Festivals_kreis_2);
-}
         const url = {"Nominatim OSM": "https://nominatim.openstreetmap.org/search?format=geojson&addressdetails=1&",
         "France BAN": "https://api-adresse.data.gouv.fr/search/?"}
         var photonControl = L.control.photon({
