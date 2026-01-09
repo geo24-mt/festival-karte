@@ -288,57 +288,7 @@
 		    height: 39px;
 		    object-fit: contain;
 		}   
-	/* --- DER ULTIMATIVE OVERRIDE FÜR EXTERNE CSS-DATEIEN --- */
-
-/* 1. Rahmen für alle (Zoom, Measure, Search, Locate, Photon) */
-.leaflet-control-zoom.leaflet-bar,
-.leaflet-control-locate.leaflet-bar,
-.leaflet-control-measure.leaflet-bar,
-.leaflet-control-search.leaflet-bar,
-.leaflet-photon.leaflet-control {
-    background: linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) !important;
-    padding: 2px !important;
-    border-radius: 12px !important;
-    border: none !important;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
-    margin-bottom: 10px !important;
-}
-
-/* 2. Den Inhalt (Icons) radikal schwarz färben */
-/* Wir sprechen hier gezielt die Klassen aus den externen Dateien an */
-.leaflet-bar a, 
-.leaflet-bar a:hover,
-.leaflet-control-measure-toggle, 
-.leaflet-control-measure-toggle:hover,
-.leaflet-control-search .search-button,
-.leaflet-control-search .search-button:hover,
-.search-button {
-    background-color: rgb(30, 30, 30) !important;
-    background-image: none !important; /* Löscht das Standard-Bild aus der CSS-Datei */
-    border: none !important;
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px !important;
-    width: 30px !important;
-    height: 30px !important;
-    margin: 1px !important;
-}
-
-/* 3. Die Icons wieder sichtbar machen (Weiß auf Schwarz) */
-.leaflet-control-measure-toggle::before, /* Für FontAwesome Icons */
-.leaflet-control-locate a::before,
-.fas, .fa {
-    color: white !important;
-    filter: none !important;
-}
-
-/* Falls die Icons Bilder sind (wie oft bei Measure/Search) */
-.leaflet-control-measure-toggle, 
-.search-button,
-.leaflet-control-geocoder-icon {
-    filter: invert(100%) brightness(200%) !important;
-}
+	
 /* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
 	@media (max-width: 768px) {
 	   html, body {
@@ -417,6 +367,54 @@
 	    width: 30px !important; 
 	    height: 30px !important;
 	}
+		/* --- DER UNBESIEGBARE REGENBOGEN-FIX --- */
+
+/* 1. Rahmen für die Sorgenkinder (Lineal, Suche, Fernglas) */
+.leaflet-control-measure, 
+.leaflet-control-search, 
+.leaflet-photon.leaflet-control,
+.leaflet-control-zoom.leaflet-bar,
+.leaflet-control-locate.leaflet-bar {
+    background: linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) !important;
+    padding: 3px !important;
+    border-radius: 12px !important;
+    border: none !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
+    margin-bottom: 10px !important;
+}
+
+/* 2. Das Innere (den weißen Kern) radikal schwarz färben */
+.leaflet-control-measure-toggle, 
+.leaflet-control-search .search-button,
+.search-button,
+.leaflet-bar a,
+.leaflet-photon-icon {
+    background-color: rgb(30, 30, 30) !important;
+    background-image: none !important; /* Löscht das weiße Standard-Bild */
+    border: none !important;
+    border-radius: 9px !important;
+    width: 34px !important;
+    height: 34px !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    color: white !important; /* Für die Zoom-Plus/Minus Zeichen */
+}
+
+/* 3. Die Icons (Lineal, Lupe, Fernglas) wieder sichtbar machen */
+/* Wir nutzen Filter, um die schwarzen Icons in der Mitte weiß zu färben */
+.leaflet-control-measure-toggle, 
+.search-button,
+.leaflet-control-locate a,
+.leaflet-photon-icon {
+    filter: invert(100%) brightness(200%) !important;
+}
+
+/* 4. Speziell für Photon (deine Suche), da diese ein paar Eigenheiten hat */
+.leaflet-photon.leaflet-control {
+    height: auto !important;
+    width: auto !important;
+}
   </style>
         <title></title>
     </head>
