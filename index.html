@@ -804,11 +804,16 @@ function pop_Festivals_kreis_2(feature, layer) {
     });
 }
         function style_Festivals_kreis_2_0(feature) {
-            switch(String(feature.properties['Kategorie'])) {
-                case 'Electro Festivals':
-                    return {
+    // Prüfen, ob es ein Handy ist
+    var isMobile = window.innerWidth <= 768;
+    // Auf dem Handy Radius 16, am PC Radius 24
+    var dynamischerRadius = isMobile ? 16.0 : 24.0;
+
+    switch(String(feature.properties['Kategorie'])) {
+        case 'Electro Festivals':
+            return {
                 pane: 'pane_Festivals_kreis_2',
-                radius: 24.0,
+                radius: dynamischerRadius, // Hier wird die Größe jetzt flexibel
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -820,11 +825,11 @@ function pop_Festivals_kreis_2(feature, layer) {
                 fillColor: 'rgba(229,54,198,1.0)',
                 interactive: true,
             }
-                    break;
-                case 'Mittelalter Festivals':
-                    return {
+            break;
+        case 'Mittelalter Festivals':
+            return {
                 pane: 'pane_Festivals_kreis_2',
-                radius: 24.0,
+                radius: dynamischerRadius,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -836,11 +841,11 @@ function pop_Festivals_kreis_2(feature, layer) {
                 fillColor: 'rgba(170,72,15,1.0)',
                 interactive: true,
             }
-                    break;
-                case 'Punk Festivals':
-                    return {
+            break;
+        case 'Punk Festivals':
+            return {
                 pane: 'pane_Festivals_kreis_2',
-                radius: 24.0,
+                radius: dynamischerRadius,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -852,11 +857,11 @@ function pop_Festivals_kreis_2(feature, layer) {
                 fillColor: 'rgba(255,0,0,1.0)',
                 interactive: true,
             }
-                    break;
-                case 'Schlager Festivals':
-                    return {
+            break;
+        case 'Schlager Festivals':
+            return {
                 pane: 'pane_Festivals_kreis_2',
-                radius: 24.0,
+                radius: dynamischerRadius,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -868,9 +873,9 @@ function pop_Festivals_kreis_2(feature, layer) {
                 fillColor: 'rgba(10,78,213,1.0)',
                 interactive: true,
             }
-                    break;
-            }
-        }
+            break;
+    }
+}
         function style_Festivals_kreis_2_1(feature) {
             switch(String(feature.properties['Kategorie'])) {
                 case 'Electro Festivals':
