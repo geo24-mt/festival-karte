@@ -16,24 +16,25 @@
  */
 
 
-.leaflet-container .leaflet-control-search
-{position:relative;
- float:left;
- background:transparent;
- color:#fff;
- -moz-border-radius:12px;
- -webkit-border-radius:12px;
- border-radius:12px;
- background-color:transparent;
- z-index:1000;
- box-shadow:none;
- margin-left:10px;
- margin-top:10px
+.leaflet-container .leaflet-control-search {
+    position: relative;
+    float: left;
+    /* Hier kommt der Regenbogen rein */
+    background: linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) !important;
+    padding: 2px; /* Der bunte Rand */
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    border-radius: 12px;
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    margin-left: 10px;
+    margin-top: 10px;
+    border: none !important;
 }
 
-.leaflet-control-search.search-exp
-{box-shadow:0 1px 7px #999;
- background:#fff
+.leaflet-control-search.search-exp {
+    box-shadow: none; /* Schatten haben wir schon am Container */
+    background: transparent !important; /* Verhindert den weißen Hintergrund beim Ausfahren */
 }
 
 .leaflet-control-search .search-input
@@ -87,13 +88,17 @@ font-family: 'Montserrat', sans-serif;
 {color:#aaa
 }
 
-.leaflet-control-search .search-button
-{display:block;
- float:left;
- width:26px;
- height:26px;
- //background:url(../images/search-icon.png) no-repeat 2px 2px #fff;
- border-radius:4px
+.leaflet-control-search .search-button {
+    display: block;
+    float: left;
+    width: 30px;  /* Etwas angepasst für den Rand */
+    height: 30px; 
+    background-color: rgb(30, 30, 30) !important;
+    border-radius: 10px !important;
+    border: none !important;
+    margin: 1px;
+    /* Falls das Lupen-Icon ein Bild ist, machen wir es weiß */
+    filter: invert(100%) brightness(200%);
 }
 
 .leaflet-control-search .search-button:hover
@@ -146,3 +151,4 @@ font-family: 'Montserrat', sans-serif;
  color:#e00;
  font-weight:700;
  border-radius:.25em}
+
