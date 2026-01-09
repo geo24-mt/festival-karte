@@ -33,14 +33,11 @@
 			gap: 60px;
 			background-image: linear-gradient(rgba(255, 255, 255, 0.70), rgba(255, 255, 255, 0.80)), 
                       url('background.png');
-			
-			background-size: cover;       /* Bild füllt den Bildschirm aus */
-			background-position: center;  /* Bild wird zentriert */
-			background-attachment: fixed; /* Hintergrund bleibt beim Scrollen stehen */
+			background-size: cover;      
+			background-position: center;  
+			background-attachment: fixed; 
 			background-repeat: no-repeat;
-				
 		}
-		
 		#map {
 			width: 65%;
             height: calc(100% - 100px - 100px);
@@ -48,8 +45,7 @@
             margin: 0;
 			border: 2px solid #333;
 			box-sizing: border-box;
-        }
-		
+        }		
 		#Überschrift {
 			box-sizing: border-box;
 			height: 110px;
@@ -67,14 +63,12 @@
 			position: sticky;
 			top: 0;
 			z-index: 1000;
-		}
-		
+		}	
 		@keyframes holi-flow {
 			0% { background-position: 0% 50%; }
 			50% { background-position: 100% 50%; }
 			100% { background-position: 0% 50%; }
-		}
-		
+		}	
 		#Überschrift h1 {
 			text-align: center;
 			margin: 10px;
@@ -92,16 +86,12 @@
 			font-size: 2.8em;
 			transform: rotate(-1deg);
 			text-transform: uppercase;
-		}
-					
-					
+		}			
 		.leaflet-popup-content {
 					font-family: 'Montserrat', sans-serif;
 					font-size: 13px;
 					line-height: 1.4;
-		}
-
-			
+		}	
 		.leaflet-popup-content th {
 				font-weight: 700; 
 				text-transform: uppercase; 
@@ -111,8 +101,6 @@
 				white-space: nowrap;
 				text-align: left;
 		}
-		
-		
 		.my-tooltip, .landkreis-tooltip{
 				color: #ffffff;
 				font-family: 'Montserrat', sans-serif;
@@ -131,7 +119,7 @@
 				top: 23%;
 				right: 1.5%;
 				z-index: 2000;
-				padding: 3px; /* Das ist die Dicke deines bunten Rands */
+				padding: 3px; 
 				border-radius: 12px;
 				background: linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71);
 				box-shadow: 0 4px 15px rgba(0,0,0,0.3);
@@ -161,7 +149,6 @@
 				font-weight: bold;
 				cursor: pointer;
 			}
-
 			.slider-container {
 				background-color: rgba(30, 30, 30, 0.95) !important;
 				border-radius: 9px;
@@ -197,7 +184,6 @@
 				border: 2px solid #333;
 				margin-top: -5.5px; 
 			}
-
 			#preis-slider::-moz-range-thumb {
 				height: 16px;
 				width: 16px;
@@ -219,24 +205,18 @@
 			box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 			padding: 2px;
 		}
-		
 		.hide-tooltips .landkreis-tooltip { 
 			display: none !important; 
 		}
-		
 		#reset-button:hover {
 			color: #f39c12 !important; 
 		}
-		
-		/* Der äußere Rahmen für den Kalender */
 		.slider-container {
 			height: auto;
 			padding: 5px;
 			background-color: rgb(30, 30, 30) !important;
 			overflow: hidden; 
 		}
-
-		/* Der Kalender selbst wird herunterskaliert */
 		.flatpickr-calendar.inline {
 			background: transparent !important;
 			border: none !important;
@@ -246,188 +226,187 @@
 			margin: 0 auto !important;
 			width: 100% !important;
 		}
-
-		/* Wochentage und Zahlen kompakter */
 		.flatpickr-day {
-			height: 28px !important;    /* Flacher */
+			height: 28px !important;    
 			line-height: 28px !important;
-			
-			
-		}
-		
-				flatpickr-innerContainer, .flatpickr-rContainer, .flatpickr-days, .dayContainer {
+		}	
+		flatpickr-innerContainer, .flatpickr-rContainer, .flatpickr-days, .dayContainer {
 			width: 100% !important;
 			min-width: 100% !important;
 			max-width: 100% !important;
 		}
 		.flatpickr-months {
-			height: 35px !important;   /* Schmalere Kopfzeile */
+			height: 35px !important;   
 		}
-
-		/* Korrektur der Markierungsfarben (Türkis-Look) */
 		.flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange {
 			background: #76c7c0 !important;
 			border-color: #76c7c0 !important;
-			color: #1a1a1a !important; /* Dunkle Schrift auf hellem Türkis besser lesbar */
+			color: #1a1a1a !important; 
 			font-weight: bold;
 		}
-
 		.flatpickr-day.inRange {
 			background: rgba(118, 199, 192, 0.15) !important;
 			box-shadow: none !important;
 		}
-.legende-links {
-    position: fixed;
-    left: 4%;
-    top: 58%;
-    transform: translateY(-50%);
-    background-color: rgb(30, 30, 30);
-    padding: 20px;
-    border-radius: 12px;
-    color: white;
-    font-family: 'Montserrat', sans-serif;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-	border: 4px solid transparent;
-    background-image: linear-gradient(rgb(30, 30, 30), rgb(30, 30, 30)), 
-                      linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71);
-    background-origin: border-box;
-    background-clip: padding-box, border-box;
-}
+		.legende-links {
+		    position: fixed;
+		    left: 4%;
+		    top: 58%;
+		    transform: translateY(-50%);
+		    background-color: rgb(30, 30, 30);
+		    padding: 20px;
+		    border-radius: 12px;
+		    color: white;
+		    font-family: 'Montserrat', sans-serif;
+		    display: flex;
+		    flex-direction: column;
+		    gap: 15px;
+			border: 4px solid transparent;
+		    background-image: linear-gradient(rgb(30, 30, 30), rgb(30, 30, 30)), 
+		                      linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71);
+		    background-origin: border-box;
+		    background-clip: padding-box, border-box;
+		}
+		.legende-item {
+		    display: flex;
+		    align-items: center;
+		    gap: 15px;
+		    font-size: 14px;
+		}
+		.icon-wrapper {
+		    width: 48px;  
+		    height: 48px;
+		    border-radius: 50%;
+		    display: flex;
+		    align-items: center;
+		    justify-content: center;
+		    border: 1px solid rgba(35,35,35,1.0); 
+		    flex-shrink: 0;
+		}
+		.icon-wrapper img {
+		    width: 39px;  
+		    height: 39px;
+		    object-fit: contain;
+		}   
+			/* --- LEAFLET BUTTONS AN DEINEN STYLE ANPASSEN --- */
 
-.legende-item {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    font-size: 14px;
-}
-
-.icon-wrapper {
-    width: 48px;  /* Radius 24 * 2 */
-    height: 48px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid rgba(35,35,35,1.0); /* Dein 'color' aus dem Style */
-    flex-shrink: 0;
-}
-
-.icon-wrapper img {
-    width: 39px;  /* Proportionalkürzung für die Legende */
-    height: 39px;
-    object-fit: contain;
-}      
-
+		/* 1. Der bunte Rahmen (wie bei deinem menu-wrapper) */
+		.leaflet-bar {
+		    padding: 2px; /* Erzeugt den Platz für den Verlauf im Hintergrund */
+		    background: linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) !important;
+		    border-radius: 12px !important;
+		    border: none !important;
+		    box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
+		}
+		
+		/* 2. Die Buttons selbst (Dunkel wie deine Filter) */
+		.leaflet-bar a {
+		    background-color: rgb(30, 30, 30) !important; 
+		    color: white !important; /* Plus und Minus in Weiß */
+		    border: none !important;
+		    border-radius: 9px !important; /* Leicht abgerundet passend zu den Filtern */
+		    margin: 1px; /* Damit man den bunten Rand sieht */
+		    width: 30px !important;
+		    height: 30px !important;
+		    line-height: 30px !important;
+		    font-family: 'Montserrat', sans-serif !important;
+		    font-weight: bold !important;
+		}
+		
+		/*/* 3. Hover-Effekt (wenn man mit der Maus drübergeht) */
+		.leaflet-bar a:hover {
+		    background-color: rgb(50, 50, 50) !important; /* Etwas heller beim Drüberfahren */
+		    color: #f39c12 !important; /* Akzentfarbe beim Hover */
+		}*/
+		
+		/* 4. Spezielle Icons (Lineal, Standort etc.) weiß färben */
+		.leaflet-control-measure a, 
+		.leaflet-control-locate a {
+		    filter: invert(100%); /* Macht schwarze Icons weiß */
+		}
+		
+		/* Den Trennstrich zwischen Plus und Minus entfernen */
+		.leaflet-bar a:first-child {
+		    border-bottom: none !important;
+		}
 /* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
-@media (max-width: 768px) {
-    
-    /* Hintergrund-Abstand anpassen */
-   html, body {
-        /* WICHTIG: Das 'height: 100%' vom Desktop aufheben! */
-        height: auto !important; 
-        
-        /* Das sorgt dafür, dass der Hintergrund mindestens den 
-           ganzen Bildschirm füllt, aber mitwächst, wenn du scrollst */
-        min-height: 100vh; 
-        
-        /* Damit du auf dem Handy wirklich wischen kannst */
-        overflow-y: auto !important;
-        overflow-x: hidden;
-        
-        /* Abstand zwischen Überschrift, Legende, Karte und Filtern */
-        gap: 20px;
-        display: flex;
-        flex-direction: column;
-    }
-
-    /* Karte breiter machen, damit sie auf dem kleinen Screen Platz hat */
-    #map {
-        width: 95%;
-        height: 400px; /* Feste Höhe für mobile Ansicht */
-        order: 2;      /* Karte kommt an zweiter Stelle */
-    }
-
-    /* Überschrift verkleinern, damit sie nicht den halben Screen einnimmt */
-    #Überschrift {
-        height: auto;
-        padding: 10px 0;
-        order: 1;      /* Überschrift ganz oben */
-    }
-    
-    #Überschrift h1 {
-        font-size: 1.5em;
-    }
-
-    /* LEGENDE: Über der Karte platzieren */
-    .legende-links {
-        position: relative; /* Nicht mehr fixiert */
-        left: 0;
-        top: 0;
-        transform: none;
-        width: 95%;
-        box-sizing: border-box;
-        order: 1;           /* Vor der Karte anzeigen */
-        flex-direction: row;/* Symbole nebeneinander */
-        flex-wrap: wrap;    /* Umbruch erlauben */
-        justify-content: center;
-        gap: 10px;
-        padding: 10px;
-    }
-
-    .legende-item {
-        font-size: 11px;
-        gap: 5px;
-    }
-
-    .icon-wrapper {
-        width: 32px;
-        height: 32px;
-    }
-
-    .icon-wrapper img {
-        width: 24px;
-        height: 24px;
-    }
-
-    /* FILTER: Unter der Karte platzieren */
-    .menu-wrapper {
-        position: relative; /* Nicht mehr fixiert */
-        right: 0;
-        top: 0;
-        width: 95%;
-        margin: 0 auto;
-        box-sizing: border-box;
-        order: 3;           /* Unter der Karte anzeigen */
-    }
-
-    .slider-container {
-        padding: 10px;
-    }
-/* Alle Filter-Container auf dem Handy flexibel machen */
-    .menu-wrapper {
-        top: auto !important; /* Löscht die 88%, 50% etc. aus dem HTML */
-        margin-bottom: 10px;  /* Kleiner Abstand zwischen den Filtern */
-        display: flex;
-        flex-direction: column;
-    }
-
-    /* Reihenfolge erzwingen */
-    .menu-wrapper:has(#event-kalender) {
-        order: 4; /* Kalender als vorletztes */
-    }
-
-    .menu-wrapper:has(#reset-button) {
-        order: 5; /* Button als allerletztes */
-    }
-	/* Nur die Größe ändern, ohne die Position zu verfälschen */
-.leaflet-marker-icon {
-    width: 30px !important; 
-    height: 30px !important;
-    /* Wir lassen margin-left und margin-top weg, damit Leaflet das Rechnen übernimmt */
-}
-}
+	@media (max-width: 768px) {
+	   html, body {
+	        height: auto !important; 
+	        min-height: 100vh; 
+	        overflow-y: auto !important;
+	        overflow-x: hidden;
+	        gap: 20px;
+	        display: flex;
+	        flex-direction: column;
+	    }
+	    #map {
+	        width: 95%;
+	        height: 400px; 
+	        order: 2;      
+	    }
+	    #Überschrift {
+	        height: auto;
+	        padding: 10px 0;
+	        order: 1;     
+	    }
+	    #Überschrift h1 {
+	        font-size: 1.5em;
+	    }
+	    .legende-links {
+	        position: relative; 
+	        left: 0;
+	        top: 0;
+	        transform: none;
+	        width: 95%;
+	        box-sizing: border-box;
+	        order: 1;          
+	        flex-direction: row;
+	        flex-wrap: wrap;   
+	        justify-content: center;
+	        gap: 10px;
+	        padding: 10px;
+	    }
+	    .legende-item {
+	        font-size: 11px;
+	        gap: 5px;
+	    }
+	    .icon-wrapper {
+	        width: 32px;
+	        height: 32px;
+	    }
+	    .icon-wrapper img {
+	        width: 24px;
+	        height: 24px;
+	    }
+	    .menu-wrapper {
+	        position: relative; 
+	        right: 0;
+	        top: 0;
+	        width: 95%;
+	        margin: 0 auto;
+	        box-sizing: border-box;
+	        order: 3;          
+	    }
+	    .slider-container {
+	        padding: 10px;
+	    }
+	    .menu-wrapper {
+	        top: auto !important; 
+	        margin-bottom: 10px;  
+	        display: flex;
+	        flex-direction: column;
+	    }
+	    .menu-wrapper:has(#event-kalender) {
+	        order: 4; 
+	    }
+	    .menu-wrapper:has(#reset-button) {
+	        order: 5; 
+	    }
+	.leaflet-marker-icon {
+	    width: 30px !important; 
+	    height: 30px !important;
+	}
   </style>
         <title></title>
     </head>
@@ -435,7 +414,6 @@
         <div id="Überschrift">
 		<h1>Die Bunte Welt der Festivals</h1>
 		</div>
-		
 		<div class="menu-wrapper">
 			<select id="filter-menu" onchange="filterKarte()">
 				<option value="alle">--- Alle Landkreise ---</option>
@@ -446,8 +424,7 @@
 				<option value="Saarpfalz-Kreis">Saarpfalz-Kreis</option>
 				<option value="St. Wendel">St. Wendel</option>
 			</select>
-		</div>	
-
+		</div>
 		<div class="menu-wrapper" style="top: 32%;">
 			<select id="filter-kategorie" onchange="filterKarte()">
 				<option value="alle">--- Alle Kategorien ---</option>
@@ -459,18 +436,14 @@
 		</div>
 		<div class="menu-wrapper" style="top: 41%;">
 			<div class="slider-container">
-				
 				<label for="preis-slider" class="slider-label">
 					Max. Preis: <span id="preis-wert">500</span> €
 				</label>
-
 				<input type="range" id="preis-slider" 
 					   min="0" max="500" step="10" value="500" 
-					   oninput="filterKarte()">
-					   
+					   oninput="filterKarte()">	   
 			</div>
 		</div>	
-		
 		<div class="menu-wrapper" style="top: 88%;">
 			<button id="reset-button" onclick="resetFilter()" style="
 				background-color: rgb(30, 30, 30); 
@@ -489,7 +462,6 @@
 				Filter zurücksetzen
 			</button>
 		</div>
-
 		<div class="menu-wrapper" style="top: 50%;">
 			<div class="slider-container" style="height: auto; padding: 10px 5px 5px 5px; background-color: rgb(30, 30, 30) !important;">
 				<input type="text" id="event-kalender" style="display: none;">
@@ -522,7 +494,6 @@
 			</div>
 		</div>
 		<div id="map"></div>
-		
         <script src="js/qgis2web_expressions.js"></script>
         <script src="js/leaflet.js"></script>
       <!--  <script src="js/L.Control.Layers.Tree.min.js"></script> -->
@@ -566,20 +537,16 @@
          }
          return tempDiv.innerHTML;
         }
-        // add class to format popup if it contains media
 		function addClassToPopupIfMedia(content, popup) {
 			var tempDiv = document.createElement('div');
 			tempDiv.innerHTML = content;
 			if (tempDiv.querySelector('td img')) {
 				popup._contentNode.classList.add('media');
-					// Delay to force the redraw
 					setTimeout(function() {
 						popup.update();
 					}, 10);
 			} else {
-				popup._contentNode.classList.remove('media');
-			}
-		}
+				popup._contentNode.classList.remove('media');}}
         var zoomControl = L.control.zoom({
             position: 'topleft'
         }).addTo(map);
@@ -599,11 +566,11 @@
         }
         map.createPane('pane_GoogleMaps_0');
         map.getPane('pane_GoogleMaps_0').style.zIndex = 400;
-        var layer_GoogleMaps_0 = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        var layer_GoogleMaps_0 = L.tileLayer('https://{s}.google.com/vt/lyrs=m&hl=de&x={x}&y={y}&z={z}&hl-de', {
             pane: 'pane_GoogleMaps_0',
             opacity: 1.0,
-            attribution: '© OpenStreetMap contributors',
-            minZoom: 7,
+            attribution: '© Google Maps',
+            minZoom: 3,
             maxZoom: 28,
             minNativeZoom: 0,
             maxNativeZoom: 22
@@ -620,12 +587,10 @@
             offset: [15, 10]
         });
     }
-
     layer.on('add', function (e) {
         e.target.getElement().style.cursor = 'default';
     });
 }
-
         function style_Kreise_1_0(feature) {
             switch(String(feature.properties['gen'])) {
                 case 'Merzig-Wadern':
@@ -710,47 +675,35 @@
         });
         bounds_group.addLayer(layer_Kreise_1);
         map.addLayer(layer_Kreise_1);
-		
 		function getFestivalIcon(kategorie) {
-    var fileName;
-    switch(kategorie) {
-        case 'Electro Festivals':      fileName = 'Electro_symbol.png'; break;
-        case 'Mittelalter Festivals': fileName = 'Mittelalter-Festival_schwarz_weiss_symbol.png'; break;
-        case 'Punk Festivals':         fileName = 'Punk_symbol.png'; break;
-        case 'Schlager Festivals':     fileName = 'Schlager_symbol.png'; break;
-        default:                       fileName = 'default.png'; 
-    }
-
-    // --- HIER DIE MOBILE-LOGIK ---
-    // Wir prüfen die aktuelle Breite des Browserfensters
-    var isMobile = window.innerWidth <= 768;
-
-    // Wir definieren zwei verschiedene Größen-Sets
-    var iconSize   = isMobile ? [28, 28] : [40, 40]; // Handy 28px, PC 40px
-    var iconAnchor = isMobile ? [14, 14] : [20, 20]; // Immer die Hälfte für die Mitte
-
-    return L.icon({
-        iconUrl: 'Symbole/' + fileName,
-        iconSize: iconSize, 
-        iconAnchor: iconAnchor
-    });
-}
-		
-function pop_Festivals_kreis_2(feature, layer) {
-    // --- NEU: Klick-Event für den Kalender ---
-    layer.on('click', function(e) {
-        var festivalDatum = feature.properties['Datum']; 
-        updateKalender(festivalDatum);
-    });
-    // -----------------------------------------
-
-    if (feature.properties['Festival_N']) {
-        layer.bindTooltip(String(feature.properties['Festival_N']), {
-            sticky: true,
-            className: 'my-tooltip'
-        });
-    }
-
+	    var fileName;
+	    switch(kategorie) {
+	        case 'Electro Festivals':      fileName = 'Electro_symbol.png'; break;
+	        case 'Mittelalter Festivals': fileName = 'Mittelalter-Festival_schwarz_weiss_symbol.png'; break;
+	        case 'Punk Festivals':         fileName = 'Punk_symbol.png'; break;
+	        case 'Schlager Festivals':     fileName = 'Schlager_symbol.png'; break;
+	        default:                       fileName = 'default.png'; 
+	    }
+	    var isMobile = window.innerWidth <= 768;
+	    var iconSize   = isMobile ? [28, 28] : [40, 40]; // Handy 28px, PC 40px
+	    var iconAnchor = isMobile ? [14, 14] : [20, 20]; // Immer die Hälfte für die Mitte
+	    return L.icon({
+	        iconUrl: 'Symbole/' + fileName,
+	        iconSize: iconSize, 
+	        iconAnchor: iconAnchor
+	    });
+	}		
+	function pop_Festivals_kreis_2(feature, layer) {
+	    layer.on('click', function(e) {
+	        var festivalDatum = feature.properties['Datum']; 
+	        updateKalender(festivalDatum);
+	    });
+	    if (feature.properties['Festival_N']) {
+	        layer.bindTooltip(String(feature.properties['Festival_N']), {
+	            sticky: true,
+	            className: 'my-tooltip'
+	        });
+	    }
     var popupContent = '<table>\
                     <tr>\
                         <th scope="row">Festival-Name</th>\
@@ -796,7 +749,6 @@ function pop_Festivals_kreis_2(feature, layer) {
                         <td class="visible-with-data">' + (feature.properties['gen'] || '') + '</td>\
                     </tr>\
                 </table>';
-
     layer.bindPopup(popupContent, {
         minWidth: 350,
         maxWidth: 800,
@@ -804,11 +756,8 @@ function pop_Festivals_kreis_2(feature, layer) {
     });
 }
         function style_Festivals_kreis_2_0(feature) {
-    // Prüfen, ob es ein Handy ist
     var isMobile = window.innerWidth <= 768;
-    // Auf dem Handy Radius 16, am PC Radius 24
-    var dynamischerRadius = isMobile ? 16.0 : 24.0;
-
+    var dynamischerRadius = isMobile ? 20.0 : 24.0;
     switch(String(feature.properties['Kategorie'])) {
         case 'Electro Festivals':
             return {
@@ -874,8 +823,7 @@ function pop_Festivals_kreis_2(feature, layer) {
                 interactive: true,
             }
             break;
-    }
-}
+	}}
         function style_Festivals_kreis_2_1(feature) {
             switch(String(feature.properties['Kategorie'])) {
                 case 'Electro Festivals':
@@ -902,8 +850,7 @@ function pop_Festivals_kreis_2(feature, layer) {
                 interactive: true,
             }
                     break;
-            }
-        }
+            }}
         map.createPane('pane_Festivals_kreis_2');
         map.getPane('pane_Festivals_kreis_2').style.zIndex = 402;
         map.getPane('pane_Festivals_kreis_2').style['mix-blend-mode'] = 'normal';
@@ -914,21 +861,17 @@ function pop_Festivals_kreis_2(feature, layer) {
             layerName: 'layer_Festivals_kreis_2',
             pane: 'pane_Festivals_kreis_2',
             onEachFeature: pop_Festivals_kreis_2,
-            // ... (dein restlicher Code oben bleibt gleich)
             pointToLayers: [function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                // Der erste Kreis bleibt als bunter Rand (Radius 24)
                 return L.circleMarker(latlng, style_Festivals_kreis_2_0(feature));
             }, function (feature, latlng) {
-                // HIER IST DIE ÄNDERUNG:
-                // Wir holen uns die Kategorie und geben den Marker mit Icon zurück
                 var kat = String(feature.properties['Kategorie']);
                 return L.marker(latlng, {
                     icon: getFestivalIcon(kat),
-                    interactive: false // Damit man durch das Bild auf den Kreis klicken kann
+                    interactive: false 
                 });
             },
         ]});
@@ -936,10 +879,7 @@ function pop_Festivals_kreis_2(feature, layer) {
         map.addLayer(layer_Festivals_kreis_2);
     map.on("zoomend", function(e) {
     var zoom = map.getZoom();
-    
-    // Dynamischer Schwellenwert: Handy darf bis Zoom 7 raus, PC nur bis 9
     var minZoom = (window.innerWidth <= 768) ? 7 : 9;
-
     if (zoom <= 19 && zoom >= minZoom) {
         if (!map.hasLayer(layer_Festivals_kreis_2)) {
             map.addLayer(layer_Festivals_kreis_2);
@@ -1014,10 +954,8 @@ function pop_Festivals_kreis_2(feature, layer) {
         } else {
             document.getElementsByClassName('search-button')[1].className += ' fa fa-binoculars';
         }
-		
 		function setBounds() {
         }
-        // HIER DER SCHALTER:
         map.on("zoomend", function() {
             if (map.getZoom() > 11) {
                 document.getElementById('map').classList.add('hide-tooltips');
@@ -1025,18 +963,12 @@ function pop_Festivals_kreis_2(feature, layer) {
                 document.getElementById('map').classList.remove('hide-tooltips');
             }
         });
-		
 			function filterKarte() {
-				// 1. Alle aktuellen Filterwerte einsammeln
 				var gewaehlterKreis = document.getElementById('filter-menu').value;
 				var gewaehlteKat = document.getElementById('filter-kategorie').value;
 				var gewaehlterPreis = parseFloat(document.getElementById('preis-slider').value);
-
-				// 2. Anzeige im Slider-Kasten aktualisieren
 				var wertAnzeige = document.getElementById('preis-wert');
 				if (wertAnzeige) wertAnzeige.innerText = gewaehlterPreis;
-
-				// 3. Landkreise (Polygone) filtern
 				layer_Kreise_1.eachLayer(function(layer) {
 					var name = String(layer.feature.properties['gen']);
 					if (gewaehlterKreis === "alle" || name === gewaehlterKreis) {
@@ -1045,23 +977,15 @@ function pop_Festivals_kreis_2(feature, layer) {
 						layer.setStyle({opacity: 0, weight: 0, interactive: false});
 					}
 				});
-
-				// 4. Festivals (Punkte) filtern
 				layer_Festivals_kreis_2.eachLayer(function(layer) {
 					if (layer.feature && layer.feature.properties) {
 						var props = layer.feature.properties;
-						
-						// Daten aus dem Punkt holen
-						var fKreis = String(props['gen']); // Wichtig: Heißt die Spalte hier auch 'gen'?
+						var fKreis = String(props['gen']); 
 						var fKat = String(props['Kategorie']);
 						var fPreis = parseFloat(props['Preise ab']);
-
-						// Die 3 Bedingungen prüfen (Logisches UND)
 						var kreisCheck = (gewaehlterKreis === "alle" || fKreis === gewaehlterKreis);
 						var katCheck = (gewaehlteKat === "alle" || fKat === gewaehlteKat);
 						var preisCheck = (isNaN(fPreis) || fPreis === null || fPreis <= gewaehlterPreis);
-
-						// Nur wenn ALLE DREI stimmen, wird der Punkt gezeigt
 						if (layer.getElement()) {
 							if (kreisCheck && katCheck && preisCheck) {
 								layer.getElement().style.display = 'block';
@@ -1070,34 +994,20 @@ function pop_Festivals_kreis_2(feature, layer) {
 							}
 						}
 					}
-				});
-			}
-
+				});}
 		function resetFilter() {
-			// 1. Alle HTML-Elemente auf Standard setzen
 			document.getElementById('filter-menu').value = 'alle';
 			document.getElementById('filter-kategorie').value = 'alle';
 			document.getElementById('preis-slider').value = 500;
-			
-			// 2. Den Text beim Preis-Slider auch wieder auf 500 setzen
 			var preisAnzeige = document.getElementById('preis-wert');
 			if (preisAnzeige) preisAnzeige.innerText = '500';
-
-			// 3. NEU: Den Kalender auf das heutige Datum zurücksetzen
 			if (festivalKalender) {
 				festivalKalender.setDate(new Date()); 
 			}
-
-    // 4. Die Kombi-Filterfunktion aufrufen, um die Karte zu aktualisieren
     filterKarte();
 }
-
-
-		// Globalen Kalender initialisieren
 		let festivalKalender;
-
 			document.addEventListener("DOMContentLoaded", function() {
-				// Deutsche Übersetzung direkt im Skript festlegen
 				const deCfg = {
 					weekdays: {
 						shorthand: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
@@ -1108,14 +1018,13 @@ function pop_Festivals_kreis_2(feature, layer) {
 						longhand: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"]
 					},
 					rangeSeparator: " bis ",
-					firstDayOfWeek: 1 // Woche startet mit Montag
+					firstDayOfWeek: 1 
 				};
-
 				festivalKalender = flatpickr("#event-kalender", {
 					mode: "range",
 					inline: true,
 					static: true,
-					locale: deCfg, // Hier werden die obigen Begriffe direkt geladen
+					locale: deCfg, 
 					dateFormat: "d.m.Y",
 					theme: "dark",
 					monthSelectorType: "static"
@@ -1123,16 +1032,11 @@ function pop_Festivals_kreis_2(feature, layer) {
 			});
 		function updateKalender(datumString) {
 			if (!datumString || !festivalKalender) return;
-
-			// Wenn dein String "04.07.-05.07." ist, bauen wir ihn für den Kalender um
 			let teile = datumString.split('-');
 			let startStr = teile[0].trim() + "2026";
 			let endStr = (teile.length > 1 ? teile[1].trim() : teile[0].trim()) + "2026";
-
-			// Setzt den Kalender auf die Zeitspanne und öffnet den Monat
 			festivalKalender.setDate([startStr, endStr], true);
 		}
-
        </script>
     </body>
 </html>
