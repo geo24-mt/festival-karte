@@ -288,16 +288,14 @@
 		    height: 39px;
 		    object-fit: contain;
 		}   
-		/* --- ABSOLUTER REGENBOGEN-STYLE FÜR ALLE BUTTONS --- */
+	/* --- DER ULTIMATIVE OVERRIDE FÜR EXTERNE CSS-DATEIEN --- */
 
-/* 1. Das äußere Gefäß (Regenbogen) */
-.leaflet-control-zoom,
-.leaflet-control-locate,
-.leaflet-control-measure,
-.leaflet-control-search,
-.leaflet-control-geocoder,
-.leaflet-photon,
-.leaflet-bar {
+/* 1. Rahmen für alle (Zoom, Measure, Search, Locate, Photon) */
+.leaflet-control-zoom.leaflet-bar,
+.leaflet-control-locate.leaflet-bar,
+.leaflet-control-measure.leaflet-bar,
+.leaflet-control-search.leaflet-bar,
+.leaflet-photon.leaflet-control {
     background: linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) !important;
     padding: 2px !important;
     border-radius: 12px !important;
@@ -306,37 +304,40 @@
     margin-bottom: 10px !important;
 }
 
-/* 2. Den WEISSEN Hintergrund der Plugins eliminieren */
-.leaflet-control-measure-toggle,
+/* 2. Den Inhalt (Icons) radikal schwarz färben */
+/* Wir sprechen hier gezielt die Klassen aus den externen Dateien an */
+.leaflet-bar a, 
+.leaflet-bar a:hover,
+.leaflet-control-measure-toggle, 
+.leaflet-control-measure-toggle:hover,
 .leaflet-control-search .search-button,
-.leaflet-control-geocoder-icon,
-.leaflet-bar a,
-.leaflet-control a {
-    background-color: rgb(30, 30, 30) !important; /* Schwarz statt Weiß */
-    background-image: none !important; /* Verhindert das Standard-Icon-Bild-Problem */
+.leaflet-control-search .search-button:hover,
+.search-button {
+    background-color: rgb(30, 30, 30) !important;
+    background-image: none !important; /* Löscht das Standard-Bild aus der CSS-Datei */
     border: none !important;
     display: flex !important;
     align-items: center;
     justify-content: center;
-    color: white !important;
     border-radius: 10px !important;
     width: 30px !important;
     height: 30px !important;
     margin: 1px !important;
 }
 
-/* 3. Die Icons (Bilder/Fonts) im Inneren weiß färben */
-/* Das sorgt dafür, dass Lineal, Lupe etc. weiß leuchten */
-.leaflet-control-measure-toggle,
-.leaflet-control-locate a,
+/* 3. Die Icons wieder sichtbar machen (Weiß auf Schwarz) */
+.leaflet-control-measure-toggle::before, /* Für FontAwesome Icons */
+.leaflet-control-locate a::before,
+.fas, .fa {
+    color: white !important;
+    filter: none !important;
+}
+
+/* Falls die Icons Bilder sind (wie oft bei Measure/Search) */
+.leaflet-control-measure-toggle, 
 .search-button,
 .leaflet-control-geocoder-icon {
     filter: invert(100%) brightness(200%) !important;
-}
-
-/* 4. Speziell für die Suche (Photon/Search) */
-.leaflet-control-search {
-    background: linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) !important;
 }
 /* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
 	@media (max-width: 768px) {
