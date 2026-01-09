@@ -405,6 +405,22 @@
     .slider-container {
         padding: 10px;
     }
+/* Alle Filter-Container auf dem Handy flexibel machen */
+    .menu-wrapper {
+        top: auto !important; /* Löscht die 88%, 50% etc. aus dem HTML */
+        margin-bottom: 10px;  /* Kleiner Abstand zwischen den Filtern */
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Reihenfolge erzwingen */
+    .menu-wrapper:has(#event-kalender) {
+        order: 4; /* Kalender als vorletztes */
+    }
+
+    .menu-wrapper:has(#reset-button) {
+        order: 5; /* Button als allerletztes */
+    }
 }
 
 
