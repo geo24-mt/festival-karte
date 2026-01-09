@@ -367,7 +367,25 @@
 	    width: 30px !important; 
 	    height: 30px !important;
 	}
-		
+		/* Zoom-Buttons (+ und -) und Locate-Button */
+.leaflet-control-zoom.leaflet-bar, 
+.leaflet-control-locate.leaflet-bar {
+    background: linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) !important;
+    padding: 2px !important;
+    border-radius: 12px !important;
+    border: none !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
+}
+
+/* Das Innere hell lassen, damit es zu den anderen passt */
+.leaflet-control-zoom.leaflet-bar a,
+.leaflet-control-locate.leaflet-bar a {
+    background-color: white !important; /* Hell, passend zu deiner neuen Vorliebe */
+    color: black !important;
+    border-radius: 10px !important;
+    border: none !important;
+    margin: 1px !important;
+}
   </style>
         <title></title>
     </head>
