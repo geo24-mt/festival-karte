@@ -288,46 +288,65 @@
 		    height: 39px;
 		    object-fit: contain;
 		}   
-				/* --- ALLE LEAFLET BUTTONS (ZOOM, MESSEN, SUCHE, ETC.) --- */
+		/* --- FINALE REGENBOGEN-BUTTONS FÜR ALLE --- */
 		
-		/* Wir sprechen jeden Button-Container einzeln an */
-		.leaflet-control-zoom, 
-		.leaflet-control-locate, 
-		.leaflet-control-measure, 
-		.leaflet-control-search, 
+		/* 1. Die äußere Hülle (Regenbogen) */
+		.leaflet-control-zoom,
+		.leaflet-control-locate,
+		.leaflet-control-measure,
+		.leaflet-control-search,
 		.leaflet-control-geocoder,
+		.leaflet-photon, /* Das ist für deine Suche! */
 		.leaflet-bar {
-		    padding: 2px !important; 
 		    background: linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) !important;
+		    padding: 2px !important;
 		    border-radius: 12px !important;
 		    border: none !important;
 		    box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
-		    margin-bottom: 10px !important; /* Abstand zwischen den Blöcken */
+		    margin-bottom: 10px !important;
+		    display: flex !important; /* Wichtig für die Lupe */
+		    flex-direction: column;
 		}
 		
-		/* Die schwarzen Buttons im Inneren */
-		.leaflet-control-zoom a, 
-		.leaflet-control-locate a, 
-		.leaflet-control-measure a, 
-		.leaflet-control-search a, 
+		/* 2. Der schwarze Kern (Die Buttons) */
+		.leaflet-control-zoom a,
+		.leaflet-control-locate a,
+		.leaflet-control-measure a,
+		.leaflet-control-search a,
 		.leaflet-control-geocoder a,
-		.leaflet-bar a {
-		    background-color: rgb(30, 30, 30) !important; 
+		.leaflet-photon a,
+		.leaflet-bar a,
+		.search-button { /* Speziell für deinen Search-Button */
+		    background-color: rgb(30, 30, 30) !important;
 		    color: white !important;
 		    border: none !important;
-		    border-radius: 10px !important; 
+		    border-radius: 9px !important;
+		    width: 34px !important;
+		    height: 34px !important;
+		    line-height: 34px !important;
 		    margin: 1px !important;
 		    display: flex !important;
 		    align-items: center;
 		    justify-content: center;
+		    text-decoration: none !important;
 		}
 		
-		/* Icons weiß färben */
+		/* 3. Icons weiß machen */
 		.leaflet-control-measure a, 
 		.leaflet-control-locate a,
 		.leaflet-control-search a,
-		.leaflet-control-geocoder a {
-		    filter: invert(100%) !important;
+		.leaflet-control-geocoder a,
+		.search-button {
+		    filter: invert(100%) brightness(200%) !important;
+		}
+		
+		/* 4. Das Suchfeld selbst stylen (wenn es aufklappt) */
+		.leaflet-photon input, .leaflet-control-search input {
+		    background-color: rgb(30, 30, 30) !important;
+		    color: white !important;
+		    border: none !important;
+		    font-family: 'Montserrat', sans-serif;
+		    padding: 5px;
 		}
 /* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
 	@media (max-width: 768px) {
@@ -900,12 +919,8 @@
             initial: true,
             // resultsHandler: myHandler,
         }).addTo(map);
-        photonControl._container.childNodes[0].style.borderRadius="10px"
-        // Create a variable to store the geoJSON data
         var x = null;
-        // Create a variable to store the marker
         var marker = null;
-        // Add an event listener to the Photon control to create a marker from the returned geoJSON data
         var z = null;
         photonControl.on('selected', function(e) {
             console.log(photonControl.search.resultsContainer);
@@ -925,7 +940,7 @@
         var search = document.getElementsByClassName("leaflet-photon leaflet-control")[0];
         search.classList.add("leaflet-control-search")
         search.style.display = "flex";
-        search.style.backgroundColor="rgba(255,255,255,0.5)" 
+       
 
         // Create the new button element
         var button = document.createElement("div");
