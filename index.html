@@ -421,10 +421,21 @@
     .menu-wrapper:has(#reset-button) {
         order: 5; /* Button als allerletztes */
     }
+	/* Die bunten Kreise (SVG) verkleinern */
+    .leaflet-pane [class*="leaflet-interactive"] {
+        /* Wir skalieren den Kreis-Radius im Handy-Modus etwas runter */
+        transform-origin: center;
+        scale: 0.7; 
+    }
+
+    /* Die Icons (Bilder) verkleinern */
+    .leaflet-marker-icon {
+        width: 28px !important;  /* Statt 40px */
+        height: 28px !important; /* Statt 40px */
+        margin-left: -14px !important; /* Zentrierung korrigieren (Hälfte von Breite) */
+        margin-top: -14px !important;  /* Zentrierung korrigieren (Hälfte von Höhe) */
+    }
 }
-
-
-
   </style>
         <title></title>
     </head>
@@ -919,18 +930,24 @@ function pop_Festivals_kreis_2(feature, layer) {
         ]});
         bounds_group.addLayer(layer_Festivals_kreis_2);
         map.addLayer(layer_Festivals_kreis_2);
-        map.on("zoomend", function(e) {
-            if (map.getZoom() <= 19 && map.getZoom() >= 9) {
-                map.addLayer(layer_Festivals_kreis_2);
-            } else if (map.getZoom() > 19 || map.getZoom() < 9) {
-                map.removeLayer(layer_Festivals_kreis_2);
-            }
-        });
-            if (map.getZoom() <= 19 && map.getZoom() >= 9) {
-                map.addLayer(layer_Festivals_kreis_2);
-            } else if (map.getZoom() > 19 || map.getZoom() < 9) {
-                map.removeLayer(layer_Festivals_kreis_2);
-            }
+      map.on("zoomend", function(e) {
+    var zoom = map.getZoom();
+    // Prüfen, ob es ein Handy ist (Breite kleiner 768px)
+    var isMobile = window.innerWidth <= 768;
+    // Auf dem Handy zeigen wir die Marker bis Zoom 7, am PC bis Zoom 9
+    var minZoom = isMobile ? 7 : 9; 
+
+    if (zoom <= 19 && zoom >= minZoom) {
+        map.addLayer(layer_Festivals_kreis_2);
+    } else {
+        map.removeLayer(layer_Festivals_kreis_2);
+    }
+});
+
+// Diese Prüfung auch einmal beim Laden ausführen
+if (map.getZoom() <= 19 && map.getZoom() >= (window.innerWidth <= 768 ? 7 : 9)) {
+    map.addLayer(layer_Festivals_kreis_2);
+}
         const url = {"Nominatim OSM": "https://nominatim.openstreetmap.org/search?format=geojson&addressdetails=1&",
         "France BAN": "https://api-adresse.data.gouv.fr/search/?"}
         var photonControl = L.control.photon({
