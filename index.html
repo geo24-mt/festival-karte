@@ -876,9 +876,10 @@
             var fDatumRaw = String(props['Datum']); 
             var datumCheck = true; 
 
-            if (gewaehlteDaten.length === 2) {
-                var startFilter = gewaehlteDaten[0];
-                var endFilter = gewaehlteDaten[1];
+            if (gewaehlteDaten.length > 0) {
+			    var startFilter = gewaehlteDaten[0];
+			    // Falls das zweite Datum fehlt (nur 1 Klick), nimm das erste als Ende
+			    var endFilter = gewaehlteDaten[1] ? gewaehlteDaten[1] : startFilter;
 
                 var teile = fDatumRaw.split(/[-–]| bis /);
                 var festivalStart = parseDate(teile[0]);
@@ -909,8 +910,9 @@
 			var preisAnzeige = document.getElementById('preis-wert');
 			if (preisAnzeige) preisAnzeige.innerText = '500';
 			if (festivalKalender) {
-				festivalKalender.setDate(new Date()); 
-			}
+    festivalKalender.clear(); // Alles löschen (kein Zwang mehr)
+    festivalKalender.jumpToDate(new Date()); // Springt nur zur Ansicht "heute"
+}
     filterKarte();
 }
 		let festivalKalender;
@@ -935,13 +937,23 @@
 				    dateFormat: "d.m.Y",
 				    theme: "dark",
 				    monthSelectorType: "static",
-				    // Jetzt mit der vollständigen Logik: 
-				    // Reagiert bei 2 gewählten Daten ODER wenn die Auswahl gelöscht wurde (0)
-				    onChange: function(selectedDates, dateStr, instance) {
-				        if (selectedDates.length === 2 || selectedDates.length === 0) {
-				            filterKarte(); 
-				        }
-				    }
+				  onChange: function(selectedDates, dateStr, instance) {
+					    // Fall 1: Ein einzelner Tag wurde angeklickt
+					    if (selectedDates.length === 1) {
+					        // Wir lassen die Karte filtern, die Logik erkennt dann diesen einen Tag
+					        filterKarte(); 
+					    } 
+					    // Fall 2: Ein Zeitraum (zwei Daten) wurde ausgewählt
+					    else if (selectedDates.length === 2) {
+					        filterKarte();
+					        // Hier ist der "Befreiungsschlag": Wir nehmen den Fokus vom Kalender weg
+					        instance.close(); 
+					    }
+					    // Fall 3: Filter wurde gelöscht
+					    else if (selectedDates.length === 0) {
+					        filterKarte();
+					    }
+					}
 				});
 			});
 		function updateKalender(datumString) {
