@@ -367,7 +367,6 @@
 	    width: 30px !important; 
 	    height: 30px !important;
 	}
-		/* Zoom-Buttons (+ und -) und Locate-Button */
 .leaflet-control-zoom.leaflet-bar, 
 .leaflet-control-locate.leaflet-bar {
     background: linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) !important;
@@ -376,11 +375,9 @@
     border: none !important;
     box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
 }
-
-/* Das Innere hell lassen, damit es zu den anderen passt */
 .leaflet-control-zoom.leaflet-bar a,
 .leaflet-control-locate.leaflet-bar a {
-    background-color: white !important; /* Hell, passend zu deiner neuen Vorliebe */
+    background-color: white !important; 
     color: black !important;
     border-radius: 10px !important;
     border: none !important;
@@ -734,102 +731,7 @@
         autoPan: true
     });
 }
-        function style_Festivals_kreis_2_0(feature) {
-    var isMobile = window.innerWidth <= 768;
-    var dynamischerRadius = isMobile ? 20.0 : 24.0;
-    switch(String(feature.properties['Kategorie'])) {
-        case 'Electro Festivals':
-            return {
-                pane: 'pane_Festivals_kreis_2',
-                radius: dynamischerRadius, // Hier wird die Größe jetzt flexibel
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(229,54,198,1.0)',
-                interactive: true,
-            }
-            break;
-        case 'Mittelalter Festivals':
-            return {
-                pane: 'pane_Festivals_kreis_2',
-                radius: dynamischerRadius,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(170,72,15,1.0)',
-                interactive: true,
-            }
-            break;
-        case 'Punk Festivals':
-            return {
-                pane: 'pane_Festivals_kreis_2',
-                radius: dynamischerRadius,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(255,0,0,1.0)',
-                interactive: true,
-            }
-            break;
-        case 'Schlager Festivals':
-            return {
-                pane: 'pane_Festivals_kreis_2',
-                radius: dynamischerRadius,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(10,78,213,1.0)',
-                interactive: true,
-            }
-            break;
-	}}
-        function style_Festivals_kreis_2_1(feature) {
-            switch(String(feature.properties['Kategorie'])) {
-                case 'Electro Festivals':
-                    return {
-                pane: 'pane_Festivals_kreis_2',
-                interactive: true,
-            }
-                    break;
-                case 'Mittelalter Festivals':
-                    return {
-                pane: 'pane_Festivals_kreis_2',
-                interactive: true,
-            }
-                    break;
-                case 'Punk Festivals':
-                    return {
-                pane: 'pane_Festivals_kreis_2',
-                interactive: true,
-            }
-                    break;
-                case 'Schlager Festivals':
-                    return {
-                pane: 'pane_Festivals_kreis_2',
-                interactive: true,
-            }
-                    break;
-            }}
+      
         map.createPane('pane_Festivals_kreis_2');
         map.getPane('pane_Festivals_kreis_2').style.zIndex = 402;
         map.getPane('pane_Festivals_kreis_2').style['mix-blend-mode'] = 'normal';
@@ -840,20 +742,14 @@
             layerName: 'layer_Festivals_kreis_2',
             pane: 'pane_Festivals_kreis_2',
             onEachFeature: pop_Festivals_kreis_2,
-            pointToLayers: [function (feature, latlng) {
-                var context = {
-                    feature: feature,
-                    variables: {}
-                };
-                return L.circleMarker(latlng, style_Festivals_kreis_2_0(feature));
-            }, function (feature, latlng) {
+            pointToLayers: [function (feature, latlng) { 
                 var kat = String(feature.properties['Kategorie']);
                 return L.marker(latlng, {
                     icon: getFestivalIcon(kat),
-                    interactive: false 
+                    interactive: true
                 });
-            },
-        ]});
+            }] 
+        }); 
         bounds_group.addLayer(layer_Festivals_kreis_2);
         map.addLayer(layer_Festivals_kreis_2);
     map.on("zoomend", function(e) {
