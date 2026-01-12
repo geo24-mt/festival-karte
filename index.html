@@ -288,7 +288,11 @@
 		    height: 39px;
 		    object-fit: contain;
 		}   
-	
+	.festival-icon-style {
+    object-fit: contain; /* Sorgt dafür, dass das ganze Bild inkl. Rand in die Box passt */
+    border: none !important; /* Verhindert, dass Leaflet einen eigenen Rahmen drumherum macht */
+    background: transparent !important;
+}
 /* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
 	@media (max-width: 768px) {
 	   html, body {
@@ -661,14 +665,18 @@
 	        default:                       fileName = 'default.png'; 
 	    }
 	    var isMobile = window.innerWidth <= 768;
-	    var iconSize   = isMobile ? [28, 28] : [40, 40]; // Handy 28px, PC 40px
-	    var iconAnchor = isMobile ? [14, 14] : [20, 20]; // Immer die Hälfte für die Mitte
-	    return L.icon({
-	        iconUrl: 'Symbole/' + fileName,
-	        iconSize: iconSize, 
-	        iconAnchor: iconAnchor
-	    });
-	}		
+	   // Wir erhöhen die Werte leicht, damit dein selbstgemachter Rand nicht abgeschnitten wird
+    // Alt: [40, 40] -> Neu: [45, 45] (oder sogar [50, 50])
+    var iconSize   = isMobile ? [32, 32] : [48, 48]; 
+    var iconAnchor = isMobile ? [16, 16] : [24, 24]; 
+
+    return L.icon({
+        iconUrl: 'Symbole/' + fileName,
+        iconSize: iconSize, 
+        iconAnchor: iconAnchor,
+        className: 'festival-icon-style' // Wir fügen eine Klasse hinzu, um sicherzugehen
+    });
+}
 	function pop_Festivals_kreis_2(feature, layer) {
 	    layer.on('click', function(e) {
 	        var festivalDatum = feature.properties['Datum']; 
