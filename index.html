@@ -276,21 +276,19 @@
 		.icon-wrapper {
 		    width: 48px;  
 		    height: 48px;
-		    border-radius: 50%;
 		    display: flex;
 		    align-items: center;
 		    justify-content: center;
-		    border: 1px solid rgba(35,35,35,1.0); 
 		    flex-shrink: 0;
 		}
 		.icon-wrapper img {
-		    width: 39px;  
-		    height: 39px;
+		    width: 44px;  
+		    height: 44px;
 		    object-fit: contain;
 		}   
 		.festival-icon-style {
-		    object-fit: contain; /* Sorgt dafür, dass das ganze Bild inkl. Rand in die Box passt */
-		    border: none !important; /* Verhindert, dass Leaflet einen eigenen Rahmen drumherum macht */
+		    object-fit: contain; 
+		    border: none !important; 
 		    background: transparent !important;
 		}
 		.leaflet-control-zoom.leaflet-bar, 
@@ -444,31 +442,31 @@
 			</div>
 		</div>
 		<div class="legende-links">
-			<div class="legende-item">
-				<div class="icon-wrapper" style="background-color: rgba(229,54,198,1.0);">
-					<img src="Symbole/Electro_symbol.png">
-				</div>
-				<span>Electro</span>
-			</div>
-			<div class="legende-item">
-				<div class="icon-wrapper" style="background-color: rgba(170,72,15,1.0);">
-					<img src="Symbole/Mittelalter-Festival_schwarz_weiss_symbol.png">
-				</div>
-				<span>Mittelalter</span>
-			</div>
-			<div class="legende-item">
-				<div class="icon-wrapper" style="background-color: rgba(255,0,0,1.0);">
-					<img src="Symbole/Punk_symbol.png">
-				</div>
-				<span>Punk</span>
-			</div>
-			<div class="legende-item">
-				<div class="icon-wrapper" style="background-color: rgba(10,78,213,1.0);">
-					<img src="Symbole/Schlager_symbol.png">
-				</div>
-				<span>Schlager</span>
-			</div>
-		</div>
+    <div class="legende-item">
+        <div class="icon-wrapper">
+            <img src="Symbole/Electro_symbol.png">
+        </div>
+        <span>Electro</span>
+    </div>
+    <div class="legende-item">
+        <div class="icon-wrapper">
+            <img src="Symbole/Mittelalter-Festival_schwarz_weiss_symbol.png">
+        </div>
+        <span>Mittelalter</span>
+    </div>
+    <div class="legende-item">
+        <div class="icon-wrapper">
+            <img src="Symbole/Punk_symbol.png">
+        </div>
+        <span>Punk</span>
+    </div>
+    <div class="legende-item">
+        <div class="icon-wrapper">
+            <img src="Symbole/Schlager_symbol.png">
+        </div>
+        <span>Schlager</span>
+    </div>
+</div>
 		<div id="map"></div>
         <script src="js/qgis2web_expressions.js"></script>
         <script src="js/leaflet.js"></script>
@@ -661,16 +659,14 @@
 	        default:                       fileName = 'default.png'; 
 	    }
 	    var isMobile = window.innerWidth <= 768;
-	   // Wir erhöhen die Werte leicht, damit dein selbstgemachter Rand nicht abgeschnitten wird
-    // Alt: [40, 40] -> Neu: [45, 45] (oder sogar [50, 50])
-    var iconSize   = isMobile ? [32, 32] : [48, 48]; 
-    var iconAnchor = isMobile ? [16, 16] : [24, 24]; 
+    var iconSize   = isMobile ? [28, 28] : [44, 44]; 
+    var iconAnchor = isMobile ? [14, 14] : [22, 22]; 
 
     return L.icon({
         iconUrl: 'Symbole/' + fileName,
         iconSize: iconSize, 
         iconAnchor: iconAnchor,
-        className: 'festival-icon-style' // Wir fügen eine Klasse hinzu, um sicherzugehen
+        className: 'festival-icon-style' 
     });
 }
 	function pop_Festivals_kreis_2(feature, layer) {
