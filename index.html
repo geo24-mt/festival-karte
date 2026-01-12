@@ -849,23 +849,55 @@
 					}
 				});
 				layer_Festivals_kreis_2.eachLayer(function(layer) {
-					if (layer.feature && layer.feature.properties) {
-						var props = layer.feature.properties;
-						var fKreis = String(props['gen']); 
-						var fKat = String(props['Kategorie']);
-						var fPreis = parseFloat(props['Preise ab']);
-						var kreisCheck = (gewaehlterKreis === "alle" || fKreis === gewaehlterKreis);
-						var katCheck = (gewaehlteKat === "alle" || fKat === gewaehlteKat);
-						var preisCheck = (isNaN(fPreis) || fPreis === null || fPreis <= gewaehlterPreis);
-						if (layer.getElement()) {
-							if (kreisCheck && katCheck && preisCheck) {
-								layer.getElement().style.display = 'block';
-							} else {
-								layer.getElement().style.display = 'none';
-							}
-						}
-					}
-				});}
+    if (layer.feature && layer.feature.properties) {
+        var props = layer.feature.properties;
+        var fKreis = String(props['gen']); 
+        var fKat = String(props['Kategorie']);
+        var fPreis = parseFloat(props['Preise ab']);
+        // --- NEU: DATUMS-FILTER (UNTERSTÜTZT JETZT AUCH ZEITRÄUME) ---
+        var fDatumRaw = String(props['Datum']); 
+        var datumCheck = true; 
+        var gewaehlteDaten = festivalKalender.selectedDates;
+
+        if (gewaehlteDaten.length === 2) {
+            var startFilter = gewaehlteDaten[0];
+            var endFilter = gewaehlteDaten[1];
+
+            // Wir teilen den String bei "-", "–" oder " bis " auf
+            var teile = fDatumRaw.split(/[-–]| bis /);
+            
+            // Kleine Hilfsfunktion zum Umwandeln (Parsen)
+            var parseDate = function(str) {
+                if(!str) return null;
+                var d = str.trim().split('.');
+                var tag = parseInt(d[0]);
+                var monat = parseInt(d[1]) - 1;
+                var jahr = d[2] ? parseInt(d[2]) : 2026;
+                return new Date(jahr, monat, tag);
+            };
+
+            var festivalStart = parseDate(teile[0]);
+            var festivalEnd = teile[1] ? parseDate(teile[1]) : festivalStart;
+
+            // Logik für Überlappung: Das Festival läuft, während der Filter aktiv ist
+            datumCheck = (festivalStart <= endFilter && festivalEnd >= startFilter);
+        }
+        // Kombinierte Abfrage
+        var kreisCheck = (gewaehlterKreis === "alle" || fKreis === gewaehlterKreis);
+        var katCheck = (gewaehlteKat === "alle" || fKat === gewaehlteKat);
+        var preisCheck = (isNaN(fPreis) || fPreis === null || fPreis <= gewaehlterPreis);
+
+        if (layer.getElement()) {
+            // Hier kommt der datumCheck mit rein
+            if (kreisCheck && katCheck && preisCheck && datumCheck) {
+                layer.getElement().style.display = 'block';
+            } else {
+                layer.getElement().style.display = 'none';
+            }
+        }
+    }
+});
+			}
 		function resetFilter() {
 			document.getElementById('filter-menu').value = 'alle';
 			document.getElementById('filter-kategorie').value = 'alle';
@@ -892,13 +924,19 @@
 					firstDayOfWeek: 1 
 				};
 				festivalKalender = flatpickr("#event-kalender", {
-					mode: "range",
-					inline: true,
-					static: true,
-					locale: deCfg, 
-					dateFormat: "d.m.Y",
-					theme: "dark",
-					monthSelectorType: "static"
+				    mode: "range",
+				    inline: true,
+				    static: true,
+				    locale: deCfg, 
+				    dateFormat: "d.m.Y",
+				    theme: "dark",
+				    monthSelectorType: "static",
+				    // Das hier ist wichtig:
+				    onChange: function(selectedDates, dateStr, instance) {
+				        if (selectedDates.length === 2) {
+				            filterKarte(); // Filtert, sobald Start und Ende gewählt sind
+				        }
+				    }
 				});
 			});
 		function updateKalender(datumString) {
