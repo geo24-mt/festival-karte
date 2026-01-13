@@ -61,9 +61,10 @@
     /* Dein Regenbogen-Verlauf */
     background: linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) !important;
     padding: 2px; /* Das erzeugt den bunten Rand-Effekt */
-    border-radius: 12px;
+    border-radius: 12px !important;
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     border: none !important;
+    overflow: hidden !important;
 }
 .leaflet-control-measure .leaflet-control-measure-toggle,
 .leaflet-control-measure .leaflet-control-measure-toggle:hover {
@@ -184,5 +185,6 @@
     background-image: url(images/trash_@2X.png);
     background-size: 11px 12px
 }
+
 
 
