@@ -546,6 +546,12 @@
             secondaryAreaUnit: 'hectares'
         });
         measureControl.addTo(map);
+			
+        var mE = document.getElementsByClassName('leaflet-control-measure')[0];
+        var mT = document.getElementsByClassName('leaflet-control-measure-toggle')[0];
+        if (mE) { mE.style.borderRadius = '12px'; mE.style.overflow = 'hidden'; }
+        if (mT) { mT.style.borderRadius = '10px'; mT.style.overflow = 'hidden'; }
+        
         document.getElementsByClassName('leaflet-control-measure-toggle')[0].innerHTML = '';
         document.getElementsByClassName('leaflet-control-measure-toggle')[0].className += ' fas fa-ruler';
         var bounds_group = new L.featureGroup([]);
