@@ -72,6 +72,7 @@
     width: 32px;  /* Etwas kleiner, damit der Rand Platz hat */
     height: 32px; /* Etwas kleiner, damit der Rand Platz hat */
     background-position: 50% 50%;
+    background-image: url(images/rulers.png) !important;
     background-repeat: no-repeat;
     background-color: rgb(30, 30, 30) !important; /* Dein dunkler Hintergrund */
     border-radius: 10px !important;
@@ -85,7 +86,7 @@
 
 .leaflet-retina .leaflet-control-measure .leaflet-control-measure-toggle,
 .leaflet-retina .leaflet-control-measure .leaflet-control-measure-toggle:hover {
-    background-image: url(images/rulers_@2X.png);
+    background-image: url(images/rulers.png);
     background-size: 16px 16px
 }
 
@@ -185,6 +186,7 @@
     background-image: url(images/trash_@2X.png);
     background-size: 11px 12px
 }
+
 
 
 
