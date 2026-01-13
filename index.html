@@ -307,60 +307,7 @@
 		    border: none !important;
 		    margin: 1px !important;
 		}
-			/* Nur die Ecken für das Messwerkzeug abrunden */
-		.leaflet-control-measure, 
-		.leaflet-control-measure-toggle {
-		    border-radius: 12px !important; /* Äußerer Rand */
-		    overflow: hidden !important;    /* Schneidet spitze Ecken des Inhalts ab */
-		}
-		
-		.leaflet-control-measure-toggle {
-		    border-radius: 10px !important; /* Innerer Button */
-			overflow: hidden !important;
-		}
-			/* Sicherstellen, dass die Schaltfläche abgerundet und Inhalt abgeschnitten wird */
-.leaflet-control-measure,
-.leaflet-control-measure-toggle,
-.leaflet-control-measure .leaflet-bar-part,
-.leaflet-control-measure-toggle .leaflet-bar-part {
-  border-radius: 12px !important;
-  overflow: hidden !important;
-  display: inline-flex !important;
-  align-items: center;
-  justify-content: center;
-  background-clip: padding-box, border-box !important;
-}
-
-/* Falls das Icon als <img> irgendwo innen ist */
-.leaflet-control-measure img,
-.leaflet-control-measure-toggle img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 10px !important;
-}
-
-/* Falls das Icon ein Inline-SVG ist */
-.leaflet-control-measure svg,
-.leaflet-control-measure-toggle svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-  clip-path: inset(0 round 10px);
-}
-
-/* Falls das Icon als background-image oder in ::before/::after steckt */
-.leaflet-control-measure-toggle,
-.leaflet-control-measure-toggle::before,
-.leaflet-control-measure-toggle::after {
-  background-repeat: no-repeat !important;
-  background-position: center !important;
-  background-size: cover !important;
-  border-radius: 10px !important;
-  overflow: hidden !important;
-}
-
+			
 /* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
 	@media (max-width: 768px) {
 	   html, body {
@@ -435,35 +382,7 @@
 	    .menu-wrapper:has(#reset-button) {
 	        order: 5; 
 	    }}
-			/* Einfache, dominante Regel: rundes Button‑Icon (auch für @2X-PNGs) */
-.leaflet-control-measure .leaflet-control-measure-toggle,
-.leaflet-retina .leaflet-control-measure .leaflet-control-measure-toggle {
-  width: 44px !important;
-  height: 44px !important;
-  border-radius: 12px !important;
-  overflow: hidden !important;
-  background-repeat: no-repeat !important;
-  background-position: center !important;
-  background-size: 24px 24px !important;
-  background-color: transparent !important;
-  filter: none !important;
-}
-
-/* Optional: wenn das PNG eine eckige, nicht-transparente Fläche hat, nutze Mask (setzt Hintergrundfarbe als Icon-Farbe) */
-.leaflet-control-measure .leaflet-control-measure-toggle.masked,
-.leaflet-retina .leaflet-control-measure .leaflet-control-measure-toggle.masked {
-  background-image: none !important;
-  -webkit-mask-image: url(images/rulers_@2X.png) !important;
-  mask-image: url(images/rulers_@2X.png) !important;
-  -webkit-mask-repeat: no-repeat !important;
-  mask-repeat: no-repeat !important;
-  -webkit-mask-position: center !important;
-  mask-position: center !important;
-  -webkit-mask-size: 24px 24px !important;
-  mask-size: 24px 24px !important;
-  background-color: rgba(255,255,255,0.95) !important; /* Icon-Farbe: anpassen falls nötig */
-}
-
+			
   </style>
         <title></title>
     </head>
