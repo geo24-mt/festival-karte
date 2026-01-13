@@ -73,7 +73,7 @@
     background-position: 50% 50%;
     background-repeat: no-repeat;
     background-color: rgb(30, 30, 30) !important; /* Dein dunkler Hintergrund */
-    border-radius: 10px;
+    border-radius: 10px !important;
     text-indent: 100%;
     white-space: nowrap;
     overflow: hidden;
@@ -184,4 +184,5 @@
     background-image: url(images/trash_@2X.png);
     background-size: 11px 12px
 }
+
 
