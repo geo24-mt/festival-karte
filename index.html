@@ -318,6 +318,49 @@
 		    border-radius: 10px !important; /* Innerer Button */
 			overflow: hidden !important;
 		}
+			/* Sicherstellen, dass die Schaltfläche abgerundet und Inhalt abgeschnitten wird */
+.leaflet-control-measure,
+.leaflet-control-measure-toggle,
+.leaflet-control-measure .leaflet-bar-part,
+.leaflet-control-measure-toggle .leaflet-bar-part {
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  background-clip: padding-box, border-box !important;
+}
+
+/* Falls das Icon als <img> irgendwo innen ist */
+.leaflet-control-measure img,
+.leaflet-control-measure-toggle img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px !important;
+}
+
+/* Falls das Icon ein Inline-SVG ist */
+.leaflet-control-measure svg,
+.leaflet-control-measure-toggle svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  clip-path: inset(0 round 10px);
+}
+
+/* Falls das Icon als background-image oder in ::before/::after steckt */
+.leaflet-control-measure-toggle,
+.leaflet-control-measure-toggle::before,
+.leaflet-control-measure-toggle::after {
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: cover !important;
+  border-radius: 10px !important;
+  overflow: hidden !important;
+}
+
 /* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
 	@media (max-width: 768px) {
 	   html, body {
