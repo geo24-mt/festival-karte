@@ -90,10 +90,14 @@
     background-size: 16px 16px
 }
 
+/* Korrektur für Touch-Geräte/moderne Browser */
 .leaflet-touch .leaflet-control-measure .leaflet-control-measure-toggle,
 .leaflet-touch .leaflet-control-measure .leaflet-control-measure-toggle:hover {
-    width: 44px;
-    height: 44px
+    width: 32px !important;        /* Zurück auf deine Wunschgröße */
+    height: 32px !important;
+    background-color: transparent !important; /* Weiß löschen */
+    border-radius: 10px !important;           /* Rund machen */
+    overflow: hidden !important;              /* Ecken abschneiden */
 }
 
 .leaflet-control-measure .startprompt h3 {
@@ -186,6 +190,7 @@
     background-image: url(images/trash_@2X.png);
     background-size: 11px 12px
 }
+
 
 
 
