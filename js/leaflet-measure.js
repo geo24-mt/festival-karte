@@ -7106,6 +7106,8 @@ L.Control.Measure = L.Control.extend({
   },
   _initLayout: function () {
     var className = this._className, container = this._container = L.DomUtil.create('div', className);
+		container.style.borderRadius = '12px';
+   		container.style.overflow = 'hidden';
     var $toggle, $start, $cancel, $finish;
 
     container.innerHTML = controlTemplate({
@@ -7646,3 +7648,4 @@ module.exports = {
   }
 };
 },{}]},{},[44]);
+
