@@ -307,6 +307,17 @@
 		    border: none !important;
 		    margin: 1px !important;
 		}
+			/* Nur die Ecken für das Messwerkzeug abrunden */
+		.leaflet-control-measure, 
+		.leaflet-control-measure-toggle {
+		    border-radius: 12px !important; /* Äußerer Rand */
+		    overflow: hidden !important;    /* Schneidet spitze Ecken des Inhalts ab */
+		}
+		
+		.leaflet-control-measure-toggle {
+		    border-radius: 10px !important; /* Innerer Button */
+			overflow: hidden !important;
+		}
 /* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
 	@media (max-width: 768px) {
 	   html, body {
