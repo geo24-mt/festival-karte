@@ -435,6 +435,35 @@
 	    .menu-wrapper:has(#reset-button) {
 	        order: 5; 
 	    }}
+			/* Einfache, dominante Regel: rundes Button‑Icon (auch für @2X-PNGs) */
+.leaflet-control-measure .leaflet-control-measure-toggle,
+.leaflet-retina .leaflet-control-measure .leaflet-control-measure-toggle {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: 24px 24px !important;
+  background-color: transparent !important;
+  filter: none !important;
+}
+
+/* Optional: wenn das PNG eine eckige, nicht-transparente Fläche hat, nutze Mask (setzt Hintergrundfarbe als Icon-Farbe) */
+.leaflet-control-measure .leaflet-control-measure-toggle.masked,
+.leaflet-retina .leaflet-control-measure .leaflet-control-measure-toggle.masked {
+  background-image: none !important;
+  -webkit-mask-image: url(images/rulers_@2X.png) !important;
+  mask-image: url(images/rulers_@2X.png) !important;
+  -webkit-mask-repeat: no-repeat !important;
+  mask-repeat: no-repeat !important;
+  -webkit-mask-position: center !important;
+  mask-position: center !important;
+  -webkit-mask-size: 24px 24px !important;
+  mask-size: 24px 24px !important;
+  background-color: rgba(255,255,255,0.95) !important; /* Icon-Farbe: anpassen falls nötig */
+}
+
   </style>
         <title></title>
     </head>
