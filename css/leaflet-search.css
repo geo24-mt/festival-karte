@@ -29,7 +29,11 @@
     margin-left: 10px;
     margin-top: 10px;
     border: none !important;
-    display: block !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;   /* Zentriert Button und Feld vertikal */
+    justify-content: center !important;
+    min-height: 32px !important;      /* Hält den Container stabil offen */
     overflow: hidden !important;
 }
 
@@ -152,6 +156,7 @@ outline: none !important;
  color:#e00;
  font-weight:700;
  border-radius:.25em}
+
 
 
 
