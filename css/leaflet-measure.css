@@ -74,7 +74,7 @@
     background-position: 50% 50%;
     background-image: url(images/rulers.png) !important;
     background-repeat: no-repeat;
-    background-color: transparent !important;
+    background-color: white !important;
     border-radius: 10px !important;
     text-indent: 100%;
     white-space: nowrap;
@@ -88,6 +88,9 @@
 .leaflet-retina .leaflet-control-measure .leaflet-control-measure-toggle:hover {
     background-image: url(images/rulers.png);
     background-size: 16px 16px
+    background-color: white !important; 
+    border-radius: 10px !important;           /* Rund machen */
+    overflow: hidden !important;              /* Ecken abschneiden */
 }
 
 /* Korrektur für Touch-Geräte/moderne Browser */
@@ -95,7 +98,7 @@
 .leaflet-touch .leaflet-control-measure .leaflet-control-measure-toggle:hover {
     width: 32px !important;        /* Zurück auf deine Wunschgröße */
     height: 32px !important;
-    background-color: white !important; /* Weiß löschen */
+    background-color: white !important; 
     border-radius: 10px !important;           /* Rund machen */
     overflow: hidden !important;              /* Ecken abschneiden */
 }
@@ -190,6 +193,7 @@
     background-image: url(images/trash_@2X.png);
     background-size: 11px 12px
 }
+
 
 
 
