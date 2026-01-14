@@ -70,7 +70,7 @@
         .leaflet-control-search .search-button,
          .leaflet-control-measure {
             background-color: #000000 !important;
-            border-radius: 10px !important;
+         /* ********** hier wurde was gelöscht ************** */   
             color: #98e2d1 !important;
         }
         .abstract {
@@ -196,3 +196,19 @@
 
         }
 
+/* GANZ UNTEN IN DIE qgis2web.css */
+
+/* 1. Den Container zwingen, die Rundung des Regenbogens zu zeigen */
+.leaflet-photon.leaflet-control {
+    border-radius: 12px !important;
+    overflow: visible !important; /* WICHTIG: Damit die Rundung des Feldes nicht abgeschnitten wird */
+}
+
+/* 2. Das weiße Feld gezielt abrunden und vom Rand wegschieben */
+.leaflet-photon input.photon-input {
+    border-radius: 10px !important; 
+    height: 24px !important;
+    /* Rechts mehr Platz (8px), damit die Kurve des Regenbogens sichtbar wird */
+    margin: 4px 8px 4px 2px !important; 
+    border: none !important;
+}
