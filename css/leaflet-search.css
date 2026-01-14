@@ -19,9 +19,8 @@
 .leaflet-container .leaflet-control-search {
     position: relative;
     float: left;
-    /* Hier kommt der Regenbogen rein */
     background: linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) !important;
-    padding: 2px; /* Der bunte Rand */
+    padding: 2px;
     -moz-border-radius: 12px;
     -webkit-border-radius: 12px;
     border-radius: 12px;
@@ -35,8 +34,7 @@
 }
 
 .leaflet-control-search.search-exp {
-    box-shadow: none; /* Schatten haben wir schon am Container */
-    background: transparent !important; /* Verhindert den weißen Hintergrund beim Ausfahren */
+    background: transparent !important; 
 }
 
 .leaflet-control-search .search-input
@@ -47,14 +45,14 @@ border: none !important;
 color: #333 !important;  
 border-radius: 9px;
 height: 26px; 
-padding: 0 18px 0 5px;
-margin: 3px 0 3px 3px;
+padding: 2px;
+margin: 3px;
 font-family: 'Montserrat', sans-serif;
 outline: none !important;
 }
 
 .leaflet-control-search.search-load .search-input
-{background:url(../images/loader.gif) no-repeat center right #fff
+{background:url(../images/loader.gif) no-repeat center right transparent
 }
 
 .leaflet-control-search.search-load .search-cancel
@@ -93,8 +91,8 @@ outline: none !important;
 
 .leaflet-control-search .search-button {
     display: block;
-    float: left !important; /* Erzwingt die Position links */
-    width: 30px;  /* Etwas angepasst für den Rand */
+    float: left !important; 
+    width: 30px;  
     height: 30px; 
     background-color: white !important;
     overflow: hidden !important;
@@ -154,6 +152,7 @@ outline: none !important;
  color:#e00;
  font-weight:700;
  border-radius:.25em}
+
 
 
 
