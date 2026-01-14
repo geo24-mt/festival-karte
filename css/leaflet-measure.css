@@ -119,6 +119,8 @@
     padding: 10px 12px;
     background-color: white !important; /* Weißer Hintergrund */
     color: #333 !important;            /* Dunkle Schrift für den Text */
+    margin: 1px !important;  
+    border-radius: 10px !important; /* Etwas kleinerer Radius als der Außenrand (12px) */
 }
 
 .leaflet-control-measure .results .group {
@@ -197,6 +199,7 @@
     background-image: url(images/trash_@2X.png);
     background-size: 11px 12px
 }
+
 
 
 
