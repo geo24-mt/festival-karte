@@ -70,7 +70,7 @@
         .leaflet-control-search .search-button,
          .leaflet-control-measure {
             background-color: #000000 !important;
-            border-radius: 0px !important;
+            border-radius: 0px ;
             color: #98e2d1 !important;
         }
         .abstract {
@@ -129,10 +129,10 @@
         .leaflet-container .leaflet-control-search{
             background: none !important;
         }
-        .leaflet-control-search .search-input {
+       /* .leaflet-control-search .search-input {
             margin: 0px 0px 0px 0px !important;
             height: 30px !important;
-        }
+        }*/
         .leaflet-control-measure {
             background: none!important;
             border-radius: 4px !important;
@@ -193,4 +193,5 @@
             display: flex;
             justify-content: center;
             align-items: center;
+
         }
