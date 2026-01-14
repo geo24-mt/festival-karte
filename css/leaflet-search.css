@@ -40,13 +40,13 @@
 .leaflet-control-search .search-input
 {display:block;
 float:left;
-background:rgb(30, 30, 30);
-border:1px solid #444;
-color: white;
-border-radius:9px;
- height:22px;
- padding:0 18px 0 5px;
- margin:3px 0 3px 3px
+background: white !important;
+border: none !important; /* Der bunte Rand kommt vom Container */
+color: #333 !important;  /* Dunkle Schrift für weißen Hintergrund */
+border-radius: 9px;
+height: 26px; /* Etwas höher für bessere Lesbarkeit */
+padding: 0 18px 0 5px;
+margin: 3px 0 3px 3px;
 font-family: 'Montserrat', sans-serif;
 }
 
@@ -93,12 +93,11 @@ font-family: 'Montserrat', sans-serif;
     float: left;
     width: 30px;  /* Etwas angepasst für den Rand */
     height: 30px; 
-    background-color: transparent !important;
+    background-color: white !important;
+    overflow: hidden !important;
     border-radius: 10px !important;
     border: none !important;
     margin: 1px;
-    /* Falls das Lupen-Icon ein Bild ist, machen wir es weiß */
-    filter: invert(100%) brightness(200%);
 }
 
 .leaflet-control-search .search-button:hover
@@ -151,6 +150,7 @@ font-family: 'Montserrat', sans-serif;
  color:#e00;
  font-weight:700;
  border-radius:.25em}
+
 
 
 
