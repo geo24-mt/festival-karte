@@ -48,6 +48,7 @@ height: 26px; /* Etwas höher für bessere Lesbarkeit */
 padding: 0 18px 0 5px;
 margin: 3px 0 3px 3px;
 font-family: 'Montserrat', sans-serif;
+outline: none !important;
 }
 
 .leaflet-control-search.search-load .search-input
@@ -90,7 +91,7 @@ font-family: 'Montserrat', sans-serif;
 
 .leaflet-control-search .search-button {
     display: block;
-    float: left;
+    float: left !important;
     width: 30px;  /* Etwas angepasst für den Rand */
     height: 30px; 
     background-color: white !important;
@@ -150,6 +151,7 @@ font-family: 'Montserrat', sans-serif;
  color:#e00;
  font-weight:700;
  border-radius:.25em}
+
 
 
 
