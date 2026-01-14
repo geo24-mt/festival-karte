@@ -95,7 +95,7 @@
 .leaflet-touch .leaflet-control-measure .leaflet-control-measure-toggle:hover {
     width: 32px !important;        /* Zurück auf deine Wunschgröße */
     height: 32px !important;
-    background-color: transparent !important; /* Weiß löschen */
+    background-color: white !important; /* Weiß löschen */
     border-radius: 10px !important;           /* Rund machen */
     overflow: hidden !important;              /* Ecken abschneiden */
 }
@@ -190,6 +190,7 @@
     background-image: url(images/trash_@2X.png);
     background-size: 11px 12px
 }
+
 
 
 
