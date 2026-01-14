@@ -30,6 +30,9 @@
     margin-left: 10px;
     margin-top: 10px;
     border: none !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
 }
 
 .leaflet-control-search.search-exp {
@@ -39,7 +42,7 @@
 
 .leaflet-control-search .search-input
 {display:block;
-float:left;
+order: 2 !important;
 background: white !important;
 border: none !important; /* Der bunte Rand kommt vom Container */
 color: #333 !important;  /* Dunkle Schrift für weißen Hintergrund */
@@ -91,6 +94,7 @@ outline: none !important;
 
 .leaflet-control-search .search-button {
     display: block;
+    order: 1 !important;
     float: left !important;
     width: 30px;  /* Etwas angepasst für den Rand */
     height: 30px; 
@@ -99,6 +103,7 @@ outline: none !important;
     border-radius: 10px !important;
     border: none !important;
     margin: 1px;
+    filter: brightness(0) !important;
 }
 
 .leaflet-control-search .search-button:hover
@@ -151,6 +156,7 @@ outline: none !important;
  color:#e00;
  font-weight:700;
  border-radius:.25em}
+
 
 
 
