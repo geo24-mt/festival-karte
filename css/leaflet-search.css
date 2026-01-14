@@ -126,8 +126,8 @@ font-family: 'Montserrat', sans-serif;
 {margin:2px;
  padding:2px 4px;
  display:block;
- color: black;
- background: white;
+ color: white !important;
+ background: black !important;
  border-radius:.25em;
  text-decoration:none;
  white-space:nowrap;
@@ -151,5 +151,6 @@ font-family: 'Montserrat', sans-serif;
  color:#e00;
  font-weight:700;
  border-radius:.25em}
+
 
 
