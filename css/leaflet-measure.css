@@ -5,14 +5,14 @@
     line-height: 1em;
     font-weight: normal;
     font-size: 1.1em;
-    border-bottom: solid 1px #DDD
+    border-bottom: solid 1px #DDD;
     color: #333 !important; /* Dunkle Überschrift */
 }
 
 .leaflet-control-measure p,
 .leaflet-measure-resultpopup p {
     margin: 10px 0 0;
-    line-height: 1em
+    line-height: 1em;
     color: #333 !important; /* Dunkler Text */
 }
 
@@ -116,7 +116,7 @@
 }
 
 .leaflet-control-measure .leaflet-control-measure-interaction {
-    padding: 10px 12px
+    padding: 10px 12px;
     background-color: white !important; /* Weißer Hintergrund */
     color: #333 !important;            /* Dunkle Schrift für den Text */
 }
@@ -197,6 +197,7 @@
     background-image: url(images/trash_@2X.png);
     background-size: 11px 12px
 }
+
 
 
 
