@@ -72,7 +72,7 @@
     width: 32px;  /* Etwas kleiner, damit der Rand Platz hat */
     height: 32px; /* Etwas kleiner, damit der Rand Platz hat */
     background-position: 50% 50%;
-    background-image: url(images/measure-control.png);
+    background-image: url(images/rulers.png) !important;
     background-repeat: no-repeat;
     background-color: white !important;
     border-radius: 10px !important;
@@ -80,13 +80,13 @@
     white-space: nowrap;
     overflow: hidden !important;
     /* Damit das Lineal-Icon (Bild) weiß leuchtet: */
-    filter: invert(100%) brightness(200%);
+   
     margin: 1px; /* Abstand zum Regenbogen-Rand */
 }
 
 .leaflet-retina .leaflet-control-measure .leaflet-control-measure-toggle,
 .leaflet-retina .leaflet-control-measure .leaflet-control-measure-toggle:hover {
-    background-image: url(images/measure-control.png);
+    background-image: url(images/rulers.png) !important;
     background-size: 16px 16px
     background-color: white !important; 
     border-radius: 10px !important;           /* Rund machen */
@@ -193,6 +193,7 @@
     background-image: url(images/trash_@2X.png);
     background-size: 11px 12px
 }
+
 
 
 
