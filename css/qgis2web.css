@@ -128,6 +128,8 @@
         }
         .leaflet-container .leaflet-control-search{
             background: none !important;
+			padding: 1px !important; /* Dünnerer Rand wie beim Mess-Tool */
+    		border-radius: 12px;
         }
        /* .leaflet-control-search .search-input {
             margin: 0px 0px 0px 0px !important;
@@ -201,14 +203,45 @@
 /* 1. Den Container zwingen, die Rundung des Regenbogens zu zeigen */
 .leaflet-photon.leaflet-control {
     border-radius: 12px !important;
-    overflow: visible !important; /* WICHTIG: Damit die Rundung des Feldes nicht abgeschnitten wird */
+    padding: 1px !important; 
+    background: linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) !important;
+    overflow: hidden !important; /* DAS zwingt die Ecken zur Rundung */
+    border: none !important;
 }
 
 /* 2. Das weiße Feld gezielt abrunden und vom Rand wegschieben */
 .leaflet-photon input.photon-input {
     border-radius: 10px !important; 
-    height: 24px !important;
-    /* Rechts mehr Platz (8px), damit die Kurve des Regenbogens sichtbar wird */
-    margin: 4px 8px 4px 2px !important; 
+    height: 28px !important;
+    margin: 1px 1px 1px 1px !important;
     border: none !important;
+	background-color: white !important;
 }
+/* Der Container für die untere Suche */
+.leaflet-container .leaflet-control-search {
+    background: linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) !important;
+    padding: 1px !important;
+    border-radius: 12px !important;
+    border: none !important;
+    display: flex !important;
+    align-items: center !important;
+    overflow: hidden !important; /* Auch hier WICHTIG für die Ecken */
+}
+
+/* Das weiße Feld der unteren Suche */
+.leaflet-control-search .search-input {
+    border-radius: 10px !important;
+    height: 28px !important;
+    margin: 1px 1px 1px 1px !important;
+    border: none !important;
+    background-color: white !important;
+}
+
+/* Der Fernglas-Button */
+.leaflet-control-search .search-button {
+    border-radius: 10px !important;
+    background-color: white !important;
+    margin: 1px !important;
+	border: none !important;
+}
+
