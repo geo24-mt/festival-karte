@@ -34,7 +34,7 @@
 
 .leaflet-control-search.search-exp {
     box-shadow: none; /* Schatten haben wir schon am Container */
-    background: white !important; /* Verhindert den weißen Hintergrund beim Ausfahren */
+    background: transparent !important; /* Verhindert den weißen Hintergrund beim Ausfahren */
 }
 
 .leaflet-control-search .search-input
@@ -93,7 +93,7 @@ font-family: 'Montserrat', sans-serif;
     float: left;
     width: 30px;  /* Etwas angepasst für den Rand */
     height: 30px; 
-    background-color: white !important;
+    background-color: transparent !important;
     border-radius: 10px !important;
     border: none !important;
     margin: 1px;
@@ -126,8 +126,8 @@ font-family: 'Montserrat', sans-serif;
 {margin:2px;
  padding:2px 4px;
  display:block;
- color: white !important;
- background: black !important;
+ color: #000;
+ background: #eee;
  border-radius:.25em;
  text-decoration:none;
  white-space:nowrap;
@@ -151,6 +151,7 @@ font-family: 'Montserrat', sans-serif;
  color:#e00;
  font-weight:700;
  border-radius:.25em}
+
 
 
 
