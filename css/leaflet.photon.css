@@ -1,6 +1,7 @@
 ul.photon-autocomplete {
     position: absolute;
-    background-color: rgb(30, 30, 30); /* Dunkler Hintergrund */
+    background-color: white !important; /* Weiß statt Dunkel */
+    color: #333 !important;             /* Dunkle Schrift */
     max-width: fit-content;
     z-index: 1000;
     box-shadow: 0 4px 15px rgba(0,0,0,0.5);
@@ -8,32 +9,32 @@ ul.photon-autocomplete {
     margin: 0;
     list-style-type: none;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     height: 200px;
     overflow: hidden;
     overflow-y: scroll;
     scrollbar-width: none;
-    border: 1px solid #444; /* Dezente Umrandung */
+    border: 1px solid #ddd !important;
     border-radius: 0 0 10px 10px;
 }
 .photon-autocomplete li {
     min-height: 20px;
     line-height: 1.2em;
     padding: 8px 12px;
-    color: white; /* Weiße Schrift auf dunklem Grund */
+    color: #333 !important;             /* Textfarbe auf Dunkel ändern */
     overflow: hidden;
     word-wrap: break-word;
     overflow-wrap: break-word;
     word-break: break-word;
     font-size: 0.9em;
-    border-bottom: 1px solid #333; /* Trennlinie zwischen den Vorschlägen */
+    border-bottom: 1px solid #eee !important;
 }
 .photon-autocomplete li strong {
     display: block;
     
 }
 .photon-autocomplete li.on {
-    background-color: #444; /* Dunkelgrauer Balken statt Hellrot */
+    background-color: #f0f0f0 !important; /* Hellgrau statt Dunkelgrau */
     cursor: pointer;
 }
 }
@@ -55,18 +56,23 @@ ul.photon-autocomplete {
 }
 .photon-input:focus {
     width: 400px;
-    border-radius: 10px;
+    border-radius: 10px !important;
+    outline: none !important;
+    margin: 4px 6px 4px 0 !important;
 }
 @media all and (max-width:500px){
     #map .photon-input:focus {
         width: 300px;
-        border-radius: 10px;
+        border-radius: 10px !important;
+        outline: none !important;
+        margin: 4px 6px 4px 0 !important;
     }
 }
 @media all and (max-width:400px){
    #map ul.photon-autocomplete {
         position: relative;
-        background-color: rgb(30, 30, 30); /* Auch mobil dunkel */
+        background-color: white !important; /* Weiß statt Dunkel */
+        color: #333 !important;             /* Dunkle Schrift */
         max-width: 400px; /* 'px' korrigiert */
         z-index: 1000;
         box-shadow: 0 4px 9px rgba(0,0,0,0.5);
@@ -74,11 +80,13 @@ ul.photon-autocomplete {
         margin: 0;
         list-style-type: none;
         padding: 0;
-        font-family: Arial, sans-serif;
+        font-family: 'Montserrat', sans-serif;
     }
     #map .photon-input:focus {
         width: 200px;
-        border-radius: 10px;
+        border-radius: 10px !important;
+        outline: none !important;
+        margin: 4px 6px 4px 0 !important;
     }
 }
 @media all and (max-width:280px){
@@ -88,3 +96,4 @@ ul.photon-autocomplete {
     }
 
 }
+
