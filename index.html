@@ -652,16 +652,12 @@
     });
 }
 	function pop_Festivals_kreis_2(feature, layer) {
-	    layer.on('click', function(e) {
-	        var festivalDatum = feature.properties['Datum']; 
-	        updateKalender(festivalDatum);
-	    });
-	    if (feature.properties['Festival_N']) {
-	        layer.bindTooltip(String(feature.properties['Festival_N']), {
-	            sticky: true,
-	            className: 'my-tooltip'
-	        });
-	    }
+    if (feature.properties['Festival_N']) {
+        layer.bindTooltip(String(feature.properties['Festival_N']), {
+            sticky: true,
+            className: 'my-tooltip'
+        });
+    }
     var popupContent = '<table>\
                     <tr>\
                         <th scope="row">Festival-Name</th>\
@@ -935,20 +931,6 @@
 				    }
 				});
 							});
-						function updateKalender(datumString) {
-				    if (!datumString || !festivalKalender) return;
-				    
-				    // Nutzt den gleichen Trenner wie oben im Filter
-				    let teile = datumString.split(/[-–]| bis /);
-				    
-				    // Hilfsfunktion: Fügt 2026 hinzu, falls das Jahr fehlt
-				    let format = (s) => s.trim().includes("2026") ? s.trim() : s.trim() + ".2026";
-				    
-				    let startStr = format(teile[0]);
-				    let endStr = teile[1] ? format(teile[1]) : startStr;
-				    
-				    festivalKalender.setDate([startStr, endStr], true);
-				}
        </script>
     </body>
 </html>
