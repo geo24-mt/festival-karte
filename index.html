@@ -422,29 +422,25 @@
         <div id="Überschrift">
 		<h1>Die Bunte Welt der Festivals</h1>
 		</div>
-		<div class="menu-wrapper" style="z-index: 10000;">
+<div class="menu-wrapper" style="z-index: 10000;">
     <div id="filter-menu" class="multiselect-container">
-       <div class="select-box-header" onclick="toggleCheckboxes()">
+        <div class="select-box-header" onclick="toggleCheckboxes()">
 		    <span id="selected-text">- Landkreis wählen -</span>
 		</div>
-   	<div id="checkbox-list" class="checkbox-content">
-    <label class="checkbox-item">
-        <input type="checkbox" id="all-kreise" onchange="toggleAllKreise(this)" checked>  
-        <strong>- Alle Landkreise -</strong>
-    </label>
-    <div /*style="padding: 5px 10px; display: flex; gap: 10px; font-size: 11px; border-bottom: 1px solid #444;"*/>
-        <span onclick="setAll(true)" style="cursor:pointer; color: #3498db;">[Alle an]</span>
-        <span onclick="setAll(false)" style="cursor:pointer; color: #e74c3c;">[Alle aus]</span>
-    </div>
-            </label>
-            <hr style="border: 0.5px solid #444; margin: 5px 0;">
-            <label class="checkbox-item"><input type="checkbox" class="kreis-check" value="Merzig-Wadern" onchange="updateAllCheckbox(); filterKarte()" checked> Merzig-Wadern</label>
-            <label class="checkbox-item"><input type="checkbox" class="kreis-check" value="Neunkirchen" onchange="updateAllCheckbox(); filterKarte()" checked> Neunkirchen</label>
-            <label class="checkbox-item"><input type="checkbox" class="kreis-check" value="Regionalverband Saarbrücken" onchange="updateAllCheckbox(); filterKarte()" checked> Saarbrücken</label>
-            <label class="checkbox-item"><input type="checkbox" class="kreis-check" value="Saarlouis"onchange="updateAllCheckbox(); filterKarte()" checked> Saarlouis</label>
-            <label class="checkbox-item"><input type="checkbox" class="kreis-check" value="Saarpfalz-Kreis" onchange="updateAllCheckbox(); filterKarte()" checked> Saarpfalz-Kreis</label>
-            <label class="checkbox-item"><input type="checkbox" class="kreis-check" value="St. Wendel" onchange="updateAllCheckbox(); filterKarte()" checked> St. Wendel</label>
-        </div>
+   <div id="checkbox-list" class="checkbox-content">
+    <input type="checkbox" id="all-kreise" style="display:none;" checked>
+		
+		    <div style="padding: 10px; display: flex; justify-content: center; gap: 15px; font-size: 13px; border-bottom: 1px solid #444; font-weight: bold;">
+		        <span onclick="setAll(true)" style="cursor:pointer; color: #3498db;">[Alle an]</span>
+		        <span onclick="setAll(false)" style="cursor:pointer; color: #e74c3c;">[Alle aus]</span>
+			</div>
+		<label class="checkbox-item"><input type="checkbox" class="kreis-check" value="Merzig-Wadern" onchange="updateAllCheckbox(); filterKarte()" checked> Merzig-Wadern</label>
+		<label class="checkbox-item"><input type="checkbox" class="kreis-check" value="Neunkirchen" onchange="updateAllCheckbox(); filterKarte()" checked> Neunkirchen</label>
+		<label class="checkbox-item"><input type="checkbox" class="kreis-check" value="Regionalverband Saarbrücken" onchange="updateAllCheckbox(); filterKarte()" checked> Saarbrücken</label>
+		<label class="checkbox-item"><input type="checkbox" class="kreis-check" value="Saarlouis" onchange="updateAllCheckbox(); filterKarte()" checked> Saarlouis</label>
+		<label class="checkbox-item"><input type="checkbox" class="kreis-check" value="Saarpfalz-Kreis" onchange="updateAllCheckbox(); filterKarte()" checked> Saarpfalz-Kreis</label>
+		<label class="checkbox-item"><input type="checkbox" class="kreis-check" value="St. Wendel" onchange="updateAllCheckbox(); filterKarte()" checked> St. Wendel</label>
+	</div>
     </div>
 </div>
 		<div class="menu-wrapper" style="top: 32%;">
