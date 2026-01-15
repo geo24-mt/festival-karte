@@ -289,11 +289,9 @@
     color: white;
     width: 100%;
 }
-
-/* HIER liegt der Fehler bei der Größe: Der Header braucht eine Mindesthöhe */
 .select-box-header {
     padding: 10px;
-    min-height: 40px; /* Erzwingt die gleiche Höhe wie bei den anderen Filtern */
+  /*  min-height: 40px;  */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -314,7 +312,7 @@
     background-color: rgb(30, 30, 30);
     width: 100%;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
-    z-index: 5000; /* Sehr hoch, damit es über dem Kalender erscheint */
+    z-index: 10000; /* Sehr hoch, damit es über dem Kalender erscheint */
     max-height: 200px;
     overflow-y: auto;
     border: 2px solid #444;
@@ -333,7 +331,7 @@
 }
 
 .checkbox-item input {
-    margin-right: 10px; /* Abstand zwischen Haken und Text */
+    margin-right: 8px; /* Abstand zwischen Haken und Text */
 }
 
 .checkbox-item:hover {
