@@ -437,15 +437,23 @@
 	</div>
     </div>
 </div>
-		<div class="menu-wrapper" style="top: 32.3%;">
-			<select id="filter-kategorie" onchange="filterKarte()">
-				<option value="alle">- Festival-Kategorien -</option>
-				<option value="Electro Festivals">Electro Festivals</option>
-				<option value="Mittelalter Festivals">Mittelalter Festivals</option>
-				<option value="Punk Festivals">Punk Festivals</option>
-				<option value="Schlager Festivals">Schlager Festivals</option>
-			</select>
-		</div>
+	<div class="menu-wrapper" style="top: 32.3%;">
+		<div id="filter-kategorie" class="multiselect-container">
+       		<div class="select-box-header" onclick="toggleKatCheckboxes()" style="height: 40px;">
+            	<span id="selected-kat-text">- Kategorien wählen -</span>
+        	</div>
+        <div id="kat-checkbox-list" class="checkbox-content" style="display: none;">
+            <div style="padding: 10px; display: flex; justify-content: center; gap: 15px; font-size: 11px; border-bottom: 1px solid #444;">
+                <span onclick="setAllKat(true)" style="cursor:pointer; color: #3498db;">[Alle an]</span>
+                <span onclick="setAllKat(false)" style="cursor:pointer; color: #e74c3c;">[Alle aus]</span>
+            </div>
+            <label class="checkbox-item"><input type="checkbox" class="kat-check" value="Electro Festivals" onchange="filterKarte()" checked> Electro Festivals</label>
+            <label class="checkbox-item"><input type="checkbox" class="kat-check" value="Mittelalter Festivals" onchange="filterKarte()" checked> Mittelalter Festivals</label>
+            <label class="checkbox-item"><input type="checkbox" class="kat-check" value="Punk Festivals" onchange="filterKarte()" checked> Punk Festivals</label>
+            <label class="checkbox-item"><input type="checkbox" class="kat-check" value="Schlager Festivals" onchange="filterKarte()" checked> Schlager Festivals</label>
+        </div>
+	    </div>
+	</div>
 		<div class="menu-wrapper" style="top: 40.6%;">
 			<div class="slider-container">
 				<label for="preis-slider" class="slider-label">
@@ -820,15 +828,19 @@
             }
         });
 function filterKarte() {
-    // NEU: Holt alle Werte der Checkboxen, die einen Haken haben
+    // 1. Daten sammeln
+    // Holt alle Werte der Checkboxen (Landkreise), die einen Haken haben
     var gewaehlteKreise = Array.from(document.querySelectorAll('.kreis-check:checked')).map(cb => cb.value);
     
-    // NEU: Prüft, ob die "Alle Landkreise"-Checkbox gehakt ist
+    // Prüft, ob die "Alle Landkreise"-Checkbox gehakt ist
     var alleKreiseAktiv = document.getElementById('all-kreise').checked;
     
-    var gewaehlteKat = document.getElementById('filter-kategorie').value;
+    // NEU: Holt alle gecheckten Kategorien (Checkboxen statt Dropdown)
+    var gewaehlteKat = Array.from(document.querySelectorAll('.kat-check:checked')).map(cb => cb.value);
+    
     var gewaehlterPreis = parseFloat(document.getElementById('preis-slider').value);
 
+    // Kalender-Daten
     var gewaehlteDaten = festivalKalender.selectedDates;
     var startFilter = null;
     var endFilter = null;
@@ -838,9 +850,11 @@ function filterKarte() {
         endFilter = gewaehlteDaten[1] ? gewaehlteDaten[1] : startFilter;
     }
 
+    // Preis-Anzeige aktualisieren
     var wertAnzeige = document.getElementById('preis-wert');
     if (wertAnzeige) wertAnzeige.innerText = gewaehlterPreis;
 
+    // Hilfsfunktion für Datum
     var parseDate = function(str) {
         if(!str) return null;
         var d = str.trim().split('.');
@@ -868,6 +882,8 @@ function filterKarte() {
             var fKat = String(props['Kategorie']);
             var fPreis = parseFloat(props['Preise ab']);
             var fDatumRaw = String(props['Datum']); 
+            
+            // Datum Check
             var datumCheck = true; 
             if (startFilter && endFilter) {
                 var teile = fDatumRaw.split(/[-–]| bis /);
@@ -875,10 +891,17 @@ function filterKarte() {
                 var festivalEnd = teile[1] ? parseDate(teile[1]) : festivalStart;
                 datumCheck = (festivalStart <= endFilter && festivalEnd >= startFilter);
             }
+
+            // Landkreis Check
             var kreisCheck = (alleKreiseAktiv || gewaehlteKreise.includes(fKreis));
-            var katCheck = (gewaehlteKat === "alle" || fKat === gewaehlteKat);
+            
+            // NEU: Kategorie Check (Prüft ob die Festival-Kategorie in der Liste der gehakten Checkboxen ist)
+            var katCheck = (gewaehlteKat.length === 0 || gewaehlteKat.includes(fKat));
+            
+            // Preis Check
             var preisCheck = (isNaN(fPreis) || fPreis === null || fPreis <= gewaehlterPreis);
 
+            // Sichtbarkeit anwenden
             if (layer.getElement()) {
                 if (kreisCheck && katCheck && preisCheck && datumCheck) {
                     layer.getElement().style.display = 'block';
@@ -976,6 +999,16 @@ function updateAllCheckbox() {
     // Wenn auch nur einer fehlt -> Haupt-Checkbox aus
     allCheckbox.checked = (total === checkedCount);
 }
+		function toggleKatCheckboxes() {
+    var list = document.getElementById("kat-checkbox-list");
+    list.style.display = (list.style.display === "block") ? "none" : "block";
+}
+
+function setAllKat(status) {
+    var checks = document.querySelectorAll('.kat-check');
+    checks.forEach(c => c.checked = status);
+    filterKarte();
+}	
        </script>
     </body>
 </html>
