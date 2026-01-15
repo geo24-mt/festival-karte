@@ -124,7 +124,7 @@
 				box-sizing: border-box;
 		}
 			#filter-menu, #filter-kategorie {
-				padding: 10px;
+				
 				font-family: 'Montserrat', sans-serif;
 				font-size: 14px;
 				font-weight: bold;
@@ -288,7 +288,8 @@
 			    color: white;
 			    width: 100%;
 		}
-			.select-box-header {
+			#filter-menu .select-box-header, 
+			#filter-kategorie .select-box-header {
 				height: 100%;
 				font-size: 14px;
 				white-space: nowrap;
@@ -437,13 +438,13 @@
 	</div>
     </div>
 </div>
-	<div class="menu-wrapper" style="top: 32.3%;">
+	<div class="menu-wrapper" style="top: 32.3%; "z-index: 10000;">
 		<div id="filter-kategorie" class="multiselect-container">
-       		<div class="select-box-header" onclick="toggleKatCheckboxes()" style="height: 40px;">
-            	<span id="selected-kat-text">- Kategorien wählen -</span>
+       		<div class="select-box-header" onclick="toggleKatCheckboxes()">
+            	<span id="selected-kat-text">- Festival-Kategorie -</span>
         	</div>
         <div id="kat-checkbox-list" class="checkbox-content" style="display: none;">
-            <div style="padding: 10px; display: flex; justify-content: center; gap: 15px; font-size: 11px; border-bottom: 1px solid #444;">
+            <div style="padding: 10px; display: flex; justify-content: center; gap: 15px; font-size: 13px; border-bottom: 1px solid #444; font-weight: bold;">
                 <span onclick="setAllKat(true)" style="cursor:pointer; color: #3498db;">[Alle an]</span>
                 <span onclick="setAllKat(false)" style="cursor:pointer; color: #e74c3c;">[Alle aus]</span>
             </div>
