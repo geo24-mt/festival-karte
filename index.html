@@ -21,66 +21,79 @@
 		<link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
         <style>
-       html, body {
-	    width: 100%; height: 100%; margin: 0;
-	    display: flex; flex-direction: column; align-items: center;
-	    gap: 60px;
-	    background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.8)), 
-	                url('background.png') center/cover fixed no-repeat;
-	}
-		#map {
-			width: 65%;
-            height: calc(100% - 100px - 100px);
-			border: 2px solid #333;
-			box-sizing: border-box;
+	       html, body {
+			    width: 100%; height: 100%; margin: 0;
+			    display: flex; flex-direction: column; align-items: center;
+			    gap: 60px;
+			    background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.8)), 
+			                url('background.png') center/cover fixed no-repeat;
+		}
+			#map {
+				width: 65%;
+	            height: calc(100% - 100px - 100px);
+				border: 2px solid #333;
+				box-sizing: border-box;
         }		
-		#Überschrift {
-			box-sizing: border-box;
-			height: 110px;
-			width: 100%;
-			/* background-clip: padding-box; */
-			background: linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71);
-			background-size: 400% 400%;
-			animation: holi-flow 10s ease infinite;
-			border: 15px double black;
-			border-radius:10px;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			overflow: hidden;
-			position: sticky;
-			top: 0;
-			z-index: 1000;
+			#Überschrift {
+				box-sizing: border-box;
+				height: 110px;
+				width: 100%;
+				/* background-clip: padding-box; */
+				background: linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71);
+				background-size: 400% 400%;
+				animation: holi-flow 10s ease infinite;
+				border: 15px double black;
+				border-radius:10px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				overflow: hidden;
+				position: sticky;
+				top: 0;
+				z-index: 1000;
 		}	
-		@keyframes holi-flow {
-			0% { background-position: 0% 50%; }
-			50% { background-position: 100% 50%; }
-			100% { background-position: 0% 50%; }
+			@keyframes holi-flow {
+				0% { background-position: 0% 50%; }
+				50% { background-position: 100% 50%; }
+				100% { background-position: 0% 50%; }
 		}	
-		#Überschrift h1 {
-			text-align: center;
-			margin: 10px;
-			color: white;
-			font-family: 'Bangers', system-ui;
-			text-shadow: 
-			3px 3px 0px #000,
-			-1px -1px 0px #000,  
-			1px -1px 0px #000,
-			-1px 1px 0px #000,
-			1px 1px 0px #000;
-			letter-spacing: 3px;
-			line-height: 1.2;
-			z-index: 1;
-			font-size: 2.8em;
-			transform: rotate(-1deg);
-			text-transform: uppercase;
-		}			
-		.leaflet-popup-content {
-					font-family: 'Montserrat', sans-serif;
-					font-size: 13px;
-					line-height: 1.4;
+			#Überschrift h1 {
+				text-align: center;
+				margin: 10px;
+				color: white;
+				font-family: 'Bangers', system-ui;
+				text-shadow: 
+				3px 3px 0px #000,
+				-1px -1px 0px #000,  
+				1px -1px 0px #000,
+				-1px 1px 0px #000,
+				1px 1px 0px #000;
+				letter-spacing: 3px;
+				line-height: 1.2;
+				z-index: 1;
+				font-size: 2.8em;
+				transform: rotate(-1deg);
+				text-transform: uppercase;
 		}	
-		.leaflet-popup-content th {
+			/* Nur das Aussehen - keine Positionen! */
+			.my-tooltip, 
+			.landkreis-tooltip, 
+			.legende-links, 
+			.menu-wrapper {
+			    background: 
+			        linear-gradient(rgba(30, 30, 30, 0.9), rgba(30, 30, 30, 0.9)) padding-box, 
+			        linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) border-box;
+			    border: 3px solid transparent; /* Deine Tooltips hatten 3px, die Legende 4px - wir nehmen hier den Mittelweg oder lassen es individuell */
+			    color: #ffffff;
+			    font-family: 'Montserrat', sans-serif;
+			    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+		}
+			.leaflet-popup-content {
+				font-family: 'Montserrat', sans-serif;
+				font-size: 13px;
+				line-height: 1.4;
+		}	
+			.leaflet-popup-content th {
 				font-weight: 700; 
 				text-transform: uppercase; 
 				letter-spacing: 0.5px;
@@ -89,31 +102,21 @@
 				white-space: nowrap;
 				text-align: left;
 		}
-		.my-tooltip, .landkreis-tooltip{
-				color: #ffffff;
-				font-family: 'Montserrat', sans-serif;
+			.my-tooltip, .landkreis-tooltip {
+				border-radius: 10px; 
+				padding: 8px 12px;
 				font-size: 14px;
 				font-weight: bold;
-				padding: 8px 12px;
-				box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
-				border: 3px solid transparent; 
-				border-radius: 10px;           
-				background: 
-					linear-gradient(rgba(30, 30, 30, 0.9), rgba(30, 30, 30, 0.9)) padding-box, 
-					linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) border-box;
-			}
+		}
 			.menu-wrapper {
-				position: fixed;
-				top: 23%;
-				right: 2.5%;
-				z-index: 2000;
-				padding: 3px; 
-				border-radius: 12px;
-				background: linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71);
-				box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-				width: 220px;
-			}
-			
+			    position: fixed;
+			    right: 2.5%; 
+			    top: 23%;
+			    z-index: 2000;
+			    width: 220px;
+			    padding: 3px;
+			    border-radius: 12px; 
+		}
 			#filter-menu, #filter-kategorie, .slider-container {
 				background-color: rgb(30, 30, 30) !important; 
 				color: white;
@@ -121,13 +124,13 @@
 				border-radius: 9px;
 				width: 100%;
 				box-sizing: border-box;
-			}
+		}
 			#filter-menu, #filter-kategorie {
 				padding: 10px;
 				font-family: 'Montserrat', sans-serif;
 				font-weight: bold;
 				cursor: pointer;
-			}
+		}
 			.slider-container {
 				background-color: rgba(30, 30, 30, 0.95) !important;
 				border-radius: 9px;
@@ -138,7 +141,7 @@
 				height: auto; 
 				box-sizing: border-box;
 				overflow: hidden; 
-			}
+		}
 			
 			.slider-label {
 				color: white;
@@ -146,7 +149,7 @@
 				font-weight: bold;
 				font-size: 14px; 
 				margin-bottom: 2px;
-			}
+		}
 			#preis-slider {
 				-webkit-appearance: none;
 				width: 100%;
@@ -154,7 +157,7 @@
 				background: linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) !important;
 				border-radius: 5px;
 				outline: none;
-			}
+		}
 			#preis-slider::-webkit-slider-thumb {
 				-webkit-appearance: none;
 				height: 16px;
@@ -164,125 +167,116 @@
 				cursor: pointer;
 				border: 2px solid #333;
 				margin-top: -5.5px; 
-			}
+		}
 			#preis-slider::-moz-range-thumb {
 				height: 16px;
 				width: 16px;
 				border-radius: 50%;
 				background: rgba(210,210,210,1);
 				border: 2px solid #333;
-			}
-		.leaflet-tooltip {
-			margin-top: -10px;
 		}
-		.leaflet-popup-content-wrapper {
-			background-color: rgba(255, 255, 255, 0.95); 
-			border: 4px solid transparent; 
-			border-radius: 15px;
-			background-image: linear-gradient(rgba(255, 255, 255, 0.98), rgba(245, 245, 245, 0.98)), 
-							  linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71);
-			background-origin: border-box;
-			background-clip: padding-box, border-box;
-			box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-			padding: 2px;
+			.leaflet-tooltip {
+				margin-top: -10px;
 		}
-		.hide-tooltips .landkreis-tooltip { 
-			display: none !important; 
+			.leaflet-popup-content-wrapper {
+				background-color: rgba(255, 255, 255, 0.95); 
+				border: 4px solid transparent; 
+				border-radius: 15px;
+				background-image: linear-gradient(rgba(255, 255, 255, 0.98), rgba(245, 245, 245, 0.98)), 
+								  linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71);
+				background-origin: border-box;
+				background-clip: padding-box, border-box;
+				box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+				padding: 2px;
 		}
-		#reset-button:hover {
-			color: #f39c12 !important; 
+			.hide-tooltips .landkreis-tooltip { 
+				display: none !important; 
+		}
+			#reset-button:hover {
+				color: #f39c12 !important; 
 		}
 		
-		.flatpickr-calendar.inline {
-			background: transparent !important;
-			border: none !important;
-			box-shadow: none !important;
-			transform: scale(1); 
-			transform-origin: top center; 
-			margin: 0 auto !important;
-			width: 100% !important;
+			.flatpickr-calendar.inline {
+				background: transparent !important;
+				border: none !important;
+				box-shadow: none !important;
+				transform: scale(1); 
+				transform-origin: top center; 
+				margin: 0 auto !important;
+				width: 100% !important;
 		}
-		.flatpickr-day {
-			height: 28px !important;    
-			line-height: 28px !important;
+			.flatpickr-day {
+				height: 28px !important;    
+				line-height: 28px !important;
 		}	
-		flatpickr-innerContainer, .flatpickr-rContainer, .flatpickr-days, .dayContainer {
-			width: 100% !important;
-			min-width: 100% !important;
-			max-width: 100% !important;
+			flatpickr-innerContainer, .flatpickr-rContainer, .flatpickr-days, .dayContainer {
+				width: 100% !important;
+				min-width: 100% !important;
+				max-width: 100% !important;
 		}
-		.flatpickr-months {
-			height: 35px !important;   
+			.flatpickr-months {
+				height: 35px !important;   
 		}
-		.flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange {
-			background: #76c7c0 !important;
-			border-color: #76c7c0 !important;
-			color: #1a1a1a !important; 
-			font-weight: bold;
+			.flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange {
+				background: #76c7c0 !important;
+				border-color: #76c7c0 !important;
+				color: #1a1a1a !important; 
+				font-weight: bold;
 		}
-		.flatpickr-day.inRange {
-			background: rgba(118, 199, 192, 0.15) !important;
-			box-shadow: none !important;
+			.flatpickr-day.inRange {
+				background: rgba(118, 199, 192, 0.15) !important;
+				box-shadow: none !important;
 		}
-		.legende-links {
-		    position: fixed;
-		    left: 4%;
-		    top: 58%;
-		    transform: translateY(-50%);
-		    background-color: rgb(30, 30, 30);
-		    padding: 20px;
-		    border-radius: 12px;
-		    color: white;
-		    font-family: 'Montserrat', sans-serif;
-		    display: flex;
-		    flex-direction: column;
-		    gap: 15px;
-			border: 4px solid transparent;
-		    background-image: linear-gradient(rgb(30, 30, 30), rgb(30, 30, 30)), 
-		                      linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71);
-		    background-origin: border-box;
-		    background-clip: padding-box, border-box;
+			.legende-links {
+			    position: fixed;
+			    left: 4%;
+			    top: 58%;
+			    transform: translateY(-50%);
+			    padding: 20px;
+			    border-radius: 12px;
+			    display: flex;
+			    flex-direction: column;
+			    gap: 15px;
 		}
-		.legende-item {
-		    display: flex;
-		    align-items: center;
-		    gap: 15px;
-		    font-size: 14px;
+			.legende-item {
+			    display: flex;
+			    align-items: center;
+			    gap: 15px;
+			    font-size: 14px;
 		}
-		.icon-wrapper {
-		    width: 48px;  
-		    height: 48px;
-		    display: flex;
-		    align-items: center;
-		    justify-content: center;
-		    flex-shrink: 0;
+			.icon-wrapper {
+			    width: 48px;  
+			    height: 48px;
+			    display: flex;
+			    align-items: center;
+			    justify-content: center;
+			    flex-shrink: 0;
 		}
-		.icon-wrapper img {
-		    width: 44px;  
-		    height: 44px;
-		    object-fit: contain;
+			.icon-wrapper img {
+			    width: 44px;  
+			    height: 44px;
+			    object-fit: contain;
 		}   
-		.festival-icon-style {
-		    object-fit: contain; 
-		    border: none !important; 
-		    background: transparent !important;
+			.festival-icon-style {
+			    object-fit: contain; 
+			    border: none !important; 
+			    background: transparent !important;
 		}
-		.leaflet-control-zoom.leaflet-bar, 
-		.leaflet-control-locate.leaflet-bar {
-		    background: linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) !important;
-		    padding: 2px !important;
-		    border-radius: 12px !important;
-		    border: none !important;
-		    box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
+			.leaflet-control-zoom.leaflet-bar, 
+			.leaflet-control-locate.leaflet-bar {
+			    background: linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) !important;
+			    padding: 2px !important;
+			    border-radius: 12px !important;
+			    border: none !important;
+			    box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
 		}
-		.leaflet-control-zoom.leaflet-bar a,
-		.leaflet-control-locate.leaflet-bar a {
-		    background-color: white !important; 
-		    
-		    border-radius: 10px !important;
-		    border: none !important;
-		    margin: 1px !important;
-			overflow: hidden !important;
+			.leaflet-control-zoom.leaflet-bar a,
+			.leaflet-control-locate.leaflet-bar a {
+			    background-color: white !important; 
+			    border-radius: 10px !important;
+			    border: none !important;
+			    margin: 1px !important;
+				overflow: hidden !important;
 		}
 			
 /* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
