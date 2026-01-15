@@ -147,52 +147,8 @@
 				box-sizing: border-box;
 				overflow: hidden; 
 		}
-/******************
-#filter-menu, 
-#filter-kategorie, 
-.slider-container {
-    background-color: rgb(30, 30, 30) !important;
-    color: white !important;
-    border: none !important;
-    border-radius: 9px !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-    
-    /* Höhe vereinheitlichen *
-  /*  height: 45px !important; *
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    
-    /* Schrift vereinheitlichen *
-    font-family: 'Montserrat', sans-serif !important;
-    font-size: 14px !important;
-    font-weight: bold !important;
-    padding: 0 10px !important;
-    margin: 0 !important;
-}
-
-/* Spezifische Korrektur für das Dropdown (Kategorien) *
-#filter-kategorie {
-    cursor: pointer;
-    appearance: none; /* Entfernt Standard-Pfeile für sauberes Design *
-    -webkit-appearance: none;
-    text-align: center;
-}
-
-/* Korrektur für den Slider-Container, damit der Text nicht springt *
-.slider-container {
-    flex-direction: column !important;
-    gap: 2px;
-}
-
-.slider-label {
-    font-size: 14px !important;
-    margin: 0 !important;
-}
-			**************/
 			.slider-label {
-				display: block;      /* Damit text-align wirkt */
+				display: block;      
     			text-align: center;
 				color: white;
 				font-family: 'Montserrat', sans-serif;
@@ -328,64 +284,57 @@
 			    margin: 1px !important;
 				overflow: hidden !important;
 		}
-			/* Den Container lassen wir so, wie du ihn hast */
-.multiselect-container {
-    position: relative;
-    /* Wir nutzen das Design deiner anderen Wrapper */
-    background: transparent !important; 
-    color: white;
-    width: 100%;
-}
-.select-box-header {
-    padding: 10px;
-	font-size: 14px;
-	white-space: nowrap;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgb(30, 30, 30); /* Gleiches Schwarz wie die anderen */
-    border-radius: 9px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: bold;
-    box-sizing: border-box;
-    cursor: pointer;
-	overflow: hidden;
-}
-
-/* HIER liegt der Fehler beim Öffnen: Die Liste muss über allem schweben */
-.checkbox-content {
-    display: none; /* Standardmäßig zu */
-    position: absolute; /* WICHTIG: Schwebt über der Karte */
-    top: 105%; /* Kleiner Abstand zum Header */
-    left: 0;
-    background-color: rgb(30, 30, 30);
-    width: 100%;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
-    z-index: 10000; /* Sehr hoch, damit es über dem Kalender erscheint */
-    max-height: 200px;
-    overflow-y: auto;
-    border: 2px solid #444;
-    border-radius: 9px;
-    box-sizing: border-box;
-}
-
-.checkbox-item {
-    display: flex; /* Flex macht das Ausrichten von Checkbox und Text leichter */
-    align-items: center;
-    padding: 10px;
-    text-align: left;
-    font-size: 13px;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-.checkbox-item input {
-    margin-right: 8px; /* Abstand zwischen Haken und Text */
-}
-
-.checkbox-item:hover {
-    background-color: #444;
-}
+			.multiselect-container {
+			    position: relative;
+			    background: transparent !important; 
+			    color: white;
+			    width: 100%;
+		}
+			.select-box-header {
+			    padding: 10px;
+				font-size: 14px;
+				white-space: nowrap;
+			    display: flex;
+			    align-items: center;
+			    justify-content: center;
+			    background-color: rgb(30, 30, 30); 
+			    border-radius: 9px;
+			    font-family: 'Montserrat', sans-serif;
+			    font-weight: bold;
+			    box-sizing: border-box;
+			    cursor: pointer;
+				overflow: hidden;
+		}
+			.checkbox-content {
+			    display: none; 
+			    position: absolute; 
+			    top: 105%; 
+			    left: 0;
+			    background-color: rgb(30, 30, 30);
+			    width: 100%;
+			    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+			    z-index: 10000; 
+			    max-height: 200px;
+			    overflow-y: auto;
+			    border: 2px solid #444;
+			    border-radius: 9px;
+			    box-sizing: border-box;
+		}
+			.checkbox-item {
+			    display: flex; 
+			    align-items: center;
+			    padding: 10px;
+			    text-align: left;
+			    font-size: 13px;
+			    cursor: pointer;
+			    transition: background 0.2s;
+		}
+			.checkbox-item input {
+			    margin-right: 8px; 
+		}
+			.checkbox-item:hover {
+			    background-color: #444;
+		}
 			
 /* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
 	@media (max-width: 768px) {
@@ -470,7 +419,7 @@
 		<h1>Die Bunte Welt der Festivals</h1>
 		</div>
 <div class="menu-wrapper" style="z-index: 10000;">
-    <div id="filter-menu" class="multiselect-container" style="height: 45px !important; display: flex !important; align-items: center !important; justify-content: center !important;">
+    <div id="filter-menu" class="multiselect-container" style="height: 45px !important;">
         <div class="select-box-header" onclick="toggleCheckboxes()">
 		    <span id="selected-text">- Landkreis wählen -</span>
 		</div>
