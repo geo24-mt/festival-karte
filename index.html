@@ -75,7 +75,6 @@
 				transform: rotate(-1deg);
 				text-transform: uppercase;
 		}	
-			/* Nur das Aussehen - keine Positionen! */
 			.my-tooltip, 
 			.landkreis-tooltip, 
 			.legende-links, 
@@ -83,7 +82,7 @@
 			    background: 
 			        linear-gradient(rgba(30, 30, 30, 0.9), rgba(30, 30, 30, 0.9)) padding-box, 
 			        linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) border-box;
-			    border: 3px solid transparent; /* Deine Tooltips hatten 3px, die Legende 4px - wir nehmen hier den Mittelweg oder lassen es individuell */
+			    border: 3px solid transparent; 
 			    color: #ffffff;
 			    font-family: 'Montserrat', sans-serif;
 			    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
@@ -130,6 +129,8 @@
 				font-family: 'Montserrat', sans-serif;
 				font-weight: bold;
 				cursor: pointer;
+				text-align: center;
+    			text-align-last: center; /* Wichtig für Firefox und einige andere Browser */
 		}
 			.slider-container {
 				background-color: rgba(30, 30, 30, 0.95) !important;
@@ -144,6 +145,8 @@
 		}
 			
 			.slider-label {
+				display: block;      /* Damit text-align wirkt */
+    			text-align: center;
 				color: white;
 				font-family: 'Montserrat', sans-serif;
 				font-weight: bold;
@@ -363,7 +366,7 @@
 		</div>
 		<div class="menu-wrapper">
 			<select id="filter-menu" onchange="filterKarte()">
-				<option value="alle">--- Alle Landkreise ---</option>
+				<option value="alle">- Alle Landkreise -</option>
 				<option value="Merzig-Wadern">Merzig-Wadern</option>
 				<option value="Neunkirchen">Neunkirchen</option>
 				<option value="Regionalverband Saarbrücken">Regionalverband Saarbrücken</option>
@@ -374,7 +377,7 @@
 		</div>
 		<div class="menu-wrapper" style="top: 32%;">
 			<select id="filter-kategorie" onchange="filterKarte()">
-				<option value="alle">--- Alle Kategorien ---</option>
+				<option value="alle">- Alle Festival-Kategorien -</option>
 				<option value="Electro Festivals">Electro Festivals</option>
 				<option value="Mittelalter Festivals">Mittelalter Festivals</option>
 				<option value="Punk Festivals">Punk Festivals</option>
@@ -384,7 +387,7 @@
 		<div class="menu-wrapper" style="top: 41%;">
 			<div class="slider-container">
 				<label for="preis-slider" class="slider-label">
-					Max. Preis: <span id="preis-wert">300</span> €
+					- Max. Preis: <span id="preis-wert">300</span> € -
 				</label>
 				<input type="range" id="preis-slider" 
 					   min="0" max="300" step="10" value="300" 
@@ -551,7 +554,7 @@
     return {
         pane: 'pane_Kreise_1',
         opacity: 1,
-        color: 'rgba(120, 120, 120, 0.8)', 
+        color: 'rgba(110, 110, 110, 1)', 
         weight: 1.8,
         fill: true,
         fillOpacity: 0, 
