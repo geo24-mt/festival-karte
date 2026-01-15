@@ -547,76 +547,20 @@
         e.target.getElement().style.cursor = 'default';
     });
 }
-        function style_Kreise_1_0(feature) {
-            switch(String(feature.properties['gen'])) {
-                case 'Merzig-Wadern':
-                    return {
-                pane: 'pane_Kreise_1',
-                opacity: 1,
-                color: 'rgba(227,26,28,1.0)',
-                weight: 2.5, 
-                fill: true,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case 'Neunkirchen':
-                    return {
-                pane: 'pane_Kreise_1',
-                opacity: 1,
-                color: 'rgba(255,127,36,1.0)',
-                weight: 2.5, 
-                fill: true,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case 'Regionalverband Saarbrücken':
-                    return {
-                pane: 'pane_Kreise_1',
-                opacity: 1,
-                color: 'rgba(229,54,198,1.0)',
-                weight: 2.5, 
-                fill: true,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case 'Saarlouis':
-                    return {
-                pane: 'pane_Kreise_1',
-                opacity: 1,
-                color: 'rgba(15,130,20,1.0)',
-                weight: 2.5, 
-                fill: true,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case 'Saarpfalz-Kreis':
-                    return {
-                pane: 'pane_Kreise_1',
-                opacity: 1,
-                color: 'rgba(10,78,213,1.0)',
-                weight: 2.5, 
-                fill: true,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case 'St. Wendel':
-                    return {
-                pane: 'pane_Kreise_1',
-                opacity: 1,
-                color: 'rgba(229,195,54,1.0)',
-                weight: 2.5, 
-                fill: true,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-            }
-        }
+       function style_Kreise_1_0(feature) {
+    return {
+        pane: 'pane_Kreise_1',
+        opacity: 1,
+        // Vorschlag: Ein dunkles Anthrazit für die Linien (passt zum Regenbogen)
+        color: 'rgba(50, 50, 50, 1.0)', 
+        weight: 2.5,
+        fill: true,
+        // Vorschlag: Eine ganz leichte graue Füllung, damit man die Klickfläche erkennt
+        fillOpacity: 0, 
+        fillColor: 'rgba(100, 100, 100, 1.0)', 
+        interactive: true,
+    };
+}
         map.createPane('pane_Kreise_1');
         map.getPane('pane_Kreise_1').style.zIndex = 401;
         map.getPane('pane_Kreise_1').style['mix-blend-mode'] = 'normal';
