@@ -281,40 +281,64 @@
 			    margin: 1px !important;
 				overflow: hidden !important;
 		}
-			.multiselect-container {
-			    position: relative;
-			    background: rgba(30, 30, 30, 0.9);
-			    border: 1px solid #ccc;
-			    cursor: pointer;
-			    color: white;
-		}
-			.select-box-header {
-			    padding: 10px;
-			    text-align: center;
-			    font-family: 'Montserrat', sans-serif;
-			    font-weight: bold;
-		}
-			
-			.checkbox-content {
-			    display: none;
-			    position: absolute;
-			    background-color: #1e1e1e;
-			    min-width: 100%;
-			    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
-			    z-index: 3000;
-			    max-height: 200px;
-			    overflow-y: auto;
-			    border: 1px solid #444;
-		}
-			.checkbox-item {
-			    display: block;
-			    padding: 8px;
-			    text-align: left;
-			    font-size: 13px;
-		}
-			.checkbox-item:hover {
-			    background-color: #444;
-		}
+			/* Den Container lassen wir so, wie du ihn hast */
+.multiselect-container {
+    position: relative;
+    /* Wir nutzen das Design deiner anderen Wrapper */
+    background: transparent !important; 
+    color: white;
+    width: 100%;
+}
+
+/* HIER liegt der Fehler bei der Größe: Der Header braucht eine Mindesthöhe */
+.select-box-header {
+    padding: 10px;
+    min-height: 40px; /* Erzwingt die gleiche Höhe wie bei den anderen Filtern */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(30, 30, 30); /* Gleiches Schwarz wie die anderen */
+    border-radius: 9px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+/* HIER liegt der Fehler beim Öffnen: Die Liste muss über allem schweben */
+.checkbox-content {
+    display: none; /* Standardmäßig zu */
+    position: absolute; /* WICHTIG: Schwebt über der Karte */
+    top: 105%; /* Kleiner Abstand zum Header */
+    left: 0;
+    background-color: rgb(30, 30, 30);
+    width: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+    z-index: 5000; /* Sehr hoch, damit es über dem Kalender erscheint */
+    max-height: 200px;
+    overflow-y: auto;
+    border: 2px solid #444;
+    border-radius: 9px;
+    box-sizing: border-box;
+}
+
+.checkbox-item {
+    display: flex; /* Flex macht das Ausrichten von Checkbox und Text leichter */
+    align-items: center;
+    padding: 10px;
+    text-align: left;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.checkbox-item input {
+    margin-right: 10px; /* Abstand zwischen Haken und Text */
+}
+
+.checkbox-item:hover {
+    background-color: #444;
+}
 			
 /* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
 	@media (max-width: 768px) {
@@ -832,13 +856,9 @@ function filterKarte() {
         return new Date(jahr, monat, tag);
     };
 
-    // Prüfen, ob "Alle Landkreise" in der Auswahl ist
-    var alleKreiseAktiv = gewaehlteKreise.includes("alle");
-
     // 2. Kreise/Landkreise auf der Karte filtern
     layer_Kreise_1.eachLayer(function(layer) {
         var name = String(layer.feature.properties['gen']);
-        // Wenn "alle" gewählt ist ODER der Name in unserer Liste vorkommt
         if (alleKreiseAktiv || gewaehlteKreise.includes(name)) {
             layer.setStyle({opacity: 1, weight: 1.2, interactive: true});
         } else {
@@ -854,7 +874,6 @@ function filterKarte() {
             var fKat = String(props['Kategorie']);
             var fPreis = parseFloat(props['Preise ab']);
             var fDatumRaw = String(props['Datum']); 
-            
             var datumCheck = true; 
             if (startFilter && endFilter) {
                 var teile = fDatumRaw.split(/[-–]| bis /);
@@ -862,8 +881,6 @@ function filterKarte() {
                 var festivalEnd = teile[1] ? parseDate(teile[1]) : festivalStart;
                 datumCheck = (festivalStart <= endFilter && festivalEnd >= startFilter);
             }
-
-            // NEU: Checkt, ob das Festival zu einem der ausgewählten Kreise gehört
             var kreisCheck = (alleKreiseAktiv || gewaehlteKreise.includes(fKreis));
             var katCheck = (gewaehlteKat === "alle" || fKat === gewaehlteKat);
             var preisCheck = (isNaN(fPreis) || fPreis === null || fPreis <= gewaehlterPreis);
