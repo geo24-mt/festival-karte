@@ -425,27 +425,31 @@
 		<div class="menu-wrapper" style="z-index: 10000;">
     <div id="filter-menu" class="multiselect-container">
        <div class="select-box-header" onclick="toggleCheckboxes()">
-		    <span id="selected-text" style="margin-right: 5px;">- Landkreise wählen -</span>
-		    <small>▼</small>
+		    <span id="selected-text">- Landkreis wählen -</span>
 		</div>
-   		<div id="checkbox-list" class="checkbox-content">
-            <label class="checkbox-item">
-                <input type="checkbox" id="all-kreise" onchange="toggleAllKreise(this)" checked> 
-                <strong>- Alle Landkreise -</strong>
+   	<div id="checkbox-list" class="checkbox-content">
+    <label class="checkbox-item">
+        <input type="checkbox" id="all-kreise" onchange="toggleAllKreise(this)" checked>  
+        <strong>- Alle Landkreise -</strong>
+    </label>
+    <div /*style="padding: 5px 10px; display: flex; gap: 10px; font-size: 11px; border-bottom: 1px solid #444;"*/>
+        <span onclick="setAll(true)" style="cursor:pointer; color: #3498db;">[Alle an]</span>
+        <span onclick="setAll(false)" style="cursor:pointer; color: #e74c3c;">[Alle aus]</span>
+    </div>
             </label>
             <hr style="border: 0.5px solid #444; margin: 5px 0;">
-            <label class="checkbox-item"><input type="checkbox" class="kreis-check" value="Merzig-Wadern" onchange="filterKarte()" checked> Merzig-Wadern</label>
-            <label class="checkbox-item"><input type="checkbox" class="kreis-check" value="Neunkirchen" onchange="filterKarte()" checked> Neunkirchen</label>
-            <label class="checkbox-item"><input type="checkbox" class="kreis-check" value="Regionalverband Saarbrücken" onchange="filterKarte()" checked> Saarbrücken</label>
-            <label class="checkbox-item"><input type="checkbox" class="kreis-check" value="Saarlouis" onchange="filterKarte()" checked> Saarlouis</label>
-            <label class="checkbox-item"><input type="checkbox" class="kreis-check" value="Saarpfalz-Kreis" onchange="filterKarte()" checked> Saarpfalz-Kreis</label>
-            <label class="checkbox-item"><input type="checkbox" class="kreis-check" value="St. Wendel" onchange="filterKarte()" checked> St. Wendel</label>
+            <label class="checkbox-item"><input type="checkbox" class="kreis-check" value="Merzig-Wadern" onchange="updateAllCheckbox(); filterKarte()" checked> Merzig-Wadern</label>
+            <label class="checkbox-item"><input type="checkbox" class="kreis-check" value="Neunkirchen" onchange="updateAllCheckbox(); filterKarte()" checked> Neunkirchen</label>
+            <label class="checkbox-item"><input type="checkbox" class="kreis-check" value="Regionalverband Saarbrücken" onchange="updateAllCheckbox(); filterKarte()" checked> Saarbrücken</label>
+            <label class="checkbox-item"><input type="checkbox" class="kreis-check" value="Saarlouis"onchange="updateAllCheckbox(); filterKarte()" checked> Saarlouis</label>
+            <label class="checkbox-item"><input type="checkbox" class="kreis-check" value="Saarpfalz-Kreis" onchange="updateAllCheckbox(); filterKarte()" checked> Saarpfalz-Kreis</label>
+            <label class="checkbox-item"><input type="checkbox" class="kreis-check" value="St. Wendel" onchange="updateAllCheckbox(); filterKarte()" checked> St. Wendel</label>
         </div>
     </div>
 </div>
 		<div class="menu-wrapper" style="top: 32%;">
 			<select id="filter-kategorie" onchange="filterKarte()">
-				<option value="alle">- Alle Festival-Kategorien -</option>
+				<option value="alle">- Festival-Kategorien -</option>
 				<option value="Electro Festivals">Electro Festivals</option>
 				<option value="Mittelalter Festivals">Mittelalter Festivals</option>
 				<option value="Punk Festivals">Punk Festivals</option>
@@ -955,6 +959,32 @@ function filterKarte() {
     } else {
         list.style.display = "block";
     }
+}
+			// 1. Funktion für die neuen "Alle an/aus" Buttons
+function setAll(status) {
+    document.getElementById('all-kreise').checked = status;
+    var checks = document.querySelectorAll('.kreis-check');
+    checks.forEach(c => c.checked = status);
+    filterKarte();
+}
+
+// 2. Die Haupt-Checkbox steuert alle anderen
+function toggleAllKreise(source) {
+    var checks = document.querySelectorAll('.kreis-check');
+    checks.forEach(c => c.checked = source.checked);
+    filterKarte();
+}
+
+// 3. NEU: Prüft bei jedem Klick, ob die "Alle"-Checkbox an oder aus sein muss
+function updateAllCheckbox() {
+    var allCheckbox = document.getElementById('all-kreise');
+    var checks = document.querySelectorAll('.kreis-check');
+    var total = checks.length;
+    var checkedCount = document.querySelectorAll('.kreis-check:checked').length;
+
+    // Wenn alle angehakt sind -> Haupt-Checkbox an
+    // Wenn auch nur einer fehlt -> Haupt-Checkbox aus
+    allCheckbox.checked = (total === checkedCount);
 }
        </script>
     </body>
