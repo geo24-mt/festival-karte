@@ -281,6 +281,40 @@
 			    margin: 1px !important;
 				overflow: hidden !important;
 		}
+			.multiselect-container {
+			    position: relative;
+			    background: rgba(30, 30, 30, 0.9);
+			    border: 1px solid #ccc;
+			    cursor: pointer;
+			    color: white;
+		}
+			.select-box-header {
+			    padding: 10px;
+			    text-align: center;
+			    font-family: 'Montserrat', sans-serif;
+			    font-weight: bold;
+		}
+			
+			.checkbox-content {
+			    display: none;
+			    position: absolute;
+			    background-color: #1e1e1e;
+			    min-width: 100%;
+			    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+			    z-index: 3000;
+			    max-height: 200px;
+			    overflow-y: auto;
+			    border: 1px solid #444;
+		}
+			.checkbox-item {
+			    display: block;
+			    padding: 8px;
+			    text-align: left;
+			    font-size: 13px;
+		}
+			.checkbox-item:hover {
+			    background-color: #444;
+		}
 			
 /* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
 	@media (max-width: 768px) {
@@ -365,16 +399,26 @@
 		<h1>Die Bunte Welt der Festivals</h1>
 		</div>
 		<div class="menu-wrapper">
-			<select id="filter-menu" onchange="filterKarte()">
-				<option value="alle">- Alle Landkreise -</option>
-				<option value="Merzig-Wadern">Merzig-Wadern</option>
-				<option value="Neunkirchen">Neunkirchen</option>
-				<option value="Regionalverband Saarbrücken">Regionalverband Saarbrücken</option>
-				<option value="Saarlouis">Saarlouis</option>
-				<option value="Saarpfalz-Kreis">Saarpfalz-Kreis</option>
-				<option value="St. Wendel">St. Wendel</option>
-			</select>
-		</div>
+    <div id="filter-menu" class="multiselect-container">
+        <div class="select-box-header" onclick="toggleCheckboxes()">
+            <span id="selected-text">- Landkreise wählen -</span>
+            <span style="float: right;">▼</span>
+        </div>
+        <div id="checkbox-list" class="checkbox-content">
+            <label class="checkbox-item">
+                <input type="checkbox" id="all-kreise" onchange="toggleAllKreise(this)" checked> 
+                <strong>- Alle Landkreise -</strong>
+            </label>
+            <hr style="border: 0.5px solid #444; margin: 5px 0;">
+            <label class="checkbox-item"><input type="checkbox" class="kreis-check" value="Merzig-Wadern" onchange="filterKarte()" checked> Merzig-Wadern</label>
+            <label class="checkbox-item"><input type="checkbox" class="kreis-check" value="Neunkirchen" onchange="filterKarte()" checked> Neunkirchen</label>
+            <label class="checkbox-item"><input type="checkbox" class="kreis-check" value="Regionalverband Saarbrücken" onchange="filterKarte()" checked> Saarbrücken</label>
+            <label class="checkbox-item"><input type="checkbox" class="kreis-check" value="Saarlouis" onchange="filterKarte()" checked> Saarlouis</label>
+            <label class="checkbox-item"><input type="checkbox" class="kreis-check" value="Saarpfalz-Kreis" onchange="filterKarte()" checked> Saarpfalz-Kreis</label>
+            <label class="checkbox-item"><input type="checkbox" class="kreis-check" value="St. Wendel" onchange="filterKarte()" checked> St. Wendel</label>
+        </div>
+    </div>
+</div>
 		<div class="menu-wrapper" style="top: 32%;">
 			<select id="filter-kategorie" onchange="filterKarte()">
 				<option value="alle">- Alle Festival-Kategorien -</option>
@@ -757,26 +801,28 @@
                 document.getElementById('map').classList.remove('hide-tooltips');
             }
         });
-		function filterKarte() {
-    var gewaehlterKreis = document.getElementById('filter-menu').value;
+function filterKarte() {
+    // NEU: Holt alle Werte der Checkboxen, die einen Haken haben
+    var gewaehlteKreise = Array.from(document.querySelectorAll('.kreis-check:checked')).map(cb => cb.value);
+    
+    // NEU: Prüft, ob die "Alle Landkreise"-Checkbox gehakt ist
+    var alleKreiseAktiv = document.getElementById('all-kreise').checked;
+    
     var gewaehlteKat = document.getElementById('filter-kategorie').value;
     var gewaehlterPreis = parseFloat(document.getElementById('preis-slider').value);
-    
-    // 1. Kalender-Daten EINMAL am Anfang vorbereiten
+
     var gewaehlteDaten = festivalKalender.selectedDates;
     var startFilter = null;
     var endFilter = null;
 
     if (gewaehlteDaten.length > 0) {
         startFilter = gewaehlteDaten[0];
-        // Falls das zweite Datum fehlt (nur 1 Klick), nimm das erste als Ende
         endFilter = gewaehlteDaten[1] ? gewaehlteDaten[1] : startFilter;
     }
 
     var wertAnzeige = document.getElementById('preis-wert');
     if (wertAnzeige) wertAnzeige.innerText = gewaehlterPreis;
 
-    // Hilfsfunktion zum Umwandeln der Daten
     var parseDate = function(str) {
         if(!str) return null;
         var d = str.trim().split('.');
@@ -786,17 +832,21 @@
         return new Date(jahr, monat, tag);
     };
 
-    // Kreise/Landkreise filtern
+    // Prüfen, ob "Alle Landkreise" in der Auswahl ist
+    var alleKreiseAktiv = gewaehlteKreise.includes("alle");
+
+    // 2. Kreise/Landkreise auf der Karte filtern
     layer_Kreise_1.eachLayer(function(layer) {
         var name = String(layer.feature.properties['gen']);
-        if (gewaehlterKreis === "alle" || name === gewaehlterKreis) {
-            layer.setStyle({opacity: 1, weight: 2.5, interactive: true});
+        // Wenn "alle" gewählt ist ODER der Name in unserer Liste vorkommt
+        if (alleKreiseAktiv || gewaehlteKreise.includes(name)) {
+            layer.setStyle({opacity: 1, weight: 1.2, interactive: true});
         } else {
             layer.setStyle({opacity: 0, weight: 0, interactive: false});
         }
     });
 
-    // Festivals filtern
+    // 3. Festivals filtern
     layer_Festivals_kreis_2.eachLayer(function(layer) {
         if (layer.feature && layer.feature.properties) {
             var props = layer.feature.properties;
@@ -806,18 +856,15 @@
             var fDatumRaw = String(props['Datum']); 
             
             var datumCheck = true; 
-
-            // Datums-Vergleich nur ausführen, wenn im Kalender etwas gewählt wurde
             if (startFilter && endFilter) {
                 var teile = fDatumRaw.split(/[-–]| bis /);
                 var festivalStart = parseDate(teile[0]);
                 var festivalEnd = teile[1] ? parseDate(teile[1]) : festivalStart;
-
-                // Prüfen auf zeitliche Überschneidung
                 datumCheck = (festivalStart <= endFilter && festivalEnd >= startFilter);
             }
 
-            var kreisCheck = (gewaehlterKreis === "alle" || fKreis === gewaehlterKreis);
+            // NEU: Checkt, ob das Festival zu einem der ausgewählten Kreise gehört
+            var kreisCheck = (alleKreiseAktiv || gewaehlteKreise.includes(fKreis));
             var katCheck = (gewaehlteKat === "alle" || fKat === gewaehlteKat);
             var preisCheck = (isNaN(fPreis) || fPreis === null || fPreis <= gewaehlterPreis);
 
@@ -832,15 +879,23 @@
     });
 }
 		function resetFilter() {
-			document.getElementById('filter-menu').value = 'alle';
-			document.getElementById('filter-kategorie').value = 'alle';
-			document.getElementById('preis-slider').value = 500;
-			var preisAnzeige = document.getElementById('preis-wert');
-			if (preisAnzeige) preisAnzeige.innerText = '500';
-			if (festivalKalender) {
-    festivalKalender.clear(); // Alles löschen (kein Zwang mehr)
-    festivalKalender.jumpToDate(new Date()); // Springt nur zur Ansicht "heute"
-}
+    // 1. Alle Kreis-Checkboxen wieder auf "checked" setzen
+    document.getElementById('all-kreise').checked = true;
+    var kreisChecks = document.querySelectorAll('.kreis-check');
+    kreisChecks.forEach(cb => cb.checked = true);
+
+    // 2. Restliche Filter zurücksetzen
+    document.getElementById('filter-kategorie').value = 'alle';
+    document.getElementById('preis-slider').value = 300; // Falls dein Max 300 ist
+    
+    var preisAnzeige = document.getElementById('preis-wert');
+    if (preisAnzeige) preisAnzeige.innerText = '300';
+    
+    if (festivalKalender) {
+        festivalKalender.clear();
+        festivalKalender.jumpToDate(new Date());
+    }
+    
     filterKarte();
 }
 		let festivalKalender;
