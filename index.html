@@ -115,6 +115,8 @@
 			    padding: 3px;
 			    border-radius: 12px; 
 		}
+
+			/**********************************
 			#filter-menu, #filter-kategorie, .slider-container {
 				background-color: rgb(30, 30, 30) !important; 
 				color: white;
@@ -130,7 +132,49 @@
 				font-weight: bold;
 				cursor: pointer;
 				text-align: center;
-    			text-align-last: center; /* Wichtig für Firefox und einige andere Browser */
+    			text-align-last: center; /* Einheitliche Gestaltung für alle Filter-Boxen */
+#filter-menu, 
+#filter-kategorie, 
+.slider-container {
+    background-color: rgb(30, 30, 30) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 9px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    
+    /* Höhe vereinheitlichen */
+    height: 45px !important; 
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    
+    /* Schrift vereinheitlichen */
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+    padding: 0 10px !important;
+    margin: 0 !important;
+}
+
+/* Spezifische Korrektur für das Dropdown (Kategorien) */
+#filter-kategorie {
+    cursor: pointer;
+    appearance: none; /* Entfernt Standard-Pfeile für sauberes Design */
+    -webkit-appearance: none;
+    text-align: center;
+}
+
+/* Korrektur für den Slider-Container, damit der Text nicht springt */
+.slider-container {
+    flex-direction: column !important;
+    gap: 2px;
+}
+
+.slider-label {
+    font-size: 14px !important;
+    margin: 0 !important;
+}
 		}
 			.slider-container {
 				background-color: rgba(30, 30, 30, 0.95) !important;
@@ -143,7 +187,7 @@
 				box-sizing: border-box;
 				overflow: hidden; 
 		}
-			
+			*/
 			.slider-label {
 				display: block;      /* Damit text-align wirkt */
     			text-align: center;
