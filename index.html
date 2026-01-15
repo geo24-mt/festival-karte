@@ -291,7 +291,8 @@
 }
 .select-box-header {
     padding: 10px;
-  /*  min-height: 40px;  */
+	font-size: 14px;
+	white-space: nowrap;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -301,6 +302,7 @@
     font-weight: bold;
     box-sizing: border-box;
     cursor: pointer;
+	overflow: hidden;
 }
 
 /* HIER liegt der Fehler beim Öffnen: Die Liste muss über allem schweben */
@@ -420,13 +422,13 @@
         <div id="Überschrift">
 		<h1>Die Bunte Welt der Festivals</h1>
 		</div>
-		<div class="menu-wrapper">
+		<div class="menu-wrapper" style="z-index: 10000;">
     <div id="filter-menu" class="multiselect-container">
-        <div class="select-box-header" onclick="toggleCheckboxes()">
-            <span id="selected-text">- Landkreise wählen -</span>
-            <span style="float: right;">▼</span>
-        </div>
-        <div id="checkbox-list" class="checkbox-content">
+       <div class="select-box-header" onclick="toggleCheckboxes()">
+		    <span id="selected-text" style="margin-right: 5px;">- Landkreise wählen -</span>
+		    <small>▼</small>
+		</div>
+   		<div id="checkbox-list" class="checkbox-content">
             <label class="checkbox-item">
                 <input type="checkbox" id="all-kreise" onchange="toggleAllKreise(this)" checked> 
                 <strong>- Alle Landkreise -</strong>
