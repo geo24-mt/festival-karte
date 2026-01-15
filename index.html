@@ -132,8 +132,23 @@
 				font-weight: bold;
 				cursor: pointer;
 				text-align: center;
-    			text-align-last: center; /* Einheitliche Gestaltung für alle Filter-Boxen */
-#filter-menu, 
+    			text-align-last: center;
+
+		}
+			
+			.slider-container {
+				background-color: rgba(30, 30, 30, 0.95) !important;
+				border-radius: 9px;
+				padding: 5px;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				height: auto; 
+				box-sizing: border-box;
+				overflow: hidden; 
+		}
+			*/
+			#filter-menu, 
 #filter-kategorie, 
 .slider-container {
     background-color: rgb(30, 30, 30) !important;
@@ -175,19 +190,6 @@
     font-size: 14px !important;
     margin: 0 !important;
 }
-		}
-			.slider-container {
-				background-color: rgba(30, 30, 30, 0.95) !important;
-				border-radius: 9px;
-				padding: 5px;
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				height: auto; 
-				box-sizing: border-box;
-				overflow: hidden; 
-		}
-			*/
 			.slider-label {
 				display: block;      /* Damit text-align wirkt */
     			text-align: center;
