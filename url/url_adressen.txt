@@ -1,0 +1,8 @@
+Festival_N;url
+Hexentanz Walpurgisschlacht Festival;https://www.hexentanz-festival.de/index.html
+Tropical Mountain Festival;https://alm-events.de/tropicalmountain/
+La Fiesta Festival;https://alm-events.de/lafiesta/
+Vegan Fantasy Fair;https://www.veganfantasyfair.de/
+Backside Soli-Fest;https://www.backside-festival.de/
+Heidebeat Festival;https://heidebeat.de/
+Lucky Lake Festival;https://www.luckylakefestival.com/
