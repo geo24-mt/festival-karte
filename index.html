@@ -693,13 +693,14 @@ fetch('url/url_adressen.txt?v=' + Date.now())
     }
 
     // 2. Logik für den Link aus deiner Textdatei
-    var fName = feature.properties['Festival_N'] || 'Unbekanntes Festival';
+   var fName = feature.properties['Festival_N'] ? feature.properties['Festival_N'].toString().trim() : 'Unbekanntes Festival';
     
-    // Wir schauen in der Liste nach, die wir oben per fetch laden
+    // In der Liste suchen
     var zielUrl = festivalLinkListe[fName];
-    
-    // Wenn kein Link in der TXT steht, nutzen wir die Google-Suche als Backup
-    if (!zielUrl) {
+
+    // Falls immer noch nichts gefunden wurde:
+    if (!zielUrl || zielUrl === "") {
+        console.log("Nicht in Liste gefunden:", fName); // Das hilft uns beim Debuggen!
         zielUrl = "https://www.google.com/search?q=" + encodeURIComponent(fName + " Festival Saarland");
     }
 
