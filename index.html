@@ -531,28 +531,32 @@
         <script src="data/Kreise_1.js"></script>
         <script src="data/Festivals_kreis_2.js"></script>
         <script>
-			var festivalLinkListe = {};
+var festivalLinkListe = {};
 
 fetch('url/url_adressen.txt?v=' + Date.now())
     .then(response => response.text())
     .then(data => {
         var zeilen = data.split(/\r?\n/);
         zeilen.forEach((zeile, index) => {
-            // 1. Überschrift in Zeile 1 überspringen
             if (index === 0) return; 
-
             var spalten = zeile.split(';');
             if (spalten.length >= 2) {
-                // 2. Namen und URL säubern (trim)
                 var name = spalten[0].trim();
                 var link = spalten[1].trim();
-                
                 if (name && link) {
                     festivalLinkListe[name] = link;
                 }
             }
         });
         console.log("Bereinigte Liste geladen:", festivalLinkListe);
+
+        // NEU: Alle Popups auf der Karte aktualisieren, sobald die Liste da ist
+        if (typeof layer_Festivals_kreis_2 !== 'undefined') {
+            layer_Festivals_kreis_2.eachLayer(function(layer) {
+                pop_Festivals_kreis_2(layer.feature, layer);
+            });
+            console.log("Links auf der Karte wurden aktualisiert!");
+        }
     })
     .catch(error => console.error('Fehler:', error));
 			
@@ -683,8 +687,8 @@ fetch('url/url_adressen.txt?v=' + Date.now())
         className: 'festival-icon-style' 
     });
 }
-	function pop_Festivals_kreis_2(feature, layer) {
-    // 1. Tooltip (wie gehabt)
+function pop_Festivals_kreis_2(feature, layer) {
+    // 1. Tooltip (Name erscheint beim Drüberfahren)
     if (feature.properties['Festival_N']) {
         layer.bindTooltip(String(feature.properties['Festival_N']), {
             sticky: true,
@@ -692,66 +696,35 @@ fetch('url/url_adressen.txt?v=' + Date.now())
         });
     }
 
-    // 2. Logik für den Link aus deiner Textdatei
-   var fName = feature.properties['Festival_N'] ? feature.properties['Festival_N'].toString().trim() : 'Unbekanntes Festival';
-    
-    // In der Liste suchen
+    // 2. Namen säubern und Link aus der Liste holen
+    var fName = feature.properties['Festival_N'] ? feature.properties['Festival_N'].toString().trim() : 'Unbekanntes Festival';
     var zielUrl = festivalLinkListe[fName];
 
-    // Falls immer noch nichts gefunden wurde:
+    // Falls noch nicht geladen oder nicht in der Liste, Google-Suche als Fallback
     if (!zielUrl || zielUrl === "") {
-        console.log("Nicht in Liste gefunden:", fName); // Das hilft uns beim Debuggen!
         zielUrl = "https://www.google.com/search?q=" + encodeURIComponent(fName + " Festival Saarland");
     }
 
-    // 3. Den gesamten Popup-Inhalt zusammenbauen
+    // 3. Der komplette HTML-Inhalt für das Popup
     var popupContent = '<div style="text-align: center; font-weight: bold; font-size: 16px; margin-bottom: 10px; border-bottom: 1px solid #ccc; padding-bottom: 5px;">' + 
                         '<a href="' + zielUrl + '" target="_blank" rel="noopener noreferrer" style="color: #3498db; text-decoration: none;">' + 
                             fName + 
                         '</a>' +
                        '</div>' +
                        '<table>\
-                        <tr>\
-                            <th scope="row">Kategorie</th>\
-                            <td class="visible-with-data">' + (feature.properties['Kategorie'] || '') + '</td>\
-                        </tr>\
-                        <tr>\
-                            <th scope="row">Genre</th>\
-                            <td class="visible-with-data">' + (feature.properties['Genre'] || '') + '</td>\
-                        </tr>\
+                        <tr><th scope="row">Kategorie</th><td>' + (feature.properties['Kategorie'] || '') + '</td></tr>\
+                        <tr><th scope="row">Genre</th><td>' + (feature.properties['Genre'] || '') + '</td></tr>\
                         <tr style="height: 10px;"> <td colspan="2"></td> </tr>\
-                        <tr>\
-                            <th scope="row">Preise ab</th>\
-                            <td class="visible-with-data">' + (feature.properties['Preise ab'] !== null ? parseFloat(feature.properties['Preise ab']).toFixed(2).replace('.', ',') + ' €' : '') + '</td>\
-                        </tr>\
-                        <tr>\
-                            <th scope="row">Datum</th>\
-                            <td class="visible-with-data">' + (feature.properties['Datum'] !== null ? String(feature.properties['Datum']) : '') + '</td>\
-                        </tr>\
-                        <tr>\
-                            <th scope="row">Dauer</th>\
-                            <td class="visible-with-data">' + (feature.properties['Dauer'] || '') + '</td>\
-                        </tr>\
+                        <tr><th scope="row">Preise ab</th><td>' + (feature.properties['Preise ab'] !== null ? parseFloat(feature.properties['Preise ab']).toFixed(2).replace('.', ',') + ' €' : '') + '</td></tr>\
+                        <tr><th scope="row">Datum</th><td>' + (feature.properties['Datum'] || '') + '</td></tr>\
+                        <tr><th scope="row">Dauer</th><td>' + (feature.properties['Dauer'] || '') + '</td></tr>\
                         <tr style="height: 10px;"> <td colspan="2"></td> </tr>\
-                        <tr>\
-                            <th scope="row">Straße</th>\
-                            <td class="visible-with-data">' + (feature.properties['Straße'] || '') + '</td>\
-                        </tr>\
-                        <tr>\
-                            <th scope="row">PLZ</th>\
-                            <td class="visible-with-data">' + (feature.properties['PLZ'] || '') + '</td>\
-                        </tr>\
-                        <tr>\
-                            <th scope="row">Ort</th>\
-                            <td class="visible-with-data">' + (feature.properties['Ort'] || '') + '</td>\
-                        </tr>\
-                        <tr>\
-                            <th scope="row">Landkreis</th>\
-                            <td class="visible-with-data">' + (feature.properties['gen'] || '') + '</td>\
-                        </tr>\
+                        <tr><th scope="row">Straße</th><td>' + (feature.properties['Straße'] || '') + '</td></tr>\
+                        <tr><th scope="row">PLZ</th><td>' + (feature.properties['PLZ'] || '') + '</td></tr>\
+                        <tr><th scope="row">Ort</th><td>' + (feature.properties['Ort'] || '') + '</td></tr>\
+                        <tr><th scope="row">Landkreis</th><td>' + (feature.properties['gen'] || '') + '</td></tr>\
                     </table>';
 
-    // 4. Popup an den Layer binden
     layer.bindPopup(popupContent, {
         minWidth: 350,
         maxWidth: 800,
