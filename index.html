@@ -427,12 +427,12 @@
 		        <span onclick="setAll(true)" style="cursor:pointer; color: #3498db;">[Alle an]</span>
 		        <span onclick="setAll(false)" style="cursor:pointer; color: #e74c3c;">[Alle aus]</span>
 			</div>
-		<label class="checkbox-item"><input type="checkbox" class="kreis-check" value="Merzig-Wadern" onchange="updateAllCheckbox(); filterKarte()" checked> Merzig-Wadern</label>
-		<label class="checkbox-item"><input type="checkbox" class="kreis-check" value="Neunkirchen" onchange="updateAllCheckbox(); filterKarte()" checked> Neunkirchen</label>
-		<label class="checkbox-item"><input type="checkbox" class="kreis-check" value="Regionalverband Saarbrücken" onchange="updateAllCheckbox(); filterKarte()" checked> Saarbrücken</label>
-		<label class="checkbox-item"><input type="checkbox" class="kreis-check" value="Saarlouis" onchange="updateAllCheckbox(); filterKarte()" checked> Saarlouis</label>
-		<label class="checkbox-item"><input type="checkbox" class="kreis-check" value="Saarpfalz-Kreis" onchange="updateAllCheckbox(); filterKarte()" checked> Saarpfalz-Kreis</label>
-		<label class="checkbox-item"><input type="checkbox" class="kreis-check" value="St. Wendel" onchange="updateAllCheckbox(); filterKarte()" checked> St. Wendel</label>
+		<label class="checkbox-item"><input type="checkbox" class="kreis-check" value="Merzig-Wadern" onchange="updateAllCheckbox(); filterKarte(); zentriereAufAuswahl()" checked> Merzig-Wadern</label>
+		<label class="checkbox-item"><input type="checkbox" class="kreis-check" value="Neunkirchen" onchange="updateAllCheckbox(); filterKarte(); zentriereAufAuswahl()" checked> Neunkirchen</label>
+		<label class="checkbox-item"><input type="checkbox" class="kreis-check" value="Regionalverband Saarbrücken" onchange="updateAllCheckbox(); filterKarte(); zentriereAufAuswahl()" checked> Saarbrücken</label>
+		<label class="checkbox-item"><input type="checkbox" class="kreis-check" value="Saarlouis" onchange="updateAllCheckbox(); filterKarte(); zentriereAufAuswahl()" checked> Saarlouis</label>
+		<label class="checkbox-item"><input type="checkbox" class="kreis-check" value="Saarpfalz-Kreis" onchange="updateAllCheckbox(); filterKarte(); zentriereAufAuswahl()" checked> Saarpfalz-Kreis</label>
+		<label class="checkbox-item"><input type="checkbox" class="kreis-check" value="St. Wendel" onchange="updateAllCheckbox(); filterKarte(); zentriereAufAuswahl()" checked> St. Wendel</label>
 	</div>
     </div>
 </div>
@@ -447,21 +447,17 @@
 	                <span onclick="setAllKat(true)" style="cursor:pointer; color: #3498db;">[Alle an]</span>
 	                <span onclick="setAllKat(false)" style="cursor:pointer; color: #e74c3c;">[Alle aus]</span>
 	            </div>
-            <label class="checkbox-item"><input type="checkbox" class="kat-check" value="Electro Festivals" onchange="updateAllKatCheckbox(); filterKarte()" checked> Electro Festivals</label>
-            <label class="checkbox-item"><input type="checkbox" class="kat-check" value="Mittelalter Festivals" onchange="updateAllKatCheckbox(); filterKarte()" checked> Mittelalter Festivals</label>
-            <label class="checkbox-item"><input type="checkbox" class="kat-check" value="Punk Festivals" onchange="updateAllKatCheckbox(); filterKarte()" checked> Punk Festivals</label>
-            <label class="checkbox-item"><input type="checkbox" class="kat-check" value="Schlager Festivals" onchange="updateAllKatCheckbox(); filterKarte()" checked> Schlager Festivals</label>
+            <label class="checkbox-item"><input type="checkbox" class="kat-check" value="Electro Festivals" onchange="updateAllKatCheckbox(); filterKarte(); zentriereAufAuswahl()" checked> Electro Festivals</label>
+            <label class="checkbox-item"><input type="checkbox" class="kat-check" value="Mittelalter Festivals" onchange="updateAllKatCheckbox(); filterKarte(); zentriereAufAuswahl()" checked> Mittelalter Festivals</label>
+            <label class="checkbox-item"><input type="checkbox" class="kat-check" value="Punk Festivals" onchange="updateAllKatCheckbox(); filterKarte(); zentriereAufAuswahl()" checked> Punk Festivals</label>
+            <label class="checkbox-item"><input type="checkbox" class="kat-check" value="Schlager Festivals" onchange="updateAllKatCheckbox(); filterKarte(); zentriereAufAuswahl()" checked> Schlager Festivals</label>
         </div>
     </div>
 </div>
 		<div class="menu-wrapper" style="top: 40.6%;">
 			<div class="slider-container">
-				<label for="preis-slider" class="slider-label">
-					- Max. Preis: <span id="preis-wert">300</span> € -
-				</label>
-				<input type="range" id="preis-slider" 
-					   min="0" max="300" step="10" value="300" 
-					   oninput="filterKarte()">	   
+				<label for="preis-slider" class="slider-label">- Max. Preis: <span id="preis-wert">300</span> € -</label>
+				<input type="range" id="preis-slider" min="0" max="300" step="10" value="300" oninput="filterKarte()">	   
 			</div>
 		</div>	
 		<div class="menu-wrapper" style="top: 88%;">
@@ -545,7 +541,6 @@
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
-        // remove popup's row if "visible-with-data"
         function removeEmptyRowsFromPopupContent(content, feature) {
          var tempDiv = document.createElement('div');
          tempDiv.innerHTML = content;
@@ -581,13 +576,11 @@
             secondaryAreaUnit: 'hectares',
 			localization: 'de'
         });
-        measureControl.addTo(map);
-			
+        measureControl.addTo(map);	
         var mE = document.getElementsByClassName('leaflet-control-measure')[0];
         var mT = document.getElementsByClassName('leaflet-control-measure-toggle')[0];
         if (mE) { mE.style.borderRadius = '12px'; mE.style.overflow = 'hidden'; }
         if (mT) { mT.style.borderRadius = '10px'; mT.style.overflow = 'hidden'; }
-        
         document.getElementsByClassName('leaflet-control-measure-toggle')[0].innerHTML = '';
         document.getElementsByClassName('leaflet-control-measure-toggle')[0].className += ' fas fa-ruler';
         var bounds_group = new L.featureGroup([]);
@@ -607,7 +600,6 @@
         layer_GoogleMaps_0;
         map.addLayer(layer_GoogleMaps_0);
         function pop_Kreise_1(feature, layer) {
-    // Tooltip einbinden
     if (feature.properties['gen'] !== null) {
         layer.bindTooltip(String(feature.properties['gen']), {
             sticky: true,
@@ -658,7 +650,6 @@
 	    var isMobile = window.innerWidth <= 768;
     var iconSize   = isMobile ? [28, 28] : [44, 44]; 
     var iconAnchor = isMobile ? [14, 14] : [22, 22]; 
-
     return L.icon({
         iconUrl: 'Symbole/' + fileName,
         iconSize: iconSize, 
@@ -724,7 +715,6 @@
         autoPan: true
     });
 }
-      
         map.createPane('pane_Festivals_kreis_2');
         map.getPane('pane_Festivals_kreis_2').style.zIndex = 402;
         map.getPane('pane_Festivals_kreis_2').style['mix-blend-mode'] = 'normal';
@@ -758,15 +748,13 @@
         }
     }
 });
-        const url = {"Nominatim OSM": "https://nominatim.openstreetmap.org/search?format=geojson&addressdetails=1&",
-        "France BAN": "https://api-adresse.data.gouv.fr/search/?"}
+        const url = {"Nominatim OSM": "https://nominatim.openstreetmap.org/search?format=geojson&addressdetails=1&","France BAN": "https://api-adresse.data.gouv.fr/search/?"}
         var photonControl = L.control.photon({
             url: url["Nominatim OSM"],
             feedbackLabel: '',
             position: 'topleft',
             includePosition: true,
             initial: true,
-            // resultsHandler: myHandler,
         }).addTo(map);
         var x = null;
         var marker = null;
@@ -789,14 +777,9 @@
         var search = document.getElementsByClassName("leaflet-photon leaflet-control")[0];
         search.classList.add("leaflet-control-search")
         search.style.display = "flex";
-       
-
-        // Create the new button element
         var button = document.createElement("div");
         button.id = "gcd-button-control";
         button.className = "gcd-gl-btn fa fa-search search-button";
-
-        // Insert the button at the beginning of the search control
         search.insertBefore(button, search.firstChild);
         last = search.lastChild;
         last.style.display = "none";
@@ -884,6 +867,26 @@ function filterKarte() {
             }
         }
     });
+}
+function zentriereAufAuswahl() {
+    var gewaehlteKreise = Array.from(document.querySelectorAll('.kreis-check:checked')).map(cb => cb.value);
+    var alleKreiseAktiv = document.getElementById('all-kreise').checked;
+    var bounds = new L.LatLngBounds();
+    var hatSichtbareKreise = false;
+    layer_Kreise_1.eachLayer(function(layer) {
+        var name = String(layer.feature.properties['gen']);
+        if (alleKreiseAktiv || gewaehlteKreise.includes(name)) {
+            bounds.extend(layer.getBounds()); // Berechnet die Ausdehnung (Extents)
+            hatSichtbareKreise = true;
+        }
+    });
+    if (hatSichtbareKreise) {
+        map.fitBounds(bounds, {
+            padding: [30, 30], // Abstand zum Rand
+            maxZoom: 12,       // Verhindert zu nahes Heranzoomen bei einem einzelnen Kreis
+            animate: true      // Schwenkt die Karte weich
+        });
+    }
 }
 		function resetFilter() {
     document.getElementById('all-kreise').checked = true;
