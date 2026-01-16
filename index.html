@@ -913,18 +913,19 @@ function filterKarte() {
     });
 }
 		function resetFilter() {
-    // 1. Alle Kreis-Checkboxen wieder auf "checked" setzen
+    // 1. Alle Kreis-Checkboxen wieder an
     document.getElementById('all-kreise').checked = true;
-    var kreisChecks = document.querySelectorAll('.kreis-check');
-    kreisChecks.forEach(cb => cb.checked = true);
+    document.querySelectorAll('.kreis-check').forEach(cb => cb.checked = true);
 
-    // 2. Restliche Filter zurücksetzen
-    document.getElementById('filter-kategorie').value = 'alle';
-    document.getElementById('preis-slider').value = 300; // Falls dein Max 300 ist
-    
+    // 2. NEU: Alle Kategorie-Checkboxen wieder an
+    document.querySelectorAll('.kat-check').forEach(cb => cb.checked = true);
+
+    // 3. Preis zurücksetzen
+    document.getElementById('preis-slider').value = 300;
     var preisAnzeige = document.getElementById('preis-wert');
     if (preisAnzeige) preisAnzeige.innerText = '300';
     
+    // 4. Kalender leeren
     if (festivalKalender) {
         festivalKalender.clear();
         festivalKalender.jumpToDate(new Date());
@@ -1005,10 +1006,19 @@ function updateAllCheckbox() {
 }
 
 function setAllKat(status) {
+    // 1. Holt alle Checkboxen, die zur Kategorie gehören
     var checks = document.querySelectorAll('.kat-check');
-    checks.forEach(c => c.checked = status);
-    filterKarte();
-}	
+    
+    // 2. Schleife durch alle gefundenen Boxen
+    checks.forEach(function(checkbox) {
+        checkbox.checked = status; // Setzt den Haken (true = an, false = aus)
+    });
+    
+    // 3. WICHTIG: Karte aktualisieren, damit die Änderungen sichtbar werden
+    if (typeof filterKarte === "function") {
+        filterKarte();
+    }
+}
        </script>
     </body>
 </html>
