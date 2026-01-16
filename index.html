@@ -664,51 +664,52 @@
             className: 'my-tooltip'
         });
     }
-    var popupContent = '<table>\
-                    <tr>\
-                        <th scope="row">Festival-Name</th>\
-                        <td class="visible-with-data">' + (feature.properties['Festival_N'] || '') + '</td>\
-                    </tr>\
-                    <tr style="height: 10px;"> <td colspan="2"></td> </tr>\
-                    <tr>\
-                        <th scope="row">Kategorie</th>\
-                        <td class="visible-with-data">' + (feature.properties['Kategorie'] || '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Genre</th>\
-                        <td class="visible-with-data">' + (feature.properties['Genre'] || '') + '</td>\
-                    </tr>\
-                    <tr style="height: 10px;"> <td colspan="2"></td> </tr>\
-                    <tr>\
-                        <th scope="row">Preise ab</th>\
-                        <td class="visible-with-data">' + (feature.properties['Preise ab'] !== null ? parseFloat(feature.properties['Preise ab']).toFixed(2).replace('.', ',') + ' €' : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Datum</th>\
-                        <td class="visible-with-data">' + (feature.properties['Datum'] !== null ? String(feature.properties['Datum']) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Dauer</th>\
-                        <td class="visible-with-data">' + (feature.properties['Dauer'] || '') + '</td>\
-                    </tr>\
-                    <tr style="height: 10px;"> <td colspan="2"></td> </tr>\
-                    <tr>\
-                        <th scope="row">Straße</th>\
-                        <td class="visible-with-data">' + (feature.properties['Straße'] || '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">PLZ</th>\
-                        <td class="visible-with-data">' + (feature.properties['PLZ'] || '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Ort</th>\
-                        <td class="visible-with-data">' + (feature.properties['Ort'] || '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Landkreis</th>\
-                        <td class="visible-with-data">' + (feature.properties['gen'] || '') + '</td>\
-                    </tr>\
-                </table>';
+
+    // Hier wird der Name oben zentriert und fett gesetzt
+    var popupContent = '<div style="text-align: center; font-weight: bold; font-size: 16px; margin-bottom: 10px; border-bottom: 1px solid #ccc; padding-bottom: 5px;">' + 
+                        (feature.properties['Festival_N'] || 'Unbekanntes Festival') + 
+                       '</div>' +
+                       '<table>\
+                        <tr>\
+                            <th scope="row">Kategorie</th>\
+                            <td class="visible-with-data">' + (feature.properties['Kategorie'] || '') + '</td>\
+                        </tr>\
+                        <tr>\
+                            <th scope="row">Genre</th>\
+                            <td class="visible-with-data">' + (feature.properties['Genre'] || '') + '</td>\
+                        </tr>\
+                        <tr style="height: 10px;"> <td colspan="2"></td> </tr>\
+                        <tr>\
+                            <th scope="row">Preise ab</th>\
+                            <td class="visible-with-data">' + (feature.properties['Preise ab'] !== null ? parseFloat(feature.properties['Preise ab']).toFixed(2).replace('.', ',') + ' €' : '') + '</td>\
+                        </tr>\
+                        <tr>\
+                            <th scope="row">Datum</th>\
+                            <td class="visible-with-data">' + (feature.properties['Datum'] !== null ? String(feature.properties['Datum']) : '') + '</td>\
+                        </tr>\
+                        <tr>\
+                            <th scope="row">Dauer</th>\
+                            <td class="visible-with-data">' + (feature.properties['Dauer'] || '') + '</td>\
+                        </tr>\
+                        <tr style="height: 10px;"> <td colspan="2"></td> </tr>\
+                        <tr>\
+                            <th scope="row">Straße</th>\
+                            <td class="visible-with-data">' + (feature.properties['Straße'] || '') + '</td>\
+                        </tr>\
+                        <tr>\
+                            <th scope="row">PLZ</th>\
+                            <td class="visible-with-data">' + (feature.properties['PLZ'] || '') + '</td>\
+                        </tr>\
+                        <tr>\
+                            <th scope="row">Ort</th>\
+                            <td class="visible-with-data">' + (feature.properties['Ort'] || '') + '</td>\
+                        </tr>\
+                        <tr>\
+                            <th scope="row">Landkreis</th>\
+                            <td class="visible-with-data">' + (feature.properties['gen'] || '') + '</td>\
+                        </tr>\
+                    </table>';
+
     layer.bindPopup(popupContent, {
         minWidth: 350,
         maxWidth: 800,
