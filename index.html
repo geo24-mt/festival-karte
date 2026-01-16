@@ -530,6 +530,26 @@
         <script src="data/Kreise_1.js"></script>
         <script src="data/Festivals_kreis_2.js"></script>
         <script>
+			var festivalLinkListe = {};
+
+// Wir laden die externe Textdatei
+fetch('url/url_adressen.txt')
+    .then(response => response.text())
+    .then(data => {
+        // Die Datei wird Zeile für Zeile zerlegt
+        var zeilen = data.split('\n');
+        zeilen.forEach(zeile => {
+            // Wir trennen am Semikolon, wie in deiner Datei
+            var spalten = zeile.split(';');
+            if (spalten.length === 2) {
+                var name = spalten[0].trim();
+                var link = spalten[1].trim();
+                // Wir speichern das in einem "Wörterbuch" (Objekt)
+                festivalLinkListe[name] = link;
+            }
+        });
+    })
+    .catch(error => console.log('Noch keine URL-Liste gefunden oder Fehler beim Laden:', error));
         var highlightLayer;
         function highlightFeature(e) {
             highlightLayer = e.target;
@@ -658,6 +678,7 @@
     });
 }
 	function pop_Festivals_kreis_2(feature, layer) {
+    // 1. Tooltip (wie gehabt)
     if (feature.properties['Festival_N']) {
         layer.bindTooltip(String(feature.properties['Festival_N']), {
             sticky: true,
@@ -665,9 +686,22 @@
         });
     }
 
-    // Hier wird der Name oben zentriert und fett gesetzt
+    // 2. Logik für den Link aus deiner Textdatei
+    var fName = feature.properties['Festival_N'] || 'Unbekanntes Festival';
+    
+    // Wir schauen in der Liste nach, die wir oben per fetch laden
+    var zielUrl = festivalLinkListe[fName];
+    
+    // Wenn kein Link in der TXT steht, nutzen wir die Google-Suche als Backup
+    if (!zielUrl) {
+        zielUrl = "https://www.google.com/search?q=" + encodeURIComponent(fName + " Festival Saarland");
+    }
+
+    // 3. Den gesamten Popup-Inhalt zusammenbauen
     var popupContent = '<div style="text-align: center; font-weight: bold; font-size: 16px; margin-bottom: 10px; border-bottom: 1px solid #ccc; padding-bottom: 5px;">' + 
-                        (feature.properties['Festival_N'] || 'Unbekanntes Festival') + 
+                        '<a href="' + zielUrl + '" target="_blank" rel="noopener noreferrer" style="color: #3498db; text-decoration: none;">' + 
+                            fName + 
+                        '</a>' +
                        '</div>' +
                        '<table>\
                         <tr>\
@@ -710,6 +744,7 @@
                         </tr>\
                     </table>';
 
+    // 4. Popup an den Layer binden
     layer.bindPopup(popupContent, {
         minWidth: 350,
         maxWidth: 800,
