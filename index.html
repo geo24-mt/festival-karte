@@ -533,29 +533,28 @@
         <script>
 			var festivalLinkListe = {};
 
-// Wir laden die Datei und erzwingen durch den Zeitstempel (?_t=...), dass GitHub die frischeste Version schickt
-fetch('url/url_adressen.txt?_t=' + Date.now())
-    .then(response => {
-        if (!response.ok) throw new Error('Datei nicht gefunden');
-        return response.text();
-    })
+fetch('url/url_adressen.txt?v=' + Date.now())
+    .then(response => response.text())
     .then(data => {
-        // Wir teilen die Datei bei JEDER Art von Zeilenumbruch (RegEx: \r oder \n)
         var zeilen = data.split(/\r?\n/);
-        zeilen.forEach(zeile => {
-            if (zeile.includes(';')) {
-                var spalten = zeile.split(';');
-                if (spalten.length >= 2) {
-                    var name = spalten[0].trim();
-                    var link = spalten[1].trim();
-                    // Speichern in der globalen Liste
+        zeilen.forEach((zeile, index) => {
+            // 1. Überschrift in Zeile 1 überspringen
+            if (index === 0) return; 
+
+            var spalten = zeile.split(';');
+            if (spalten.length >= 2) {
+                // 2. Namen und URL säubern (trim)
+                var name = spalten[0].trim();
+                var link = spalten[1].trim();
+                
+                if (name && link) {
                     festivalLinkListe[name] = link;
                 }
             }
         });
-        console.log("Liste erfolgreich geladen:", festivalLinkListe);
+        console.log("Bereinigte Liste geladen:", festivalLinkListe);
     })
-    .catch(error => console.error('Fehler beim Laden der Textdatei:', error));
+    .catch(error => console.error('Fehler:', error));
 			
         var highlightLayer;
         function highlightFeature(e) {
