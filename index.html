@@ -828,33 +828,20 @@
             }
         });
 function filterKarte() {
-    // 1. Daten sammeln
-    // Holt alle Werte der Checkboxen (Landkreise), die einen Haken haben
     var gewaehlteKreise = Array.from(document.querySelectorAll('.kreis-check:checked')).map(cb => cb.value);
-    
-    // Prüft, ob die "Alle Landkreise"-Checkbox gehakt ist
     var alleKreiseAktiv = document.getElementById('all-kreise').checked;
-    
-    // NEU: Holt alle gecheckten Kategorien (Checkboxen statt Dropdown)
+    var alleKatAktiv = document.getElementById('all-kategorien').checked;
     var gewaehlteKat = Array.from(document.querySelectorAll('.kat-check:checked')).map(cb => cb.value);
-    
     var gewaehlterPreis = parseFloat(document.getElementById('preis-slider').value);
-
-    // Kalender-Daten
     var gewaehlteDaten = festivalKalender.selectedDates;
     var startFilter = null;
     var endFilter = null;
-
     if (gewaehlteDaten.length > 0) {
         startFilter = gewaehlteDaten[0];
         endFilter = gewaehlteDaten[1] ? gewaehlteDaten[1] : startFilter;
     }
-
-    // Preis-Anzeige aktualisieren
     var wertAnzeige = document.getElementById('preis-wert');
     if (wertAnzeige) wertAnzeige.innerText = gewaehlterPreis;
-
-    // Hilfsfunktion für Datum
     var parseDate = function(str) {
         if(!str) return null;
         var d = str.trim().split('.');
@@ -863,8 +850,6 @@ function filterKarte() {
         var jahr = d[2] ? parseInt(d[2]) : 2026;
         return new Date(jahr, monat, tag);
     };
-
-    // 2. Kreise/Landkreise auf der Karte filtern
     layer_Kreise_1.eachLayer(function(layer) {
         var name = String(layer.feature.properties['gen']);
         if (alleKreiseAktiv || gewaehlteKreise.includes(name)) {
@@ -873,8 +858,6 @@ function filterKarte() {
             layer.setStyle({opacity: 0, weight: 0, interactive: false});
         }
     });
-
-    // 3. Festivals filtern
     layer_Festivals_kreis_2.eachLayer(function(layer) {
         if (layer.feature && layer.feature.properties) {
             var props = layer.feature.properties;
@@ -882,8 +865,6 @@ function filterKarte() {
             var fKat = String(props['Kategorie']);
             var fPreis = parseFloat(props['Preise ab']);
             var fDatumRaw = String(props['Datum']); 
-            
-            // Datum Check
             var datumCheck = true; 
             if (startFilter && endFilter) {
                 var teile = fDatumRaw.split(/[-–]| bis /);
@@ -891,17 +872,9 @@ function filterKarte() {
                 var festivalEnd = teile[1] ? parseDate(teile[1]) : festivalStart;
                 datumCheck = (festivalStart <= endFilter && festivalEnd >= startFilter);
             }
-
-            // Landkreis Check
-            var kreisCheck = (alleKreiseAktiv || gewaehlteKreise.includes(fKreis));
-            
-            // NEU: Kategorie Check (Prüft ob die Festival-Kategorie in der Liste der gehakten Checkboxen ist)
-            var katCheck = (gewaehlteKat.length === 0 || gewaehlteKat.includes(fKat));
-            
-            // Preis Check
+			var kreisCheck = (alleKreiseAktiv || gewaehlteKreise.includes(fKreis));
+            var katCheck = (alleKatAktiv || gewaehlteKat.includes(fKat));
             var preisCheck = (isNaN(fPreis) || fPreis === null || fPreis <= gewaehlterPreis);
-
-            // Sichtbarkeit anwenden
             if (layer.getElement()) {
                 if (kreisCheck && katCheck && preisCheck && datumCheck) {
                     layer.getElement().style.display = 'block';
@@ -913,59 +886,46 @@ function filterKarte() {
     });
 }
 		function resetFilter() {
-    // 1. Alle Kreis-Checkboxen wieder an
     document.getElementById('all-kreise').checked = true;
     document.querySelectorAll('.kreis-check').forEach(cb => cb.checked = true);
-
-    // 2. NEU: Alle Kategorie-Checkboxen wieder an
     document.querySelectorAll('.kat-check').forEach(cb => cb.checked = true);
-
-    // 3. Preis zurücksetzen
     document.getElementById('preis-slider').value = 300;
     var preisAnzeige = document.getElementById('preis-wert');
     if (preisAnzeige) preisAnzeige.innerText = '300';
-    
-    // 4. Kalender leeren
     if (festivalKalender) {
         festivalKalender.clear();
         festivalKalender.jumpToDate(new Date());
     }
-    
     filterKarte();
 }
-		let festivalKalender;
-			document.addEventListener("DOMContentLoaded", function() {
-				const deCfg = {
-					weekdays: {
-						shorthand: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
-						longhand: ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"]
-					},
-					months: {
-						shorthand: ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
-						longhand: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"]
-					},
-					rangeSeparator: " bis ",
-					firstDayOfWeek: 1 
-				};
-				festivalKalender = flatpickr("#event-kalender", {
-				    mode: "range",
-				    inline: true,
-				    static: true,
-				    locale: deCfg, 
-				    dateFormat: "d.m.Y",
-				    theme: "dark",
-				    monthSelectorType: "static",
-				    // NEU: Diese Zeile erlaubt es, dass die Auswahl nach dem ersten Klick nicht "gesperrt" ist
-				    closeOnSelect: false, 
-					
-				    onChange: function(selectedDates, dateStr, instance) {
-				        // Wir filtern immer, egal ob 1 oder 2 Daten gewählt sind
+	let festivalKalender;
+		document.addEventListener("DOMContentLoaded", function() {
+			const deCfg = {
+				weekdays: {
+				shorthand: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
+				longhand: ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"]},
+				months: {
+				shorthand: ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
+				longhand: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"]},
+			rangeSeparator: " bis ",
+			firstDayOfWeek: 1 
+		};
+		festivalKalender = flatpickr("#event-kalender", {
+			mode: "range",
+			inline: true,
+			static: true,
+			locale: deCfg, 
+			dateFormat: "d.m.Y",
+			theme: "dark",
+			monthSelectorType: "static",
+				closeOnSelect: false,
+				onChange: function(selectedDates, dateStr, instance) {
 				        if (selectedDates.length > 0) {
 				            filterKarte();
 				        }
 				    }
 				});
-							});
+			});
 function toggleCheckboxes() {
     var list = document.getElementById("checkbox-list");
     if (list.style.display === "block") {
@@ -1011,6 +971,14 @@ function toggleAllKat(source) {
     checks.forEach(c => c.checked = source.checked);
     filterKarte();
 }
+function toggleKatCheckboxes() {
+    var list = document.getElementById("kat-checkbox-list");
+    if (list.style.display === "block") {
+        list.style.display = "none";
+    } else {
+        list.style.display = "block";
+    }
+}			
        </script>
     </body>
 </html>
