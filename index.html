@@ -423,7 +423,6 @@
 		</div>
    <div id="checkbox-list" class="checkbox-content">
     <input type="checkbox" id="all-kreise" style="display:none;" checked>
-		
 		    <div style="padding: 10px; display: flex; justify-content: center; gap: 15px; font-size: 13px; border-bottom: 1px solid #444; font-weight: bold; ">
 		        <span onclick="setAll(true)" style="cursor:pointer; color: #3498db;">[Alle an]</span>
 		        <span onclick="setAll(false)" style="cursor:pointer; color: #e74c3c;">[Alle aus]</span>
@@ -437,23 +436,24 @@
 	</div>
     </div>
 </div>
-	<div class="menu-wrapper" style="top: 32.3%; z-index: 9000;">
-		<div id="filter-kategorie" class="multiselect-container">
-       		<div class="select-box-header" onclick="toggleKatCheckboxes()">
-            	<span id="selected-kat-text">- Festival-Kategorie -</span>
-        	</div>
-        <div id="kat-checkbox-list" class="checkbox-content" style="display: none;">
-            <div style="padding: 10px; display: flex; justify-content: center; gap: 15px; font-size: 13px; border-bottom: 1px solid #444; font-weight: bold;">
-                <span onclick="setAllKat(true)" style="cursor:pointer; color: #3498db;">[Alle an]</span>
-                <span onclick="setAllKat(false)" style="cursor:pointer; color: #e74c3c;">[Alle aus]</span>
-            </div>
-            <label class="checkbox-item"><input type="checkbox" class="kat-check" value="Electro Festivals" onchange="filterKarte()" checked> Electro Festivals</label>
-            <label class="checkbox-item"><input type="checkbox" class="kat-check" value="Mittelalter Festivals" onchange="filterKarte()" checked> Mittelalter Festivals</label>
-            <label class="checkbox-item"><input type="checkbox" class="kat-check" value="Punk Festivals" onchange="filterKarte()" checked> Punk Festivals</label>
-            <label class="checkbox-item"><input type="checkbox" class="kat-check" value="Schlager Festivals" onchange="filterKarte()" checked> Schlager Festivals</label>
+<div class="menu-wrapper" style="top: 32.3%; z-index: 9000;">
+    <div id="filter-kategorie" class="multiselect-container">
+        <div class="select-box-header" onclick="toggleKatCheckboxes()">
+            <span id="selected-kat-text">- Festival-Kategorie -</span>
         </div>
-	    </div>
-	</div>
+        <div id="kat-checkbox-list" class="checkbox-content" style="display: none;">
+            <input type="checkbox" id="all-kategorien" style="display:none;" checked>
+	            <div style="padding: 10px; display: flex; justify-content: center; gap: 15px; font-size: 13px; border-bottom: 1px solid #444; font-weight: bold;">
+	                <span onclick="setAllKat(true)" style="cursor:pointer; color: #3498db;">[Alle an]</span>
+	                <span onclick="setAllKat(false)" style="cursor:pointer; color: #e74c3c;">[Alle aus]</span>
+	            </div>
+            <label class="checkbox-item"><input type="checkbox" class="kat-check" value="Electro Festivals" onchange="updateAllKatCheckbox(); filterKarte()" checked> Electro Festivals</label>
+            <label class="checkbox-item"><input type="checkbox" class="kat-check" value="Mittelalter Festivals" onchange="updateAllKatCheckbox(); filterKarte()" checked> Mittelalter Festivals</label>
+            <label class="checkbox-item"><input type="checkbox" class="kat-check" value="Punk Festivals" onchange="updateAllKatCheckbox(); filterKarte()" checked> Punk Festivals</label>
+            <label class="checkbox-item"><input type="checkbox" class="kat-check" value="Schlager Festivals" onchange="updateAllKatCheckbox(); filterKarte()" checked> Schlager Festivals</label>
+        </div>
+    </div>
+</div>
 		<div class="menu-wrapper" style="top: 40.6%;">
 			<div class="slider-container">
 				<label for="preis-slider" class="slider-label">
@@ -966,7 +966,7 @@ function filterKarte() {
 				    }
 				});
 							});
-			function toggleCheckboxes() {
+function toggleCheckboxes() {
     var list = document.getElementById("checkbox-list");
     if (list.style.display === "block") {
         list.style.display = "none";
@@ -974,50 +974,42 @@ function filterKarte() {
         list.style.display = "block";
     }
 }
-			// 1. Funktion für die neuen "Alle an/aus" Buttons
 function setAll(status) {
     document.getElementById('all-kreise').checked = status;
     var checks = document.querySelectorAll('.kreis-check');
     checks.forEach(c => c.checked = status);
     filterKarte();
 }
-
-// 2. Die Haupt-Checkbox steuert alle anderen
 function toggleAllKreise(source) {
     var checks = document.querySelectorAll('.kreis-check');
     checks.forEach(c => c.checked = source.checked);
     filterKarte();
 }
-
-// 3. NEU: Prüft bei jedem Klick, ob die "Alle"-Checkbox an oder aus sein muss
 function updateAllCheckbox() {
     var allCheckbox = document.getElementById('all-kreise');
     var checks = document.querySelectorAll('.kreis-check');
     var total = checks.length;
     var checkedCount = document.querySelectorAll('.kreis-check:checked').length;
-
-    // Wenn alle angehakt sind -> Haupt-Checkbox an
-    // Wenn auch nur einer fehlt -> Haupt-Checkbox aus
     allCheckbox.checked = (total === checkedCount);
 }
-		function toggleKatCheckboxes() {
-    var list = document.getElementById("kat-checkbox-list");
-    list.style.display = (list.style.display === "block") ? "none" : "block";
-}
-
-function setAllKat(status) {
-    // 1. Holt alle Checkboxen, die zur Kategorie gehören
+// einstellungen für Checkbox Kategorie
+function updateAllKatCheckbox() {
+    var allCheckbox = document.getElementById('all-kategorien'); 
     var checks = document.querySelectorAll('.kat-check');
-    
-    // 2. Schleife durch alle gefundenen Boxen
-    checks.forEach(function(checkbox) {
-        checkbox.checked = status; // Setzt den Haken (true = an, false = aus)
-    });
-    
-    // 3. WICHTIG: Karte aktualisieren, damit die Änderungen sichtbar werden
-    if (typeof filterKarte === "function") {
-        filterKarte();
-    }
+    var total = checks.length;
+    var checkedCount = document.querySelectorAll('.kat-check:checked').length;
+    allCheckbox.checked = (total === checkedCount);
+}
+function setAllKat(status) {
+    document.getElementById('all-kategorien').checked = status;
+    var checks = document.querySelectorAll('.kat-check');
+    checks.forEach(c => c.checked = status);
+    filterKarte();
+}
+function toggleAllKat(source) {
+    var checks = document.querySelectorAll('.kat-check');
+    checks.forEach(c => c.checked = source.checked);
+    filterKarte();
 }
        </script>
     </body>
