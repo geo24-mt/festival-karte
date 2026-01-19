@@ -24,7 +24,6 @@
         }
         .leaflet-container {
             background: #fff;
-            padding-right: 0px;
         }
         .leaflet-popup-scrolled {
             border-bottom: unset!important;
@@ -69,7 +68,6 @@
         .leaflet-control-search .search-button,
          .leaflet-control-measure {
             background-color: #000000 !important;
-         /* ********** hier wurde was gelöscht ************** */   
             color: #98e2d1 !important;
         }
         .abstract {
@@ -210,6 +208,7 @@
     margin: 1px !important; 
     border: none !important;
 }
+
 
 
 
