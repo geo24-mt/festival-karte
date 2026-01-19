@@ -439,15 +439,14 @@
   </style>
         <title></title>
     </head>
-    <body>
+  <body>
     <div id="Überschrift">
         <h1>Die Bunte Welt der Festivals</h1>
     </div>
 
     <div class="karten-zentrierer">
 
-        <div class="menu-wrapper" style="z-index: 10000; top: 0%;">
-            <div id="filter-menu" class="multiselect-container">
+        <div class="menu-wrapper" style="z-index: 10000; top: 24%;"> <div id="filter-menu" class="multiselect-container">
                 <div class="select-box-header" onclick="toggleCheckboxes()">
                     <span id="selected-text">- Landkreis wählen -</span>
                 </div>
@@ -467,7 +466,7 @@
             </div>
         </div>
 
-        <div class="menu-wrapper" style="top: 8.3%; z-index: 9000;">
+        <div class="menu-wrapper" style="top: 32.3%; z-index: 9000;">
             <div id="filter-kategorie" class="multiselect-container">
                 <div class="select-box-header" onclick="toggleKatCheckboxes()">
                     <span id="selected-kat-text">- Festival-Kategorie -</span>
@@ -486,14 +485,14 @@
             </div>
         </div>
 
-        <div class="menu-wrapper" style="top: 16.6%;">
+        <div class="menu-wrapper" style="top: 40.6%;">
             <div class="slider-container">
                 <label for="preis-slider" class="slider-label">- Max. Preis: <span id="preis-wert">300</span> € -</label>
                 <input type="range" id="preis-slider" min="0" max="300" step="10" value="300" oninput="filterKarte()">
             </div>
         </div>
 
-        <div class="menu-wrapper" style="top: 25%;">
+        <div class="menu-wrapper" style="top: 49%;">
             <div class="slider-container" title="Tipp: Zeitraum wählen" style="background-color: rgb(30, 30, 30) !important;">
                 <input type="text" id="event-kalender" style="display: none;">
             </div>
@@ -505,8 +504,7 @@
             </button>
         </div>
 
-        <div class="legende-links" style="top: 34%;">
-            <div class="legende-item"><div class="icon-wrapper"><img src="Symbole/Electro_symbol.png"></div><span>Electro</span></div>
+        <div class="legende-links" style="top: 58%;"> <div class="legende-item"><div class="icon-wrapper"><img src="Symbole/Electro_symbol.png"></div><span>Electro</span></div>
             <div class="legende-item"><div class="icon-wrapper"><img src="Symbole/Mittelalter-Festival_schwarz_weiss_symbol.png"></div><span>Mittelalter</span></div>
             <div class="legende-item"><div class="icon-wrapper"><img src="Symbole/Punk_symbol.png"></div><span>Punk</span></div>
             <div class="legende-item"><div class="icon-wrapper"><img src="Symbole/Schlager_symbol.png"></div><span>Schlager</span></div>
@@ -514,15 +512,15 @@
 
         <div class="impressum-wrapper" style="top: 79%;">
             <a href="extras/impressum.html" target="_blank" style="text-decoration: none;">
-                <button id="impressum-button" style="background-color: rgb(30, 30, 30); color: white; border: none; border-radius: 9px; width: 100%; height: 40px; font-family: 'Montserrat', sans-serif; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; outline: none; background: linear-gradient(rgb(30, 30, 30), rgb(30, 30, 30)) padding-box, linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) border-box; box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);">
+                <button id="impressum-button" style="...">
                     Impressum
                 </button>
             </a>
         </div>
 
         <div id="map"></div>
+    </div>
 
-    </div> 
 		
         <script src="js/qgis2web_expressions.js"></script>
         <script src="js/leaflet.js"></script>
