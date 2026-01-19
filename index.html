@@ -356,11 +356,18 @@
     position: absolute !important;
     top: 0;
     left: 0;
+	stroke: #ff0000 !important; /* Rot während des Zeichnens */
+    stroke-width: 4px !important; /* Dickere Linie */
 }
 
 /* Stoppt Animationen, die die Klick-Position verfälschen könnten */
 #map, .karten-zentrierer {
     transition: none !important;
+}
+			.layer-measure-resultline {
+    stroke: #005bb7 !important; /* Blau nach Abschluss */
+    stroke-width: 4px !important;
+    stroke-dasharray: none !important; /* Durchgezogene Linie statt gestrichelt */
 }
 /* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
 @media (max-width: 768px) {
@@ -575,8 +582,6 @@ fetch('url/url_adressen.txt?v=' + Date.now())
             }
         });
         console.log("Bereinigte Liste geladen:", festivalLinkListe);
-
-        // NEU: Alle Popups auf der Karte aktualisieren, sobald die Liste da ist
         if (typeof layer_Festivals_kreis_2 !== 'undefined') {
             layer_Festivals_kreis_2.eachLayer(function(layer) {
                 pop_Festivals_kreis_2(layer.feature, layer);
@@ -631,6 +636,12 @@ fetch('url/url_adressen.txt?v=' + Date.now())
             primaryAreaUnit: 'sqmeters',
             secondaryAreaUnit: 'hectares',
 			localization: 'de'
+			// Hier passen wir die Optik an:
+		    activeColor: '#ff0000', // Ein kräftiges Rot während des Messens
+		    completedColor: '#005bb7', // Ein schönes Blau für die fertige Linie
+		    popupOptions: {
+		        className: 'leaflet-measure-resultpopup',
+		        autoPanPadding: [10, 10]}
         });
         measureControl.addTo(map);	
         var mE = document.getElementsByClassName('leaflet-control-measure')[0];
