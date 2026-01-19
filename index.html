@@ -352,87 +352,62 @@
 		}
 			
 /* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
-	@media (max-width: 768px) {
-	   html, body {
-	        height: auto !important; 
-	        min-height: 100vh; 
-	        overflow-y: auto !important;
-	        overflow-x: hidden;
-	        gap: 20px;
-	        display: flex;
-	        flex-direction: column;
-	    }
-	    #map {
-	        width: 90%;
-	        height: 400px; 
-	        order: 2;      
-	    }
-	    #Überschrift {
-	        height: auto;
-	        padding: 10px 0;
-	        order: 1;     
-	    }
-	    #Überschrift h1 {
-	        font-size: 1.5em;
-	    }
-	    .legende-links {
-	        position: relative; 
-	        left: 0;
-	        top: 0;
-	        transform: none;
-	        width: 90%;
-	        box-sizing: border-box;
-	        order: 1;          
-	        flex-direction: row;
-	        flex-wrap: wrap;   
-	        justify-content: center;
-	        gap: 10px;
-	        padding: 10px 5px;
-	    }
-	    .legende-item {
-	        font-size: 13px;
-	        gap: 5px;
-	    }
-	    .icon-wrapper {
-	        width: 32px;
-	        height: 32px;
-	    }
-	    .icon-wrapper img {
-	        width: 24px;
-	        height: 24px;
-	    }
-	    .menu-wrapper {
-	        position: relative; 
-	        right: 0;
-	        top: auto !important; 
-	        width: 90%;
-	        margin: 10px;  ;
-	        box-sizing: border-box;
-	        order: 3;   
-			display: flex;
-	        flex-direction: column;
-	    }
-	    .slider-container {
-	        padding: 10px;
-	    }
-		.impressum-wrapper {
-        position: relative ; 
-        left: 0 ;
-        top: auto !important; 
-        width: 90% ;
-        margin: 0px auto ;
-        order: 6; 
-        display: flex; 
-		box-sizing: border-box;
-		flex-direction: column;
+@media (max-width: 768px) {
+    /* 1. Body öffnen: Erlaubt Scrollen nach unten, Buttons verschwinden nicht mehr */
+    html, body {
+        height: auto !important;
+        overflow-y: auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
     }
-	    .menu-wrapper:has(#event-kalender) {
-	        order: 4; 
-	    }
-	    .menu-wrapper:has(#reset-button) {
-	        order: 5; 
-	    }
-	}
+
+    /* 2. Überschrift: IMMER oben fixieren */
+    #Überschrift {
+        order: -1 !important; /* Kleiner als alle anderen, also Platz 1 */
+        width: 100% !important;
+        margin-bottom: 20px;
+        position: relative !important;
+    }
+
+    /* 3. Container: Muss flexibel sein, damit Inhalt nicht abgeschnitten wird */
+    .karten-zentrierer {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        height: auto !important; 
+        width: 100% !important;
+        order: 1 !important; /* Nach der Überschrift */
+    }
+
+    /* 4. Karte: Feste Größe am Handy */
+    #map {
+        height: 400px !important;
+        width: 95% !important;
+        order: 1 !important; /* Innerhalb des Zentrierers ganz oben */
+        position: relative !important;
+    }
+
+    /* 5. Menüs & Legende: Unter die Karte schieben */
+    .menu-wrapper, .legende-links, .impressum-wrapper {
+        position: relative !important;
+        left: auto !important;
+        right: auto !important;
+        top: auto !important;
+        margin: 10px auto !important;
+        width: 90% !important;
+        transform: none !important;
+    }
+
+    /* Genaue Reihenfolge UNTER der Karte */
+    .legende-links { order: 2 !important; }
+    .menu-wrapper:has(#filter-menu) { order: 3 !important; }
+    .menu-wrapper:has(#filter-kategorie) { order: 4 !important; }
+    .menu-wrapper:has(#preis-slider) { order: 5 !important; }
+    .menu-wrapper:has(#event-kalender) { order: 6 !important; }
+    .menu-wrapper:has(#reset-button) { order: 7 !important; }
+    .impressum-wrapper { order: 8 !important; } /* Das Impressum ganz unten */
+}
 			
   </style>
         <title></title>
