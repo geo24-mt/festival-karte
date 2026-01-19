@@ -397,6 +397,8 @@
         margin: 10px auto !important;
         width: 90% !important;
         transform: none !important;
+		max-width: none !important; /* DAS HIER löscht die 240px-Begrenzung */
+        min-width: 0 !important;    /* Verhindert, dass alte Mindestmaße stören */
     }
 
     /* Genaue Reihenfolge UNTER der Karte */
