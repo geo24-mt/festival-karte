@@ -1012,7 +1012,21 @@ function toggleKatCheckboxes() {
     } else {
         list.style.display = "block";
     }
-}			
+}	
+			// Verhindert das Springen der Maus beim Messen/Klicken
+map.on('mousedown', function() {
+    map.invalidateSize();
+});
+
+// Spezieller Fix für das Mess-Tool
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('leaflet-control-measure-toggle') || 
+        e.target.closest('.leaflet-control-measure')) {
+        setTimeout(function() {
+            map.invalidateSize();
+        }, 100);
+    }
+});
        </script>
     </body>
 </html>
