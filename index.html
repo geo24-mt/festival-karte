@@ -1064,6 +1064,21 @@ map.getContainer().addEventListener('mousedown', function () {
     map._container._leaflet_pos = null; 
     map.invalidateSize({pan: false});
 }, true);
+// Koordinaten-Fix für mittig platzierte Karten
+L.DomEvent._getOffset = function (e) {
+    var container = map.getContainer();
+    var rect = container.getBoundingClientRect();
+    
+    // Wir berechnen: Mausposition minus Randabstand der Karte
+    return L.point(
+        e.clientX - rect.left - (container.clientLeft || 0),
+        e.clientY - rect.top - (container.clientTop || 0)
+    );
+};
+
+// Dieser Befehl zwingt Leaflet, die Maße neu zu berechnen
+map.invalidateSize();
+			
        </script>
     </body>
 </html>
