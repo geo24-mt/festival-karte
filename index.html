@@ -1023,18 +1023,36 @@ function toggleKatCheckboxes() {
     } else {
         list.style.display = "block";
     }
-}	// Dieser Teil korrigiert die Koordinaten-Berechnung beim Messen
+}	
+			
+			// 1. Koordinaten-Fix: Berechnet den Klick exakt relativ zum echten Kartenrand
+L.DomEvent._getOffset = function (e) {
+    var container = map.getContainer();
+    var rect = container.getBoundingClientRect();
+    var clientLeft = container.clientLeft || 0;
+    var clientTop = container.clientTop || 0;
+
+    return L.point(
+        e.clientX - rect.left - clientLeft,
+        e.clientY - rect.top - clientTop
+    );
+};
+
+// 2. Refresh bei Mess-Start und Positions-Fix für die Mess-Ebene
 map.on('measurestart', function() {
-    // Kurze Verzögerung, damit Leaflet die Position des Containers prüft
-    setTimeout(function() {
-        map.invalidateSize(false); 
-    }, 10);
+    map.invalidateSize({pan: false});
+    var inter = document.querySelector('.leaflet-measure-interaction');
+    if (inter) {
+        inter.style.top = '0px';
+        inter.style.left = '0px';
+    }
 });
 
-// Der "Anker-Fix": Bei jedem Klick auf die Karte wird der Nullpunkt neu kalibriert
-L.DomEvent.on(map.getContainer(), 'mousedown', function() {
+// 3. Karte bei Klick "nullen"
+map.getContainer().addEventListener('mousedown', function () {
+    map._container._leaflet_pos = null; 
     map.invalidateSize({pan: false});
-}, this);
+}, true);
        </script>
     </body>
 </html>
