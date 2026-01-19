@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="css/fontawesome-all.min.css">
         <link rel="stylesheet" href="css/leaflet-search.css">
         <link rel="stylesheet" href="css/leaflet.photon.css">
-        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <link rel="stylesheet" href="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.css" />
 		<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/de.js"></script>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 		<link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
@@ -454,7 +454,7 @@
         <title></title>
     </head>
   <body>
-	 <div id="map" style="width: 800px; height: 600px; border: 2px solid red; position: relative;"></div>
+
     <div id="Überschrift">
         <h1>Die Bunte Welt der Festivals</h1>
     </div>
@@ -542,7 +542,7 @@
 </button>
             </a>
         </div>
-
+	 <div id="map"></div>
        
     </div>
 
@@ -560,7 +560,7 @@
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
         <script src="js/leaflet.photon.js"></script>
-        <script src="js/leaflet-measure.js"></script>
+       <script src="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.min.js"></script>
         <script src="js/leaflet-search.js"></script>
         <script src="data/Kreise_1.js"></script>
         <script src="data/Festivals_kreis_2.js"></script>
@@ -630,27 +630,17 @@ fetch('url/url_adressen.txt?v=' + Date.now())
             position: 'topleft'
         }).addTo(map);
         L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
-        var measureControl = new L.Control.Measure({
-            position: 'topleft',
-            primaryLengthUnit: 'meters',
-            secondaryLengthUnit: 'kilometers',
-            primaryAreaUnit: 'sqmeters',
-            secondaryAreaUnit: 'hectares',
-			localization: 'de',
-			// Hier passen wir die Optik an:
-		    activeColor: '#ff0000', // Ein kräftiges Rot während des Messens
-		    completedColor: '#005bb7', // Ein schönes Blau für die fertige Linie
-		    popupOptions: {
-		        className: 'leaflet-measure-resultpopup',
-		        autoPanPadding: [10, 10]}
-        });
-        measureControl.addTo(map);	
-        var mE = document.getElementsByClassName('leaflet-control-measure')[0];
-        var mT = document.getElementsByClassName('leaflet-control-measure-toggle')[0];
-        if (mE) { mE.style.borderRadius = '12px'; mE.style.overflow = 'hidden'; }
-        if (mT) { mT.style.borderRadius = '10px'; mT.style.overflow = 'hidden'; }
-        document.getElementsByClassName('leaflet-control-measure-toggle')[0].innerHTML = '';
-        document.getElementsByClassName('leaflet-control-measure-toggle')[0].className += ' fas fa-ruler';
+      // Hier fügst du jetzt Geoman ein:
+map.pm.addControls({
+    position: 'topleft',
+    drawMarker: false,
+    drawPolyline: true,
+    drawPolygon: true,
+    editMode: false,
+    removalMode: true
+});
+map.pm.setLang('de');
+map.pm.setGlobalOptions({ measurements: { display: true, unit: 'm' } });
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
         }
@@ -1036,40 +1026,7 @@ function toggleKatCheckboxes() {
         list.style.display = "block";
     }
 }	
-		// --- FINALE MESS-TOOL STEUERUNG (OHNE HOPPSEN) ---
-
-// 1. Die präzise Koordinaten-Transformation
-L.DomEvent._getOffset = function (e) {
-    var container = map.getContainer();
-    var rect = container.getBoundingClientRect();
-    
-    // Wir ziehen den exakten Abstand der Karte vom Fensterrand ab
-    // (Inklusive Rahmen/Border der Karte)
-    return L.point(
-        e.clientX - rect.left - (container.clientLeft || 0),
-        e.clientY - rect.top - (container.clientTop || 0)
-    );
-};
-
-// 2. Kalibrierung beim Start
-map.on('measurestart', function() {
-    // Einmalige Korrektur der Zeichenebene
-    var inter = document.querySelector('.leaflet-measure-interaction');
-    if (inter) {
-        inter.style.top = '0px';
-        inter.style.left = '0px';
-    }
-    // WICHTIG: Kein invalidateSize hier, das triggert oft das Hoppsen!
-});
-
-// 3. Der radikale Klick-Fix
-// Wir entfernen das mousedown-Event komplett, da es die Position 
-// der Karte während der Messung stört.
-
-// Letzter Check beim Laden
-setTimeout(function() {
-    map.invalidateSize({pan: false});
-}, 100);
+	
        </script>
     </body>
 </html>
