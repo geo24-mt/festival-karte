@@ -77,7 +77,8 @@
 			.my-tooltip, 
 			.landkreis-tooltip, 
 			.legende-links, 
-			.menu-wrapper {
+			.menu-wrapper
+			.impressum-wrapper{
 			    background: 
 			        linear-gradient(rgba(30, 30, 30, 0.9), rgba(30, 30, 30, 0.9)) padding-box, 
 			        linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) border-box;
@@ -106,7 +107,7 @@
 				font-size: 14px;
 				font-weight: bold;
 		}
-			.menu-wrapper {
+			.menu-wrapper, .impressum-wrapper {
 			    position: fixed;
 			    right: 2.5%; 
 			    top: 24%;
@@ -407,16 +408,21 @@
 	        display: flex;
 	        flex-direction: column;
 	    }
-		
+		.impressum-wrapper {
+        position: relative !important; 
+        left: 0 !important;
+        top: 0 !important;
+        width: 95% !important;
+        margin: 10px auto !important;
+        order: 6; /* Schiebt ihn ganz nach unten */
+        display: flex; /* Hilft bei der Ausrichtung */
+    }
 	    .menu-wrapper:has(#event-kalender) {
 	        order: 4; 
 	    }
 	    .menu-wrapper:has(#reset-button) {
 	        order: 5; 
 	    }
-		.menu-wrapper:has(#impressum-button) {
-	        order: 6; 
-		}
 	}
 			
   </style>
@@ -521,7 +527,7 @@
         <span>Schlager</span>
     </div>
 </div>
-	<div class="menu-wrapper" style="position: fixed; left: 4%; top: 78%; right: auto; width: 220px; z-index: 2000;">
+	<div class="impressum-wrapper" style="position: fixed; left: 4%; top: 78%; right: auto; width: 220px; z-index: 2000;">
     <a href="extras/impressum.html" target="_blank" style="text-decoration: none;">
         <button id="impressum-button" style="
             background-color: rgb(30, 30, 30); 
