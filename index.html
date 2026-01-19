@@ -1035,23 +1035,26 @@ function toggleKatCheckboxes() {
         list.style.display = "block";
     }
 }	
-			
-			// 1. Koordinaten-Fix: Berechnet den Klick exakt relativ zum echten Kartenrand
+			// --- OPTIMIERTE MESS-TOOL STEUERUNG ---
+
+// 1. EINZIGER Koordinaten-Fix (vereint und stabil)
 L.DomEvent._getOffset = function (e) {
     var container = map.getContainer();
     var rect = container.getBoundingClientRect();
-    var clientLeft = container.clientLeft || 0;
-    var clientTop = container.clientTop || 0;
-
+    
+    // Berechnet den Klick exakt relativ zum Container-Rand
     return L.point(
-        e.clientX - rect.left - clientLeft,
-        e.clientY - rect.top - clientTop
+        e.clientX - rect.left - (container.clientLeft || 0),
+        e.clientY - rect.top - (container.clientTop || 0)
     );
 };
 
-// 2. Refresh bei Mess-Start und Positions-Fix für die Mess-Ebene
+// 2. Mess-Start Kalibrierung
 map.on('measurestart', function() {
+    // Nur einmal die Größe anpassen, ohne die Position zu löschen
     map.invalidateSize({pan: false});
+    
+    // Fix für die Interaktions-Ebene
     var inter = document.querySelector('.leaflet-measure-interaction');
     if (inter) {
         inter.style.top = '0px';
@@ -1059,24 +1062,19 @@ map.on('measurestart', function() {
     }
 });
 
-// 3. Karte bei Klick "nullen"
+// 3. Entschärfter Klick-Fix
+// Wir führen das invalidateSize nur aus, wenn NICHT gerade gemessen wird,
+// um das Hoppsen der Messlinie zu verhindern.
 map.getContainer().addEventListener('mousedown', function () {
-    map._container._leaflet_pos = null; 
-    map.invalidateSize({pan: false});
+    // Prüfen, ob das Mess-Tool NICHT aktiv ist (verhindert Hoppsen)
+    var isMeasuring = document.querySelector('.leaflet-measure-interaction');
+    if (!isMeasuring) {
+        if (map._container) { map._container._leaflet_pos = null; }
+        map.invalidateSize({pan: false});
+    }
 }, true);
-// Koordinaten-Fix für mittig platzierte Karten
-L.DomEvent._getOffset = function (e) {
-    var container = map.getContainer();
-    var rect = container.getBoundingClientRect();
-    
-    // Wir berechnen: Mausposition minus Randabstand der Karte
-    return L.point(
-        e.clientX - rect.left - (container.clientLeft || 0),
-        e.clientY - rect.top - (container.clientTop || 0)
-    );
-};
 
-// Dieser Befehl zwingt Leaflet, die Maße neu zu berechnen
+// Letzter Befehl beim Laden der Seite
 map.invalidateSize();
 			
        </script>
