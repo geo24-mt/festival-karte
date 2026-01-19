@@ -631,16 +631,33 @@ fetch('url/url_adressen.txt?v=' + Date.now())
         }).addTo(map);
         L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
       // Hier fügst du jetzt Geoman ein:
+// Geoman konfigurieren: Nur Messen, kein Bearbeiten der Landkreise
 map.pm.addControls({
     position: 'topleft',
     drawMarker: false,
-    drawPolyline: true,
-    drawPolygon: true,
-    editMode: false,
-    removalMode: true
+    drawCircleMarker: false,
+    drawPolyline: true,   // Strecke messen
+    drawPolygon: true,    // Fläche messen
+    drawRectangle: false,
+    drawCircle: false,
+    drawText: false,
+    editMode: false,      // WICHTIG: Verhindert das Ändern der Landkreise
+    dragMode: false,      // WICHTIG: Verhindert das Verschieben der Landkreise
+    cutPolygon: false,
+    removalMode: true     // Mülleimer zum Löschen der Messung
 });
+
+// Sprache und Einheiten
 map.pm.setLang('de');
-map.pm.setGlobalOptions({ measurements: { display: true, unit: 'm' } });
+map.pm.setGlobalOptions({ 
+    measurements: { display: true, unit: 'm' },
+    snappingFraction: 0 // Verhindert, dass die Maus an Linien "klebt"
+});
+
+// Extra Sicherheit: Bestehende Layer (Landkreise) für Geoman sperren
+map.on('layeradd', function(e) {
+    if (e.layer.pm) { e.layer.pm.disable(); }
+});
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
         }
