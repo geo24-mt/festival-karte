@@ -233,19 +233,19 @@
 				box-shadow: none !important;
 		}
 			.legende-links {
-    position: fixed;
-    left: 4%;
-    top: 58%;
-    transform: translateY(-50%);
-    padding: 15px 30px;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    width: 220px; 
-    box-sizing: border-box; 
-	
-}
+			    position: fixed;
+			    left: 4%;
+			    top: 58%;
+			    transform: translateY(-50%);
+			    padding: 15px 30px;
+			    border-radius: 12px;
+			    display: flex;
+			    flex-direction: column;
+			    gap: 15px;
+			    width: 220px; 
+			    box-sizing: border-box; 
+				
+		}
 			.legende-item {
 			    display: flex;
 			    align-items: center;
@@ -351,7 +351,7 @@
 	        flex-direction: column;
 	    }
 	    #map {
-	        width: 95%;
+	        width: 90%;
 	        height: 400px; 
 	        order: 2;      
 	    }
@@ -368,7 +368,7 @@
 	        left: 0;
 	        top: 0;
 	        transform: none;
-	        width: 95%;
+	        width: 90%;
 	        box-sizing: border-box;
 	        order: 1;          
 	        flex-direction: row;
@@ -393,7 +393,7 @@
 	        position: relative; 
 	        right: 0;
 	        top: 0;
-	        width: 95%;
+	        width: 90%;
 	        margin: 0 auto;
 	        box-sizing: border-box;
 	        order: 3;          
@@ -407,12 +407,17 @@
 	        display: flex;
 	        flex-direction: column;
 	    }
+		
 	    .menu-wrapper:has(#event-kalender) {
 	        order: 4; 
 	    }
 	    .menu-wrapper:has(#reset-button) {
 	        order: 5; 
-	    }}
+	    }
+		.menu-wrapper:has(#impressum-button) {
+	        order: 6; 
+		}
+	}
 			
   </style>
         <title></title>
