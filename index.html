@@ -107,14 +107,26 @@
 				font-size: 14px;
 				font-weight: bold;
 		}
-			.menu-wrapper, .impressum-wrapper {
+			.menu-wrapper, .impressum-wrapper, .legende-links {
 			    position: fixed;
 			    top: 24%;
 			    z-index: 2000;
-			    width: 220px;
 			    padding: 3px;
 			    border-radius: 12px; 
 				box-sizing: border-box;
+				width: 15vw;       /* Nimmt 15% der verfügbaren Bildschirmbreite ein */
+			    min-width: 180px;  /* Wird aber nie schmaler als 180px, damit man noch was liest */
+			    max-width: 240px;  /* Und nie breiter als 240px */
+		}
+			.legende-links {
+			    left: 4%;
+			    top: 58%;
+			    transform: translateY(-50%);
+			    padding: 15px 30px;
+			    display: flex;
+			    flex-direction: column;
+			    gap: 15px;
+				
 		}
 			.menu-wrapper{
 				right: 2.5%;
@@ -140,7 +152,6 @@
     			text-align-last: center;
 				height: 40px;
 		}
-			
 			.slider-container {
 				background-color: rgba(30, 30, 30, 0.95) !important;
 				border-radius: 9px;
@@ -238,20 +249,6 @@
 			.flatpickr-day.inRange {
 				background: rgba(118, 199, 192, 0.15) !important;
 				box-shadow: none !important;
-		}
-			.legende-links {
-			    position: fixed;
-			    left: 4%;
-			    top: 58%;
-			    transform: translateY(-50%);
-			    padding: 15px 30px;
-			    border-radius: 12px;
-			    display: flex;
-			    flex-direction: column;
-			    gap: 15px;
-			    width: 220px; 
-			    box-sizing: border-box; 
-				
 		}
 			.legende-item {
 			    display: flex;
@@ -531,7 +528,7 @@
         <span>Schlager</span>
     </div>
 </div>
-	<div class="impressum-wrapper" style="top: 78%;">
+	<div class="impressum-wrapper" style="top: 79%;">
     <a href="extras/impressum.html" target="_blank" style="text-decoration: none;">
         <button id="impressum-button" style="
             background-color: rgb(30, 30, 30); 
