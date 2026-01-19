@@ -1035,48 +1035,40 @@ function toggleKatCheckboxes() {
         list.style.display = "block";
     }
 }	
-			// --- OPTIMIERTE MESS-TOOL STEUERUNG ---
+		// --- FINALE MESS-TOOL STEUERUNG (OHNE HOPPSEN) ---
 
-// 1. EINZIGER Koordinaten-Fix (vereint und stabil)
+// 1. Die präzise Koordinaten-Transformation
 L.DomEvent._getOffset = function (e) {
     var container = map.getContainer();
     var rect = container.getBoundingClientRect();
     
-    // Berechnet den Klick exakt relativ zum Container-Rand
+    // Wir ziehen den exakten Abstand der Karte vom Fensterrand ab
+    // (Inklusive Rahmen/Border der Karte)
     return L.point(
         e.clientX - rect.left - (container.clientLeft || 0),
         e.clientY - rect.top - (container.clientTop || 0)
     );
 };
 
-// 2. Mess-Start Kalibrierung
+// 2. Kalibrierung beim Start
 map.on('measurestart', function() {
-    // Nur einmal die Größe anpassen, ohne die Position zu löschen
-    map.invalidateSize({pan: false});
-    
-    // Fix für die Interaktions-Ebene
+    // Einmalige Korrektur der Zeichenebene
     var inter = document.querySelector('.leaflet-measure-interaction');
     if (inter) {
         inter.style.top = '0px';
         inter.style.left = '0px';
     }
+    // WICHTIG: Kein invalidateSize hier, das triggert oft das Hoppsen!
 });
 
-// 3. Entschärfter Klick-Fix
-// Wir führen das invalidateSize nur aus, wenn NICHT gerade gemessen wird,
-// um das Hoppsen der Messlinie zu verhindern.
-map.getContainer().addEventListener('mousedown', function () {
-    // Prüfen, ob das Mess-Tool NICHT aktiv ist (verhindert Hoppsen)
-    var isMeasuring = document.querySelector('.leaflet-measure-interaction');
-    if (!isMeasuring) {
-        if (map._container) { map._container._leaflet_pos = null; }
-        map.invalidateSize({pan: false});
-    }
-}, true);
+// 3. Der radikale Klick-Fix
+// Wir entfernen das mousedown-Event komplett, da es die Position 
+// der Karte während der Messung stört.
 
-// Letzter Befehl beim Laden der Seite
-map.invalidateSize();
-			
+// Letzter Check beim Laden
+setTimeout(function() {
+    map.invalidateSize({pan: false});
+}, 100);
        </script>
     </body>
 </html>
