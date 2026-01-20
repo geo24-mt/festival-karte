@@ -564,14 +564,30 @@ fetch('url/url_adressen.txt?v=' + Date.now())
 }).addTo(map);
 
 L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
-
-// Routing-Reset: Keine Koordinaten, keine Symbole
 var control = L.Routing.control({
-    waypoints: [], // Liste ist komplett leer
+    waypoints: [], // Startet leer ohne feste Punkte
+    lineOptions: {
+        styles: [{color: '#e74c3c', opacity: 0.8, weight: 6}] 
+    },
     language: 'de',
+    show: false, // Versteckt die Text-Anleitung standardmäßig (besser für Handys)
     routeWhileDragging: true,
-    show: true
+    collapsible: true, // Erlaubt das Einklappen der Wegbeschreibung
+    geocoder: L.Control.Geocoder ? L.Control.Geocoder.photon() : null // Optional: Suche
 }).addTo(map);
+
+// Interaktive Wegpunkte per Rechtsklick setzen
+map.on('contextmenu', function(e) {
+    var newWaypoint = e.latlng;
+    var existingWaypoints = control.getWaypoints();
+    
+    // Wenn noch kein Startpunkt da ist, setze Start. Sonst setze Ziel.
+    if (!existingWaypoints[0].latLng) {
+        control.spliceWaypoints(0, 1, newWaypoint);
+    } else {
+        control.spliceWaypoints(existingWaypoints.length - 1, 1, newWaypoint);
+    }
+});
 			
 var bounds_group = new L.featureGroup([]);
 function setBounds() {
