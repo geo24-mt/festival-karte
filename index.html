@@ -350,30 +350,24 @@
 			.checkbox-item:hover {
 			    background-color: #444;
 		}
-		/* Der Button mit Regenbogen-Rand und weißer Zwischenebene */
+		/* Der bunte Regenbogen-Rahmen */
 .leaflet-routing-container.leaflet-bar {
-    background: 
+   background: 
         linear-gradient(white, white) padding-box, 
         linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) border-box !important;
-    border: 3px solid transparent !important;
+    padding: 2px !important;
     border-radius: 12px !important;
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    width: 34px !important;
-    height: 34px !important;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5) !important;
-}
-
-/* Das Icon-Feld (macht den Standard-Hintergrund weg, damit das Weiß von oben wirkt) */
-.leaflet-routing-container.leaflet-bar a {
-    background-color: transparent !important;
     border: none !important;
     display: flex !important;
+}
+
+/* Das weiße Feld, in dem dein Symbol sitzt */
+.leaflet-routing-container.leaflet-bar a {
+    background-color: white !important;
+    border-radius: 10px !important;
+    display: flex !important;
     align-items: center;
     justify-content: center;
-    width: 100% !important;
-    height: 100% !important;
 }
 /* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
 @media (max-width: 768px) {
