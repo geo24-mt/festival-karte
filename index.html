@@ -350,37 +350,53 @@
 			.checkbox-item:hover {
 			    background-color: #444;
 		}
-/* SAUBERER ROUTING-BUTTON: Nur dieser Block ist nötig */
+/* --- DAS KOMPLETTE ROUTING-PAKET (BUTTON + FENSTER) --- */
 
-/* Der äußere Rahmen (Regenbogen) */
-.leaflet-control-container .leaflet-routing-container.leaflet-bar {
+/* 1. Der Button-Rahmen (Immer sichtbar) */
+.leaflet-routing-container.leaflet-bar {
     background: linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) !important;
     padding: 2px !important;
     border-radius: 12px !important;
-    border: none !important;
     width: 34px !important;
     height: 34px !important;
     display: flex !important;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+    border: none !important;
 }
 
-/* Das weiße Innere (Das <a> Tag, das wir im JS gleich erzeugen) */
+/* 2. Das weiße Quadrat mit dem R (Stabil im Button) */
 .leaflet-routing-container.leaflet-bar a {
     background-color: white !important;
     width: 30px !important;
     height: 30px !important;
     border-radius: 10px !important;
     display: flex !important;
-    align-items: center;
-    justify-content: center;
-    margin: 0 !important;
-    text-decoration: none !important;
-    color: #e74c3c !important; /* Farbe für das R */
-    font-family: 'Montserrat', sans-serif !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #e74c3c !important;
     font-weight: bold !important;
+    text-decoration: none !important;
     font-size: 18px !important;
+    margin: 0 !important;
+}
+
+/* 3. DAS FENSTER (Hier fehlte bisher das Gehäuse für den Text) */
+/* Wir sprechen das Element an, das den Text hält, wenn die Box KEIN Button ist */
+.leaflet-routing-container:not(.leaflet-bar),
+.leaflet-routing-itinerary {
+    background-color: white !important; /* Endlich ein Hintergrund! */
+    color: #333 !important;
+    border: 2px solid #e74c3c !important; /* Roter Rand wie gewünscht */
+    border-radius: 12px !important;
+    padding: 15px !important;
+    margin-top: 5px !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
+    max-height: 300px !important;
+    width: 260px !important;
+    overflow-y: auto !important;
+    font-family: 'Montserrat', sans-serif !important;
 }
 /* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
 @media (max-width: 768px) {
