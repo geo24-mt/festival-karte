@@ -626,11 +626,26 @@ fetch('url/url_adressen.txt?v=' + Date.now())
 					}, 10);
 			} else {
 				popup._contentNode.classList.remove('media');}}
-        var zoomControl = L.control.zoom({
-            position: 'topleft'
-        }).addTo(map);
-        L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
-   var measureControl = new L.Control.Measure({
+       var zoomControl = L.control.zoom({
+    position: 'topleft'
+}).addTo(map);
+
+L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+
+// --- HIER STARTET DER FIX FÜR DAS HOPPSEN ---
+(function() {
+    L.DomEvent._getOffset = function (e) {
+        var container = map.getContainer();
+        var rect = container.getBoundingClientRect();
+        return L.point(
+            Math.round(e.clientX - rect.left),
+            Math.round(e.clientY - rect.top)
+        );
+    };
+})();
+// --- ENDE DES FIXES ---
+
+var measureControl = new L.Control.Measure({
     position: 'topleft',
     primaryLengthUnit: 'meters',
     secondaryLengthUnit: 'kilometers',
@@ -639,11 +654,12 @@ fetch('url/url_adressen.txt?v=' + Date.now())
     localization: 'de'
 });
 measureControl.addTo(map);
-        var bounds_group = new L.featureGroup([]);
-        function setBounds() {
-        }
-        map.createPane('pane_GoogleMaps_0');
-        map.getPane('pane_GoogleMaps_0').style.zIndex = 400;
+
+var bounds_group = new L.featureGroup([]);
+function setBounds() {
+}
+map.createPane('pane_GoogleMaps_0');
+map.getPane('pane_GoogleMaps_0').style.zIndex = 400;
         var layer_GoogleMaps_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=m&hl=de&x={x}&y={y}&z={z}', {
             pane: 'pane_GoogleMaps_0',
             opacity: 1.0,
