@@ -391,13 +391,15 @@
     text-decoration: none !important;
 }
 
-/* 4. Das Icon (Wir nehmen ein einfaches 'R' als Notfall, falls FontAwesome hakt) */
+/* 4. Das Symbol 'R' - wir stellen sicher, dass es sichtbar ist */
 .leaflet-routing-container.leaflet-bar a::before {
-    content: 'R' !important; 
-    font-family: 'Montserrat', sans-serif;
-    font-weight: bold;
-    color: #e74c3c;
-    font-size: 18px;
+    content: 'R' !important;
+    display: block !important; /* Sicherstellen, dass es existiert */
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: bold !important;
+    color: #e74c3c !important;
+    font-size: 18px !important;
+    line-height: 1 !important; /* Verhindert, dass das R nach unten rutscht */
 }
 			
 /* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
