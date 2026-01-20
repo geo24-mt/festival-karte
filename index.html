@@ -350,103 +350,7 @@
 			.checkbox-item:hover {
 			    background-color: #444;
 		}
-/* --- DAS KOMPLETTE ROUTING-PAKET (BUTTON + FENSTER) --- */
 
-/* 1. Der Button-Rahmen (Immer sichtbar) */
-.leaflet-routing-container.leaflet-bar {
-    background: linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) !important;
-    padding: 2px !important;
-    border-radius: 12px !important;
-    width: 34px !important;
-    height: 34px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    box-sizing: border-box !important;
-    border: none !important;
-}
-
-/* 2. Das weiße Quadrat mit dem R (Stabil im Button) */
-.leaflet-routing-container.leaflet-bar a {
-    background-color: white !important;
-    width: 30px !important;
-    height: 30px !important;
-    border-radius: 10px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    color: #e74c3c !important;
-    font-weight: bold !important;
-    text-decoration: none !important;
-    font-size: 18px !important;
-    margin: 0 !important;
-}
-
-/* 3. DAS FENSTER (Hier fehlte bisher das Gehäuse für den Text) */
-/* Wir sprechen das Element an, das den Text hält, wenn die Box KEIN Button ist */
-.leaflet-routing-container:not(.leaflet-bar),
-.leaflet-routing-itinerary {
-    background-color: white !important; /* Endlich ein Hintergrund! */
-    color: #333 !important;
-    border: 2px solid #e74c3c !important; /* Roter Rand wie gewünscht */
-    border-radius: 12px !important;
-    padding: 15px !important;
-    margin-top: 5px !important;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
-    max-height: 300px !important;
-    width: 260px !important;
-    overflow-y: auto !important;
-    font-family: 'Montserrat', sans-serif !important;
-}
-/* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
-@media (max-width: 768px) {
-    /* 1. Body öffnen: Erlaubt Scrollen nach unten, Buttons verschwinden nicht mehr */
-    html, body {
-        height: auto !important;
-        overflow-y: auto !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-    }
-
-    /* 2. Überschrift: IMMER oben fixieren */
-    #Überschrift {
-        order: -1 !important; /* Kleiner als alle anderen, also Platz 1 */
-        width: 100% !important;
-        margin-bottom: 20px;
-        position: relative !important;
-    }
-
-    /* 3. Container: Muss flexibel sein, damit Inhalt nicht abgeschnitten wird */
-    .karten-zentrierer {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        height: auto !important; 
-        width: 100% !important;
-        order: 1 !important; /* Nach der Überschrift */
-    }
-
-    /* 4. Karte: Feste Größe am Handy */
-    #map {
-        height: 400px !important;
-        width: 90% !important;
-        order: 2 !important; /* Innerhalb des Zentrierers ganz oben */
-        position: relative !important;
-    }
-
-    /* 5. Menüs & Legende: Unter die Karte schieben */
-    .menu-wrapper, .legende-links, .impressum-wrapper {
-        position: relative !important;
-        left: auto !important;
-        right: auto !important;
-        top: auto !important;
-        margin: 10px auto !important;
-        width: 90% !important;
-        transform: none !important;
-		max-width: none !important; /* DAS HIER löscht die 240px-Begrenzung */
-        min-width: 0 !important;    /* Verhindert, dass alte Mindestmaße stören */
-    }
 
     /* Genaue Reihenfolge UNTER der Karte */
    .legende-links {
@@ -661,63 +565,14 @@ fetch('url/url_adressen.txt?v=' + Date.now())
 
 L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
 
-var routingAktiv = false;
-
-// 1. Routenplaner initialisieren
+// Routing-Reset: Keine Koordinaten, keine Symbole
 var control = L.Routing.control({
-    waypoints: [],
-    position: 'topleft',
+    waypoints: [], // Liste ist komplett leer
     language: 'de',
-    show: true, 
     routeWhileDragging: true,
-    itineraryClassName: 'routing-scroll-fix'
+    show: true
 }).addTo(map);
-
-// 2. Button-Körper erzwingen (Das räumt die 'topleft'-Probleme auf)
-var routingContainer = control.getContainer();
-var btnLink = routingContainer.querySelector('a');
-
-// Wenn das Plugin keinen Button baut, erstellen wir ihn hier sauber händisch:
-if (!btnLink) {
-    btnLink = L.DomUtil.create('a', '', routingContainer);
-    btnLink.href = '#';
-    btnLink.innerHTML = 'R'; 
-}
-
-// Klick-Logik
-L.DomEvent.on(routingContainer, 'click', function(e) {
-    L.DomEvent.stopPropagation(e);
-    L.DomEvent.preventDefault(e);
-    
-    routingAktiv = !routingAktiv;
-    btnLink.style.backgroundColor = routingAktiv ? '#dff0d8' : 'white';
-    
-    if (!routingAktiv) control.setWaypoints([]); 
-});
-
-// 3. Linksklick-Logik (Bleibt fast gleich, nur zur Sicherheit hier im Block)
-map.on('click', function(e) {
-    if (!routingAktiv) return; 
-    var waypoints = control.getPlan().getWaypoints();
-    if (!waypoints[0].latLng) {
-        control.spliceWaypoints(0, 1, e.latlng);
-    } else if (!waypoints[1].latLng) {
-        control.spliceWaypoints(1, 1, e.latlng);
-    } else {
-        control.setWaypoints([e.latlng]);
-    }
-});
-
-// 4. Deine ESC-Logik
-document.addEventListener('keydown', function(e) {
-    if (e.key === "Escape") {
-        control.setWaypoints([]); 
-    }
-});
-
-// 5. Scroll-Stop (Die saubere Leaflet-Variante)
-L.DomEvent.disableScrollPropagation(routingContainer);
-L.DomEvent.disableClickPropagation(routingContainer);
+			
 var bounds_group = new L.featureGroup([]);
 function setBounds() {
 }
