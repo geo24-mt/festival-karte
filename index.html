@@ -752,6 +752,7 @@ map.getPane('pane_GoogleMaps_0').style.zIndex = 400;
         });
         bounds_group.addLayer(layer_Kreise_1);
         map.addLayer(layer_Kreise_1);
+			
 		function getFestivalIcon(kategorie) {
 	    var fileName;
 	    switch(kategorie) {
@@ -772,7 +773,24 @@ map.getPane('pane_GoogleMaps_0').style.zIndex = 400;
     });
 }
 function pop_Festivals_kreis_2(feature, layer) {
-    // 1. Tooltip (Name erscheint beim Drüberfahren)
+		// NEU: Klick-Logik für das Routing
+    layer.on('click', function(e) {
+        // Wir prüfen, ob der Routing-Container gerade sichtbar ist (Klasse .leaflet-bar vorhanden)
+        var routingAktiv = document.querySelector('.leaflet-routing-container.leaflet-bar');
+        
+        if (routingAktiv) {
+            // Verhindert, dass das Popup aufgeht
+            L.DomEvent.stopPropagation(e);
+            
+            // Setzt den Punkt als Ziel im Routing-Control
+            // 'control' muss der Name deiner L.Routing.control Variable sein
+            var waypoints = control.getPlan().getWaypoints();
+            control.spliceWaypoints(waypoints.length - 1, 1, e.latlng);
+            
+            console.log("Festival als Ziel gesetzt!");
+        }
+    });
+	
     if (feature.properties['Festival_N']) {
         layer.bindTooltip(String(feature.properties['Festival_N']), {
             sticky: true,
