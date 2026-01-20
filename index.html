@@ -350,21 +350,9 @@
 			.checkbox-item:hover {
 			    background-color: #444;
 		}
-/* 1. Die große Box (Wegbeschreibung) - Schlicht & Lesbar */
-.leaflet-routing-container:not(.leaflet-bar) {
-    background-color: white !important; /* Weißer Hintergrund für Lesbarkeit! */
-    color: #333 !important;
-    font-family: 'Montserrat', sans-serif !important;
-    border-radius: 12px;
-    padding: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    max-height: 350px;
-    overflow-y: auto;
-    pointer-events: auto !important;
-    border: 2px solid #e74c3c; /* Ein roter Rand passt zum Thema */
-}
+/* SAUBERER ROUTING-BUTTON: Nur dieser Block ist nötig */
 
-/* 2. Der Button-Container (Der bunte Rahmen) */
+/* Der äußere Rahmen (Regenbogen) */
 .leaflet-control-container .leaflet-routing-container.leaflet-bar {
     background: linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) !important;
     padding: 2px !important;
@@ -378,31 +366,21 @@
     cursor: pointer;
 }
 
-/* 3. Das weiße Innere - angepasst an deine Zoom-Buttons */
+/* Das weiße Innere (Das <a> Tag, das wir im JS gleich erzeugen) */
 .leaflet-routing-container.leaflet-bar a {
     background-color: white !important;
     width: 30px !important;
     height: 30px !important;
     border-radius: 10px !important;
-    margin: 1px !important; /* Wie bei deinen anderen Buttons */
     display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    overflow: hidden !important; /* Verhindert, dass das R "rausrutscht" */
+    align-items: center;
+    justify-content: center;
+    margin: 0 !important;
     text-decoration: none !important;
-}
-
-/* 4. Das Symbol 'R' - mit absoluter Zentrierung */
-.leaflet-routing-container.leaflet-bar a::before {
-    content: 'R' !important;
+    color: #e74c3c !important; /* Farbe für das R */
     font-family: 'Montserrat', sans-serif !important;
     font-weight: bold !important;
-    color: #e74c3c !important;
     font-size: 18px !important;
-    display: block !important;
-    line-height: 30px !important; /* Exakt so hoch wie der Button für vertikale Mitte */
-    text-align: center !important;
-    width: 100% !important;
 }
 /* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
 @media (max-width: 768px) {
@@ -669,7 +647,7 @@ L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
 
 var routingAktiv = false;
 
-// 1. Der Routenplaner (Startet jetzt im 'topleft' Bereich)
+// 1. Routenplaner initialisieren
 var control = L.Routing.control({
     waypoints: [],
     position: 'topleft',
@@ -679,22 +657,26 @@ var control = L.Routing.control({
     itineraryClassName: 'routing-scroll-fix'
 }).addTo(map);
 
-// 2. Den Button-Schalter robust einrichten
-var routingContainer = control.getContainer(); // Greift direkt auf das Element zu
+// 2. Button-Körper erzwingen (Das räumt die 'topleft'-Probleme auf)
+var routingContainer = control.getContainer();
+var btnLink = routingContainer.querySelector('a');
 
+// Wenn das Plugin keinen Button baut, erstellen wir ihn hier sauber händisch:
+if (!btnLink) {
+    btnLink = L.DomUtil.create('a', '', routingContainer);
+    btnLink.href = '#';
+    btnLink.innerHTML = 'R'; 
+}
+
+// Klick-Logik
 L.DomEvent.on(routingContainer, 'click', function(e) {
-    L.DomEvent.stopPropagation(e); // Verhindert Klick auf die Karte
+    L.DomEvent.stopPropagation(e);
     L.DomEvent.preventDefault(e);
     
     routingAktiv = !routingAktiv;
+    btnLink.style.backgroundColor = routingAktiv ? '#dff0d8' : 'white';
     
-    var btnLink = routingContainer.querySelector('a');
-    if (routingAktiv) {
-        btnLink.style.backgroundColor = '#dff0d8'; // Grün für "AN"
-    } else {
-        btnLink.style.backgroundColor = 'white';
-        control.setWaypoints([]); // Karte säubern
-    }
+    if (!routingAktiv) control.setWaypoints([]); 
 });
 
 // 3. Linksklick-Logik (Bleibt fast gleich, nur zur Sicherheit hier im Block)
