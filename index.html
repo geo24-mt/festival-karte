@@ -351,7 +351,7 @@
 			    background-color: #444;
 		}
 		
-/* 1. Das Gehäuse (Der Button-Rahmen + Weiß) */
+/* 1. Das Gehäuse (Style bleibt, aber Breite nur für den Button-Modus fest) */
 .leaflet-routing-container {
     background: 
         linear-gradient(white, white) padding-box, 
@@ -359,37 +359,41 @@
     border: 3px solid transparent !important;
     border-radius: 10px !important;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5) !important;
-	width: 36px !important;
-    height: 36px !important;
     display: flex !important;
-    flex-direction: column; /* Stapelt Icon oben und Text unten */
+    flex-direction: column;
     overflow: visible;
-	cursor: pointer;
+    cursor: pointer;
+    /* Entferne hier die feste width: 36px! */
 }
 
-/* 2. Das Icon-Feld (Hier sitzt dein Symbol drin) */
-.leaflet-routing-container a.leaflet-routing-handle, 
+/* 2. NUR wenn es in der Button-Leiste ist, bekommt es die 36px x 36px */
+.leaflet-routing-container.leaflet-bar {
+    width: 36px !important;
+    height: 36px !important;
+}
+
+/* 3. Das Icon-Feld (Hier sitzt dein Symbol drin) */
 .leaflet-routing-container a {
-    background: transparent !important; /* Kein eigenes Weiß, nutzt das vom Container */
+    background: transparent !important;
     border: none !important;
     box-shadow: none !important;
-    width: 30px !important; /* Feste Größe, damit das Symbol Platz hat */
+    width: 30px !important; 
     height: 30px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    margin: 0 auto !important; /* Zentriert das Icon im Gehäuse */
+    margin: 0 auto !important;
     padding: 0 !important;
 }
 
-/* 3. Die Wegbeschreibung (Der Text unter dem Icon) */
+/* 4. Die Wegbeschreibung (Darf sich jetzt wieder ausbreiten) */
 .leaflet-routing-itinerary {
     background: white !important;
     color: black !important;
     font-family: 'Montserrat', sans-serif;
     font-size: 14px;
-    border-top: 1px solid #eee; /* Kleine Trennung zum Button oben */
     padding: 10px !important;
+    min-width: 200px !important; /* Gibt dem Text Platz zum Atmen */
 }
 /* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
 @media (max-width: 768px) {
