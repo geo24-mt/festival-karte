@@ -689,6 +689,13 @@ map.on('click', function(e) {
         control.spliceWaypoints(1, 1, newWaypoint);
     }
 });
+var container = control.getContainer();
+
+// Verhindert, dass das Scrollen im Fenster die Karte bewegt
+L.DomEvent.disableScrollPropagation(container);
+
+// Verhindert zusätzlich, dass Klicks im Fenster die Karte beeinflussen
+L.DomEvent.disableClickPropagation(container);
 
 var bounds_group = new L.featureGroup([]);
 function setBounds() {
