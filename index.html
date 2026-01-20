@@ -378,30 +378,32 @@
     cursor: pointer;
 }
 
-/* 3. Das weiße Innere des Buttons (Dort wo man klickt) */
+/* 3. Das weiße Innere - angepasst an deine Zoom-Buttons */
 .leaflet-routing-container.leaflet-bar a {
     background-color: white !important;
     width: 30px !important;
     height: 30px !important;
     border-radius: 10px !important;
+    margin: 1px !important; /* Wie bei deinen anderen Buttons */
     display: flex !important;
-    align-items: center;
-    justify-content: center;
-    margin: 0 !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important; /* Verhindert, dass das R "rausrutscht" */
     text-decoration: none !important;
 }
 
-/* 4. Das Symbol 'R' - wir stellen sicher, dass es sichtbar ist */
+/* 4. Das Symbol 'R' - mit absoluter Zentrierung */
 .leaflet-routing-container.leaflet-bar a::before {
     content: 'R' !important;
-    display: block !important; /* Sicherstellen, dass es existiert */
     font-family: 'Montserrat', sans-serif !important;
     font-weight: bold !important;
     color: #e74c3c !important;
     font-size: 18px !important;
-    line-height: 1 !important; /* Verhindert, dass das R nach unten rutscht */
+    display: block !important;
+    line-height: 30px !important; /* Exakt so hoch wie der Button für vertikale Mitte */
+    text-align: center !important;
+    width: 100% !important;
 }
-			
 /* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
 @media (max-width: 768px) {
     /* 1. Body öffnen: Erlaubt Scrollen nach unten, Buttons verschwinden nicht mehr */
