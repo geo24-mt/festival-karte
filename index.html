@@ -350,6 +350,23 @@
 			.checkbox-item:hover {
 			    background-color: #444;
 		}
+			/* Der bunte Regenbogen-Rahmen */
+.leaflet-routing-container.leaflet-bar {
+    background: linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) !important;
+    padding: 2px !important;
+    border-radius: 12px !important;
+    border: none !important;
+    display: flex !important;
+}
+
+/* Das weiße Feld, in dem dein Symbol sitzt */
+.leaflet-routing-container.leaflet-bar a {
+    background-color: white !important;
+    border-radius: 10px !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
 /* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
 @media (max-width: 768px) {
     /* 1. Body öffnen: Erlaubt Scrollen nach unten, Buttons verschwinden nicht mehr */
