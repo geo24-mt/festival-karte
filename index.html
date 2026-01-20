@@ -350,55 +350,54 @@
 			.checkbox-item:hover {
 			    background-color: #444;
 		}
-/* 1. NUR für die große weiße Box (Wegbeschreibung) */
-/* Wir sprechen sie gezielt an, wenn sie KEINE 'leaflet-bar' ist */
+/* 1. Die große Box (Wegbeschreibung) - Schlicht & Lesbar */
 .leaflet-routing-container:not(.leaflet-bar) {
-    pointer-events: auto !important;
-    overflow-y: auto !important;
-    max-height: 400px;
-    background-color: rgba(255, 255, 255, 0.9) !important;
-    font-family: 'Montserrat', sans-serif !important;
-    border-radius: 12px !important;
+    background-color: white !important; /* Weißer Hintergrund für Lesbarkeit! */
     color: #333 !important;
-    padding: 10px !important;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
+    font-family: 'Montserrat', sans-serif !important;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    max-height: 350px;
+    overflow-y: auto;
+    pointer-events: auto !important;
+    border: 2px solid #e74c3c; /* Ein roter Rand passt zum Thema */
 }
 
-/* 2. NUR für den Button links (Regenbogen-Design) */
-.leaflet-routing-container.leaflet-bar {
+/* 2. Der Button-Container (Der bunte Rahmen) */
+.leaflet-control-container .leaflet-routing-container.leaflet-bar {
     background: linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) !important;
     padding: 2px !important;
     border-radius: 12px !important;
     border: none !important;
-    margin-left: 10px !important;
-    width: 34px !important; /* Festlegen der Button-Größe */
+    width: 34px !important;
     height: 34px !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
 
-/* 3. Die weiße Innenfläche des Buttons */
+/* 3. Das weiße Innere des Buttons (Dort wo man klickt) */
 .leaflet-routing-container.leaflet-bar a {
     background-color: white !important;
+    width: 30px !important;
+    height: 30px !important;
     border-radius: 10px !important;
     display: flex !important;
     align-items: center;
     justify-content: center;
-    width: 30px !important;
-    height: 30px !important;
     margin: 0 !important;
+    text-decoration: none !important;
 }
 
-/* 4. Das Icon im Button */
+/* 4. Das Icon (Wir nehmen ein einfaches 'R' als Notfall, falls FontAwesome hakt) */
 .leaflet-routing-container.leaflet-bar a::before {
-    content: '\f4d7'; 
-    font-family: 'Font Awesome 5 Free';
-    font-weight: 900;
+    content: 'R' !important; 
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
     color: #e74c3c;
-    font-size: 16px;
-}
-
-/* Hover-Effekt für die Box */
-.leaflet-routing-container:not(.leaflet-bar):hover {
-    cursor: default;
+    font-size: 18px;
 }
 			
 /* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
@@ -676,26 +675,27 @@ var control = L.Routing.control({
     itineraryClassName: 'routing-scroll-fix'
 }).addTo(map);
 
-// 2. Den Button-Schalter einrichten
-var routingButton = document.querySelector('.leaflet-routing-container.leaflet-bar a');
-if (routingButton) {
-    routingButton.addEventListener('click', function(e) {
-        e.preventDefault();
-        routingAktiv = !routingAktiv;
-        
-        if (routingAktiv) {
-            this.style.backgroundColor = '#dff0d8'; // Grünliche Markierung
-        } else {
-            this.style.backgroundColor = 'white';
-            control.setWaypoints([]); // Route löschen beim Ausschalten
-        }
-    });
-}
+// 2. Den Button-Schalter robust einrichten
+var routingContainer = control.getContainer(); // Greift direkt auf das Element zu
 
-// 3. Linksklick-Logik (Nur aktiv, wenn routingAktiv auf true steht)
+L.DomEvent.on(routingContainer, 'click', function(e) {
+    L.DomEvent.stopPropagation(e); // Verhindert Klick auf die Karte
+    L.DomEvent.preventDefault(e);
+    
+    routingAktiv = !routingAktiv;
+    
+    var btnLink = routingContainer.querySelector('a');
+    if (routingAktiv) {
+        btnLink.style.backgroundColor = '#dff0d8'; // Grün für "AN"
+    } else {
+        btnLink.style.backgroundColor = 'white';
+        control.setWaypoints([]); // Karte säubern
+    }
+});
+
+// 3. Linksklick-Logik (Bleibt fast gleich, nur zur Sicherheit hier im Block)
 map.on('click', function(e) {
     if (!routingAktiv) return; 
-
     var waypoints = control.getPlan().getWaypoints();
     if (!waypoints[0].latLng) {
         control.spliceWaypoints(0, 1, e.latlng);
@@ -706,17 +706,16 @@ map.on('click', function(e) {
     }
 });
 
-// 4. Deine ESC-Logik (Zum schnellen Säubern der Karte)
+// 4. Deine ESC-Logik
 document.addEventListener('keydown', function(e) {
     if (e.key === "Escape") {
         control.setWaypoints([]); 
     }
 });
 
-// 5. Scroll-Stop (Verhindert Zoom-Hüpfer beim Scrollen in der Liste)
-var routingContainer = control.getContainer();
-L.DomEvent.on(routingContainer, 'mousewheel', L.DomEvent.stopPropagation);
-
+// 5. Scroll-Stop (Die saubere Leaflet-Variante)
+L.DomEvent.disableScrollPropagation(routingContainer);
+L.DomEvent.disableClickPropagation(routingContainer);
 var bounds_group = new L.featureGroup([]);
 function setBounds() {
 }
