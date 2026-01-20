@@ -350,7 +350,55 @@
 			.checkbox-item:hover {
 			    background-color: #444;
 		}
+/* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
+@media (max-width: 768px) {
+    /* 1. Body öffnen: Erlaubt Scrollen nach unten, Buttons verschwinden nicht mehr */
+    html, body {
+        height: auto !important;
+        overflow-y: auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+    }
 
+    /* 2. Überschrift: IMMER oben fixieren */
+    #Überschrift {
+        order: -1 !important; /* Kleiner als alle anderen, also Platz 1 */
+        width: 100% !important;
+        margin-bottom: 20px;
+        position: relative !important;
+    }
+
+    /* 3. Container: Muss flexibel sein, damit Inhalt nicht abgeschnitten wird */
+    .karten-zentrierer {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        height: auto !important; 
+        width: 100% !important;
+        order: 1 !important; /* Nach der Überschrift */
+    }
+
+    /* 4. Karte: Feste Größe am Handy */
+    #map {
+        height: 400px !important;
+        width: 90% !important;
+        order: 2 !important; /* Innerhalb des Zentrierers ganz oben */
+        position: relative !important;
+    }
+
+    /* 5. Menüs & Legende: Unter die Karte schieben */
+    .menu-wrapper, .legende-links, .impressum-wrapper {
+        position: relative !important;
+        left: auto !important;
+        right: auto !important;
+        top: auto !important;
+        margin: 10px auto !important;
+        width: 90% !important;
+        transform: none !important;
+		max-width: none !important; /* DAS HIER löscht die 240px-Begrenzung */
+        min-width: 0 !important;    /* Verhindert, dass alte Mindestmaße stören */
+    }
 
     /* Genaue Reihenfolge UNTER der Karte */
    .legende-links {
@@ -564,6 +612,7 @@ fetch('url/url_adressen.txt?v=' + Date.now())
 }).addTo(map);
 
 L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+
 var control = L.Routing.control({
     waypoints: [], // Startet leer ohne feste Punkte
     lineOptions: {
@@ -588,7 +637,7 @@ map.on('contextmenu', function(e) {
         control.spliceWaypoints(existingWaypoints.length - 1, 1, newWaypoint);
     }
 });
-			
+
 var bounds_group = new L.featureGroup([]);
 function setBounds() {
 }
