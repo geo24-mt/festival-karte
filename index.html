@@ -351,49 +351,35 @@
 			    background-color: #444;
 		}
 		
-/* 1. Das Gehäuse (Style bleibt, aber Breite nur für den Button-Modus fest) */
-.leaflet-routing-container {
+/* Der äußere Container - angepasst an Leaflet Standard + 3px Border */
+.leaflet-routing-container.leaflet-bar {
     background: 
         linear-gradient(white, white) padding-box, 
         linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) border-box !important;
     border: 3px solid transparent !important;
     border-radius: 10px !important;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5) !important;
+    min-width: 36px !important;
+    min-height: 36px !important;
     display: flex !important;
-    flex-direction: column;
-    overflow: visible;
+    align-items: center !important;
+    justify-content: center !important;
     cursor: pointer;
-    /* Entferne hier die feste width: 36px! */
+    overflow: visible; 
 }
 
-/* 2. NUR wenn es in der Button-Leiste ist, bekommt es die 36px x 36px */
-.leaflet-routing-container.leaflet-bar {
-    width: 36px !important;
-    height: 36px !important;
-}
-
-/* 3. Das Icon-Feld (Hier sitzt dein Symbol drin) */
-.leaflet-routing-container a {
+/* Das Icon-Feld im Inneren (Der eigentliche Button) */
+.leaflet-routing-container.leaflet-bar a {
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
-    width: 30px !important; 
+    width: 30px !important;
     height: 30px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    margin: 0 auto !important;
+    margin: 0 !important;
     padding: 0 !important;
-}
-
-/* 4. Die Wegbeschreibung (Darf sich jetzt wieder ausbreiten) */
-.leaflet-routing-itinerary {
-    background: white !important;
-    color: black !important;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 14px;
-    padding: 10px !important;
-    min-width: 200px !important; /* Gibt dem Text Platz zum Atmen */
 }
 /* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
 @media (max-width: 768px) {
