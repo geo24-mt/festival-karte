@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="css/fontawesome-all.min.css">
         <link rel="stylesheet" href="css/leaflet-search.css">
         <link rel="stylesheet" href="css/leaflet.photon.css">
-        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
 		<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/de.js"></script>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 		<link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
@@ -350,25 +350,6 @@
 			.checkbox-item:hover {
 			    background-color: #444;
 		}
-			
-			/* Fix für das Mess-Tool: Verhindert das Wegspringen der Linie */
-.leaflet-measure-interaction {
-    position: absolute !important;
-    top: 0;
-    left: 0;
-	stroke: #ff0000 !important; /* Rot während des Zeichnens */
-    stroke-width: 4px !important; /* Dickere Linie */
-}
-
-/* Stoppt Animationen, die die Klick-Position verfälschen könnten */
-#map, .karten-zentrierer {
-    transition: none !important;
-}
-			.layer-measure-resultline {
-    stroke: #005bb7 !important; /* Blau nach Abschluss */
-    stroke-width: 4px !important;
-    stroke-dasharray: none !important; /* Durchgezogene Linie statt gestrichelt */
-}
 /* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
 @media (max-width: 768px) {
     /* 1. Body öffnen: Erlaubt Scrollen nach unten, Buttons verschwinden nicht mehr */
@@ -560,7 +541,7 @@
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
         <script src="js/leaflet.photon.js"></script>
-        <script src="js/leaflet-measure.js"></script>
+        <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
         <script src="js/leaflet-search.js"></script>
         <script src="data/Kreise_1.js"></script>
         <script src="data/Festivals_kreis_2.js"></script>
@@ -632,28 +613,30 @@ fetch('url/url_adressen.txt?v=' + Date.now())
 
 L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
 
-// --- HIER STARTET DER FIX FÜR DAS HOPPSEN ---
-(function() {
-    L.DomEvent._getOffset = function (e) {
-        var container = map.getContainer();
-        var rect = container.getBoundingClientRect();
-        return L.point(
-            Math.round(e.clientX - rect.left),
-            Math.round(e.clientY - rect.top)
-        );
-    };
-})();
-// --- ENDE DES FIXES ---
+var control = L.Routing.control({
+    waypoints: [], // Startet leer ohne feste Punkte
+    lineOptions: {
+        styles: [{color: '#e74c3c', opacity: 0.8, weight: 6}] 
+    },
+    language: 'de',
+    show: false, // Versteckt die Text-Anleitung standardmäßig (besser für Handys)
+    routeWhileDragging: true,
+    collapsible: true, // Erlaubt das Einklappen der Wegbeschreibung
+    geocoder: L.Control.Geocoder ? L.Control.Geocoder.photon() : null // Optional: Suche
+}).addTo(map);
 
-var measureControl = new L.Control.Measure({
-    position: 'topleft',
-    primaryLengthUnit: 'meters',
-    secondaryLengthUnit: 'kilometers',
-    primaryAreaUnit: 'sqmeters',
-    secondaryAreaUnit: 'hectares',
-    localization: 'de'
+// Interaktive Wegpunkte per Rechtsklick setzen
+map.on('contextmenu', function(e) {
+    var newWaypoint = e.latlng;
+    var existingWaypoints = control.getWaypoints();
+    
+    // Wenn noch kein Startpunkt da ist, setze Start. Sonst setze Ziel.
+    if (!existingWaypoints[0].latLng) {
+        control.spliceWaypoints(0, 1, newWaypoint);
+    } else {
+        control.spliceWaypoints(existingWaypoints.length - 1, 1, newWaypoint);
+    }
 });
-measureControl.addTo(map);
 
 var bounds_group = new L.featureGroup([]);
 function setBounds() {
