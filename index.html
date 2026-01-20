@@ -613,28 +613,46 @@ fetch('url/url_adressen.txt?v=' + Date.now())
 
 L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
 
+var routingAktiv = false;
+
+// 1. Dein Control (Show auf false, damit es nicht leer rumbummelt)
 var control = L.Routing.control({
-    waypoints: [], // Startet leer ohne feste Punkte
+    waypoints: [],
     lineOptions: {
         styles: [{color: '#e74c3c', opacity: 0.8, weight: 6}] 
     },
     language: 'de',
-    show: false, // Versteckt die Text-Anleitung standardmäßig (besser für Handys)
+    show: false, 
     routeWhileDragging: true,
-    collapsible: true, // Erlaubt das Einklappen der Wegbeschreibung
-    geocoder: L.Control.Geocoder ? L.Control.Geocoder.photon() : null // Optional: Suche
+    collapsible: true,
+    geocoder: L.Control.Geocoder ? L.Control.Geocoder.photon() : null
 }).addTo(map);
 
-// Interaktive Wegpunkte per Rechtsklick setzen
-map.on('contextmenu', function(e) {
+// 2. WERKZEUG AKTIVIEREN (Über den Button)
+var routingContainer = control.getContainer();
+L.DomEvent.on(routingContainer, 'click', function(e) {
+    L.DomEvent.stopPropagation(e);
+    L.DomEvent.preventDefault(e);
+    
+    routingAktiv = !routingAktiv; // Schaltet das Werkzeug an/aus
+    
+    if (!routingAktiv) {
+        control.setWaypoints([]); // Karte leeren, wenn Werkzeug aus
+    }
+});
+
+// 3. LINKSKLICK ANPASSEN
+map.on('click', function(e) {
+    if (!routingAktiv) return; // Macht NUR etwas, wenn routingAktiv auf true steht
+    
     var newWaypoint = e.latlng;
     var existingWaypoints = control.getWaypoints();
     
-    // Wenn noch kein Startpunkt da ist, setze Start. Sonst setze Ziel.
-    if (!existingWaypoints[0].latLng) {
+    // Logik für Punkt 1 (Start) und Punkt 2 (Ziel)
+    if (!existingWaypoints[0] || !existingWaypoints[0].latLng) {
         control.spliceWaypoints(0, 1, newWaypoint);
     } else {
-        control.spliceWaypoints(existingWaypoints.length - 1, 1, newWaypoint);
+        control.spliceWaypoints(1, 1, newWaypoint);
     }
 });
 
