@@ -351,37 +351,42 @@
 			    background-color: #444;
 		}
 		
-.leaflet-routing-container.leaflet-bar {
-   background: 
-			        linear-gradient(white, white) padding-box, 
-			        linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) border-box;
-			    border: 3px solid transparent; 
-			    color: black;
-			    font-family: 'Montserrat', sans-serif;
-			    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
-				border-radius: 10px; 
-				padding: 8px 12px;
-				font-size: 14px;
-				display: flex !important;
-			    align-items: center;
-			    justify-content: center;
+/* 1. Das Gehäuse (Der Button-Rahmen + Weiß) */
+.leaflet-routing-container {
+    background: 
+        linear-gradient(white, white) padding-box, 
+        linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) border-box !important;
+    border: 3px solid transparent !important;
+    border-radius: 10px !important;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5) !important;
+    display: flex !important;
+    flex-direction: column; /* Stapelt Icon oben und Text unten */
+    overflow: hidden;
 }
 
+/* 2. Das Icon-Feld (Hier sitzt dein Symbol drin) */
+.leaflet-routing-container a.leaflet-routing-handle, 
+.leaflet-routing-container a {
+    background: transparent !important; /* Kein eigenes Weiß, nutzt das vom Container */
+    border: none !important;
+    box-shadow: none !important;
+    width: 32px !important; /* Feste Größe, damit das Symbol Platz hat */
+    height: 32px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 auto !important; /* Zentriert das Icon im Gehäuse */
+    padding: 0 !important;
+}
 
-.leaflet-routing-container.leaflet-bar a {
-    background: 
-			        linear-gradient(white, white) padding-box, 
-			        linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) border-box;
-			    border: 3px solid transparent; 
-			    color: black;
-			    font-family: 'Montserrat', sans-serif;
-			    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
-				border-radius: 10px; 
-				padding: 8px 12px;
-				font-size: 14px;
-				display: flex !important;
-			    align-items: center;
-			    justify-content: center;
+/* 3. Die Wegbeschreibung (Der Text unter dem Icon) */
+.leaflet-routing-itinerary {
+    background: white !important;
+    color: black !important;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    border-top: 1px solid #eee; /* Kleine Trennung zum Button oben */
+    padding: 10px !important;
 }
 /* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
 @media (max-width: 768px) {
