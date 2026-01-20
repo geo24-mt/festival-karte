@@ -350,6 +350,17 @@
 			.checkbox-item:hover {
 			    background-color: #444;
 		}
+			/* Erlaubt das Scrollen in der Routenliste */
+.leaflet-routing-container {
+    pointer-events: auto !important;
+    overflow-y: auto !important;
+    max-height: 400px; /* Damit es nicht über den Bildschirm hinausragt */
+}
+
+/* Verhindert das "Durch-Zoomen" auf die Karte */
+.leaflet-routing-container:hover {
+    cursor: default;
+}
 /* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
 @media (max-width: 768px) {
     /* 1. Body öffnen: Erlaubt Scrollen nach unten, Buttons verschwinden nicht mehr */
@@ -613,28 +624,40 @@ fetch('url/url_adressen.txt?v=' + Date.now())
 
 L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
 
+// 1. Der Routenplaner mit Scroll-Erlaubnis
 var control = L.Routing.control({
-    waypoints: [], // Startet leer ohne feste Punkte
-    lineOptions: {
-        styles: [{color: '#e74c3c', opacity: 0.8, weight: 6}] 
-    },
+    waypoints: [],
+    position: 'topleft',
     language: 'de',
-    show: false, // Versteckt die Text-Anleitung standardmäßig (besser für Handys)
+    show: true,
     routeWhileDragging: true,
-    collapsible: true, // Erlaubt das Einklappen der Wegbeschreibung
-    geocoder: L.Control.Geocoder ? L.Control.Geocoder.photon() : null // Optional: Suche
+    // Verhindert, dass das Mausrad die Karte zoomt, wenn man über der Liste ist
+    itineraryClassName: 'routing-scroll-fix' 
 }).addTo(map);
 
-// Interaktive Wegpunkte per Rechtsklick setzen
-map.on('contextmenu', function(e) {
-    var newWaypoint = e.latlng;
-    var existingWaypoints = control.getWaypoints();
+// 2. Linksklick-Logik zum Setzen der Punkte
+map.on('click', function(e) {
+    var container = control.getPlan();
+    var waypoints = container.getWaypoints();
     
-    // Wenn noch kein Startpunkt da ist, setze Start. Sonst setze Ziel.
-    if (!existingWaypoints[0].latLng) {
-        control.spliceWaypoints(0, 1, newWaypoint);
-    } else {
-        control.spliceWaypoints(existingWaypoints.length - 1, 1, newWaypoint);
+    // Prüfen: Ist der erste Punkt leer? Dann setze Start.
+    if (!waypoints[0].latLng) {
+        control.spliceWaypoints(0, 1, e.latlng);
+    } 
+    // Ist der zweite Punkt leer? Dann setze Ziel.
+    else if (!waypoints[1].latLng) {
+        control.spliceWaypoints(1, 1, e.latlng);
+    }
+    // Wenn schon zwei da sind, fängt man beim Klicken von vorne an (optional)
+    else {
+        control.setWaypoints([e.latlng]);
+    }
+});
+
+// 3. Route löschen mit der "Escape"-Taste
+document.addEventListener('keydown', function(e) {
+    if (e.key === "Escape") {
+        control.setWaypoints([]); // Löscht alle Punkte
     }
 });
 
