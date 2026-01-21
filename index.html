@@ -403,7 +403,6 @@
 			
 /* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
 @media (max-width: 768px) {
-    /* 1. Body öffnen: Erlaubt Scrollen nach unten, Buttons verschwinden nicht mehr */
     html, body {
         height: auto !important;
         overflow-y: auto !important;
@@ -411,46 +410,36 @@
         flex-direction: column !important;
         align-items: center !important;
     }
-
     #Überschrift {
         order: -1 !important;
         width: 100% !important;
-        height: auto !important;      /* ÄNDERUNG: Kasten wächst mit dem Text mit */
-        min-height: 80px !important;  /* Sorgt dafür, dass es nicht zu schmal wird */
-        padding: 10px 0 !important;   /* Etwas Puffer oben und unten */
+        height: auto !important;     
+        min-height: 80px !important;  
         margin-bottom: 20px;
         position: relative !important;
-        overflow: visible !important; /* ÄNDERUNG: Text darf umbrechen */
+        overflow: visible !important; 
     }
-
-    /* 2b. Der eigentliche Text (h1) in der Überschrift */
     #Überschrift h1 {
-        font-size: 1.8em !important;  /* ÄNDERUNG: Kleiner am Handy (vorher 2.8em) */
-        white-space: normal !important; /* ÄNDERUNG: Erlaubt Zeilenumbruch */
+        font-size: 1.8em !important;  
+        white-space: normal !important; 
         word-wrap: break-word !important;
         text-align: center !important;
-        margin: 5px 15px !important;  /* Seitlicher Abstand zum Rand */
+        margin: 5px 15px !important;  
     }
-
-    /* 3. Container: Muss flexibel sein, damit Inhalt nicht abgeschnitten wird */
     .karten-zentrierer {
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
         height: auto !important; 
         width: 100% !important;
-        order: 1 !important; /* Nach der Überschrift */
+        order: 1 !important; 
     }
-
-    /* 4. Karte: Feste Größe am Handy */
     #map {
         height: 400px !important;
         width: 90% !important;
-        order: 2 !important; /* Innerhalb des Zentrierers ganz oben */
+        order: 2 !important; 
         position: relative !important;
     }
-
-    /* 5. Menüs & Legende: Unter die Karte schieben */
     .menu-wrapper, .legende-links, .impressum-wrapper {
         position: relative !important;
         left: auto !important;
@@ -459,29 +448,24 @@
         margin: 10px auto !important;
         width: 90% !important;
         transform: none !important;
-		max-width: none !important; /* DAS HIER löscht die 240px-Begrenzung */
-        min-width: 0 !important;    /* Verhindert, dass alte Mindestmaße stören */
+		max-width: none !important; 
+        min-width: 0 !important; 
     }
-
-    /* Genaue Reihenfolge UNTER der Karte */
    .legende-links {
-        order: 1 !important; /* Zwischen Überschrift und Karte */
+        order: 1 !important; 
         position: relative !important;
         width: 90% !important;
         margin: 10px auto !important;
         padding: 10px 5px !important;
-        
-        /* Das hier sorgt für die Anordnung NEBENEINANDER */
         display: flex !important;
-        flex-direction: row !important; /* Symbole in einer Reihe */
-        flex-wrap: wrap !important;    /* Wenn eine Reihe voll ist, wird umgebrochen */
-        justify-content: center !important; /* Mittig ausrichten */
-        gap: 15px !important;          /* Abstand zwischen den Symbolen */
+        flex-direction: row !important; 
+        flex-wrap: wrap !important;   
+        justify-content: center !important; 
+        gap: 15px !important;         
     }
-
     .legende-item {
         display: flex !important;
-        flex-direction: row !important; /* Icon und Text nebeneinander */
+        flex-direction: row !important; 
         align-items: center !important;
         font-size: 13px !important;
         gap: 5px !important;
@@ -491,26 +475,26 @@
     .menu-wrapper:has(#preis-slider) { order: 5 !important; }
     .menu-wrapper:has(#event-kalender) { order: 6 !important; }
     .menu-wrapper:has(#reset-button) { order: 7 !important; }
-    .impressum-wrapper { order: 8 !important; } /* Das Impressum ganz unten */
+    .impressum-wrapper { order: 8 !important; } 
 }
-		/* Speziell für Bildschirme mit geringer Höhe (z.B. Laptops) */
 @media (max-height: 850px) {
     .flatpickr-calendar.inline {
-        transform: scale(0.85) !important; /* Verkleinert den Kalender um 15% */
+        transform: scale(0.8) !important;
         transform-origin: top center !important;
-        margin-top: -10px !important;
-        margin-bottom: -20px !important; /* Spart Platz nach unten */
+        margin-bottom: -35px !important; 
     }
-
+    .menu-wrapper:has(#event-kalender) {
+        max-height: 260px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        overflow: hidden !important;
+    }
     .flatpickr-day {
-        height: 24px !important; /* Macht die einzelnen Tage etwas flacher */
+        height: 24px !important; 
         line-height: 24px !important;
     }
-    
-    .menu-wrapper:has(#event-kalender) {
-        padding-bottom: 5px !important;
-    }
-}	
+}
   </style>
         <title></title>
     </head>
