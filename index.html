@@ -369,12 +369,13 @@
 			    min-height: 38px !important;
 				margin-top: 10px !important;
 		}
-/* Der Hover-Effekt (Zusatzblock ganz unten) */
 .leaflet-routing-container.leaflet-bar:hover {
-    transform: scale(1.1); /* Vergrößert den Button um 10% */
-    transition: transform 0.2s ease-in-out; /* Macht die Bewegung geschmeidig */
-    box-shadow: 0 6px 20px rgba(0,0,0,0.4) !important; /* Verstärkt den Schatten */
-	cursor: pointer !important;
+    transform: scale(1.1);
+    /* Der Fix: Er wächst jetzt vom oberen rechten Eck ausgehend nach innen */
+    transform-origin: top right; 
+    transition: transform 0.2s ease-in-out;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4) !important;
+    cursor: pointer !important;
 }
 
 /* Sorgt dafür, dass es auch beim Runtergehen der Maus weich zurückgleitet */
