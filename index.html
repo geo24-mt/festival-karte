@@ -248,9 +248,22 @@
 				min-width: 100% !important;
 				max-width: 100% !important;
 		}
-			.flatpickr-months {
-				height: 35px !important;   
-		}
+			/* 1. Den Header (Monat/Jahr) befreien */
+.flatpickr-months {
+    height: auto !important;          /* Keine feste Höhe mehr */
+    padding: 10px 0 !important;       /* Mehr Platz zum Atmen für "Januar" */
+    display: flex !important;
+    align-items: center !important;
+}
+
+.flatpickr-current-month {
+    font-size: 1.2em !important;      /* Stellt sicher, dass die Schrift passt */
+    position: relative !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
 			.flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange {
 				background: #76c7c0 !important;
 				border-color: #76c7c0 !important;
