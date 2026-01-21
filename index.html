@@ -386,19 +386,22 @@
     background-image: none !important;
     background: white !important; /* Macht den Button erst mal leer und weiß */
 }
-* Jetzt setzen wir dein Icon punktgenau ein */
+/* Wir nutzen das, was du in der Datei gefunden hast */
 .leaflet-routing-container.leaflet-bar a::before {
+    /* Das ist der Wert aus deiner Liste für fa-map-signs */
     content: "\f277" !important; 
+    
+    /* Der Name muss EXAKT so sein wie oben im @font-face deiner Datei */
     font-family: "Font Awesome 5 Free" !important; 
     font-weight: 900 !important; 
-    font-size: 18px !important;
-    color: #444 !important;
     
-    /* Zentrierung */
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    height: 100% !important;
+    /* Damit man es sieht */
+    color: #444 !important;
+    font-size: 18px !important;
+    display: block !important;
+    text-align: center !important;
+    line-height: 36px !important;
+    width: 100% !important;
 }
 .leaflet-routing-container {
     overflow-y: auto !important;
