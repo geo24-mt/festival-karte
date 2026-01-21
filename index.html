@@ -247,9 +247,15 @@
 
 /* 3. Die Tage: Deine 32px Maße + neue Farben */
 .flatpickr-day {
+    color: #ffffff !important;
     height: 32px !important;
     line-height: 32px !important;
-    color: #eee !important; /* Helle Zahlen */
+}
+
+/* Vormonat & Folgemonat: Deutlich dunkler (Anthrazit) */
+.flatpickr-day.prevMonthDay,
+.flatpickr-day.nextMonthDay {
+    color: #555555 !important; /* Dunkles Grau zur Abgrenzung */
 }
 
 /* Breite auf 100% zwingen */
@@ -292,21 +298,28 @@
     height: 14px !important;
 }
 
-/* 6. Monat/Jahr-Text in der Mitte */
+/* 1. Monat & Jahr perfekt als Einheit zentrieren */
 .flatpickr-current-month {
     position: static !important;
-    width: auto !important;
+    width: 100% !important; /* Nutzt den vollen Platz zwischen den Pfeilen */
     display: flex !important;
+    justify-content: center !important; /* Zentriert den Inhalt horizontal */
     align-items: center !important;
+    gap: 8px !important; /* Kleiner Abstand zwischen Monat und Jahr */
     font-size: 1.1em !important;
     background: transparent !important;
     color: white !important;
+    padding: 0 !important;
 }
-
-/* 7. Wochentage (Mo, Di...) */
+/* Sicherstellen, dass keine alten Floats die Zentrierung stören */
+.flatpickr-current-month .flatpickr-monthDropdown-months {
+    display: inline-block !important;
+    margin-right: 0 !important;
+}
+* Wochentage (Mo-So) ebenfalls klar in Weiß */
 .flatpickr-weekday {
-    background: #1a1a1a !important;
-    color: white !important;
+    background: transparent !important;
+    color: #ffffff !important;
     font-weight: bold !important;
 }
 
