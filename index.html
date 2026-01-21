@@ -225,42 +225,35 @@
 			#reset-button:hover,
 			#impressum-button:hover {
 				color: #f39c12 !important; 
-	/* 1. Die Kiste (Wrapper) bleibt flexibel */
+		}
+		/* 1. Die Kiste (Wrapper): Einfach nur Platz lassen */
 .menu-wrapper:has(#event-kalender) {
     height: auto !important;
     padding-bottom: 5px !important;
 }
 
-/* 2. Den Header-Balken einfärben, aber Layout in Ruhe lassen */
+/* 2. Der Header: Farbe setzen, Rest macht Flatpickr selbst */
 .flatpickr-months {
     background: #3f4853 !important;
-    border-radius: 10px 10px 0 0;
+    border-radius: 10px 10px 0 0; /* Oben abrunden passend zur Box */
 }
 
-/* 3. Pfeile: Transparent machen, aber ihre Position (absolute) lassen */
-.flatpickr-prev-month, 
-.flatpickr-next-month {
-    background: transparent !important; /* Kein schwarzer Hintergrund */
-    fill: white !important;             /* Pfeile weiß */
-    top: 5px !important;                /* Manuelle Justierung für die Höhe */
-}
-
-/* 4. DIE GRÖSSE: Hier holen wir uns die Lesbarkeit zurück */
-.flatpickr-calendar.inline {
-    width: 100% !important;
-    max-width: 100% !important;
-}
-
-.flatpickr-day {
-    height: 34px !important;      /* Schön groß zum Klicken */
-    line-height: 34px !important;
-    font-size: 14px !important;
-}
-
-/* 5. Wochentage (Mo, Di...) lesbar machen */
-.flatpickr-weekday {
+/* 3. Die Pfeile: Einfach nur transparent und weiß */
+.flatpickr-prev-month, .flatpickr-next-month {
+    background: transparent !important;
+    fill: white !important;
     color: white !important;
-    font-weight: bold !important;
+}
+
+/* 4. Die Tage: Ein kleines bisschen kompakter für den kleinen Monitor */
+.flatpickr-day {
+    height: 30px !important;
+    line-height: 30px !important;
+}
+
+/* 5. Verhindert das Abschneiden der Wochentage (Mo, Di...) */
+.flatpickr-weekdaycontainer {
+    display: flex !important;
 }
 		
 			.legende-item {
@@ -450,25 +443,18 @@
 		max-width: none !important; 
         min-width: 0 !important;  
     }
-  .legende-links {
-    order: 0 !important; 
-    position: relative !important;
-    width: 90% !important;
-    
-    /* Hier ist die Magie: */
-    margin-top: 25px !important;    /* Abstand zur Überschrift oben */
-    margin-bottom: 25px !important; /* Abstand zur Karte unten */
-    margin-left: auto !important;   /* Zentrierung links */
-    margin-right: auto !important;  /* Zentrierung rechts */
-    
-    padding: 10px 5px !important;   /* Innenabstand, damit Symbole nicht am Rahmen kleben */
-    
-    display: flex !important;
-    flex-direction: row !important; 
-    flex-wrap: wrap !important;   
-    justify-content: center !important;
-    gap: 15px !important; 
-}
+   .legende-links {
+        order: 0 !important; 
+        position: relative !important;
+        width: 90% !important;
+        margin-top: 0 !important; /* Verringert den Abstand nach oben */
+        padding: 10px 5px !important;
+        display: flex !important;
+        flex-direction: row !important; 
+        flex-wrap: wrap !important;   
+        justify-content: center !important;
+        gap: 15px !important; 
+    }
     .legende-item {
         display: flex !important;
         flex-direction: row !important; 
