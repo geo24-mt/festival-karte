@@ -225,75 +225,103 @@
 			#impressum-button:hover {
 				color: #f39c12 !important; 
 		}
-	.menu-wrapper:has(#event-kalender) {
-    height: auto !important;      /* Box passt sich dem Inhalt an */
-    max-height: none !important;   /* Keine künstliche Grenze mehr */
+	/* --- VOLLSTÄNDIGER KALENDER-FIX: MAẞE + FARBEN --- */
+
+/* 1. Der Container (Wrapper) bleibt so, wie du ihn erarbeitet hast */
+.menu-wrapper:has(#event-kalender) {
+    height: auto !important;
+    max-height: none !important;
     padding-bottom: 10px !important;
-    overflow: visible !important;  /* Nichts wird mehr abgeschnitten */
-}
-			.flatpickr-calendar.inline {
-    transform: none !important;    /* KEIN Schrumpfen mehr! */
-    margin: 0 auto !important;
-    width: 100% !important;
-    background: transparent !important;
+    overflow: visible !important;
 }
 
-.flatpickr-day {
-    height: 32px !important;       /* Standardgröße für gute Klickbarkeit */
-    line-height: 32px !important;
+/* 2. Die Grundgröße und der dunkle Hintergrund */
+.flatpickr-calendar.inline {
+    transform: none !important;
+    margin: 0 auto !important;
+    width: 100% !important;
+    background: #1a1a1a !important; /* Dunkler Hintergrund für den ganzen Kalender */
+    border: none !important;
+    box-shadow: none !important;
 }
-			flatpickr-innerContainer, .flatpickr-rContainer, .flatpickr-days, .dayContainer {
-				width: 100% !important;
-				min-width: 100% !important;
-				max-width: 100% !important;
-		}
-	/* 1. Header-Zeile als flexibler Container */
+
+/* 3. Die Tage: Deine 32px Maße + neue Farben */
+.flatpickr-day {
+    height: 32px !important;
+    line-height: 32px !important;
+    color: #eee !important; /* Helle Zahlen */
+}
+
+/* Breite auf 100% zwingen */
+.flatpickr-innerContainer, .flatpickr-rContainer, .flatpickr-days, .dayContainer {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+}
+
+/* 4. Der Header: Deine Flex-Struktur + dein Grau */
+.flatpickr-months {
+    background: #3f4853 !important; /* Dein Header-Grau */
+    border-radius: 10px 10px 0 0;
+}
+
 .flatpickr-month {
     display: flex !important;
     align-items: center !important;
-    justify-content: space-between !important; /* Pfeile links/rechts, Text Mitte */
+    justify-content: space-between !important;
     height: 45px !important;
     position: relative !important;
     padding: 0 10px !important;
+    background: transparent !important; /* Damit das Grau von .flatpickr-months durchscheint */
 }
 
-/* 2. Die Pfeile als normale Elemente in der Reihe */
-.flatpickr-prev-month, 
-.flatpickr-next-month {
+/* 5. Die Pfeile: Transparent und Weiß */
+.flatpickr-prev-month, .flatpickr-next-month {
     position: static !important; 
     display: flex !important;
     align-items: center !important;
     cursor: pointer !important;
     z-index: 10 !important;
     padding: 10px !important;
+    background: transparent !important;
 }
 
-/* 3. Den Text in der Mitte fixieren */
+.flatpickr-prev-month svg, .flatpickr-next-month svg {
+    fill: white !important;
+    width: 14px !important;
+    height: 14px !important;
+}
+
+/* 6. Monat/Jahr-Text in der Mitte */
 .flatpickr-current-month {
     position: static !important;
     width: auto !important;
     display: flex !important;
     align-items: center !important;
     font-size: 1.1em !important;
+    background: transparent !important;
+    color: white !important;
 }
 
-/* 4. Damit die Pfeile auch weiß/sichtbar sind */
-.flatpickr-prev-month svg, 
-.flatpickr-next-month svg {
-    fill: white !important;
-    width: 14px !important;
-    height: 14px !important;
+/* 7. Wochentage (Mo, Di...) */
+.flatpickr-weekday {
+    background: #1a1a1a !important;
+    color: white !important;
+    font-weight: bold !important;
 }
-			.flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange {
-				background: #76c7c0 !important;
-				border-color: #76c7c0 !important;
-				color: #1a1a1a !important; 
-				font-weight: bold;
-		}
-			.flatpickr-day.inRange {
-				background: rgba(118, 199, 192, 0.15) !important;
-				box-shadow: none !important;
-		}
+
+/* 8. Deine Selektions-Farben (Türkis) */
+.flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange {
+    background: #76c7c0 !important;
+    border-color: #76c7c0 !important;
+    color: #1a1a1a !important; 
+    font-weight: bold;
+}
+
+.flatpickr-day.inRange {
+    background: rgba(118, 199, 192, 0.15) !important;
+    box-shadow: none !important;
+}
 		
 			.legende-item {
 			    display: flex;
