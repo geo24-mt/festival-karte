@@ -1,21 +1,81 @@
 <!doctype html>
-<html lang="en">
-	<head>
-	<meta charset="utf-8">
-	<style>
-	
-	body {
-		text-align: center;
-		font-family: 'Montserrat', sans-serif;
-		}
-	</style>
-	</head>
-	<body>
-	
-	<h1>Impressum</h1>
-	<p>erstellt von Maria Treptow im Januar 2026</p>
-	<p>Die Daten der Landkreise wurden vom BKG zur verfügung gestellt.</p>
-	<p>BKG : https://www.bkg.bund.de/<br>
-	dl-de/by-2-0: https://www.govdata.de/dl-de/by-2-0</p>
-	</body>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impressum</title>
+    <style>
+        body {
+            background-color: #f4f7f6; /* Ein leichter Grauton, damit die weiße Box besser wirkt */
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        /* Die Impressum-Karte im Regenbogen-Stil */
+        .impressum-card {
+            background: 
+                linear-gradient(white, white) padding-box, 
+                linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) border-box;
+            border: 4px solid transparent;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            padding: 40px;
+            max-width: 600px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .impressum-card:hover {
+            transform: scale(1.02); /* Ein ganz dezenter Zoom-Effekt */
+        }
+
+        h1 {
+            color: #333;
+            margin-top: 0;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: #e74c3c;
+        }
+
+        .bkg-logo {
+            margin-top: 20px;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="impressum-card">
+        <h1>Impressum</h1>
+        <p><strong>Erstellt von:</strong><br> Maria Treptow (Januar 2026)</p>
+        
+        <p>Die Daten der Landkreise wurden vom <strong>Bundesamt für Kartographie und Geodäsie (BKG)</strong> zur Verfügung gestellt.</p>
+        
+        <div class="bkg-logo">
+            BKG: <a href="https://www.bkg.bund.de/" target="_blank">www.bkg.bund.de</a><br>
+            Lizenz dl-de/by-2-0: <a href="https://www.govdata.de/dl-de/by-2-0" target="_blank">govdata.de/dl-de/by-2-0</a>
+        </div>
+    </div>
+
+</body>
 </html>
