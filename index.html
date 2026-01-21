@@ -369,7 +369,7 @@
 			    min-height: 38px !important;
 		}
 /* Der Hover-Effekt (Zusatzblock ganz unten) */
-.leaflet-routing-container.leaflet-bar:hover {
+.leaflet-routing-container.leaflet-bar a:hover {
     transform: scale(1.1); /* Vergrößert den Button um 10% */
     transition: transform 0.2s ease-in-out; /* Macht die Bewegung geschmeidig */
     box-shadow: 0 6px 20px rgba(0,0,0,0.4) !important; /* Verstärkt den Schatten */
@@ -380,6 +380,10 @@
 .leaflet-routing-container.leaflet-bar {
     transition: transform 0.2s ease-in-out !important;
 }
+	.leaflet-routing-alt {
+    transform: none !important; /* Die Liste darf nicht zoomen */
+    cursor: default !important; /* Hier soll kein Pointer sein */
+}		
 			
 /* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
 @media (max-width: 768px) {
