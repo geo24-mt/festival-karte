@@ -371,6 +371,7 @@
 /* Das Icon-Feld im Inneren (Der eigentliche Button) */
 .leaflet-routing-container.leaflet-bar a {
     background-color: transparent !important;
+	background-image: none !important; /* Löscht das Standard-Hintergrundbild */
     width: 100% !important;
     height: 100% !important;
     display: flex !important;
@@ -378,21 +379,17 @@
     justify-content: center !important;
 	text-decoration: none !important;
 }
+	.leaflet-routing-container.leaflet-bar a svg {
+    display: none !important;
+}	
+/* 3. Dein neues Font-Awesome Icon erzwingen */
 .leaflet-routing-container.leaflet-bar a::before {
-    display: inline-block;
-    /* Wir nutzen 'map-signs' (Wegweiser), das ist in deiner Version 5.0.13 sicher drin */
     content: "\f277" !important; 
-    
-    /* Der Name laut deiner Datei ist Font Awesome 5 Free */
-    font-family: 'Font Awesome 5 Free' !important; 
+    font-family: "Font Awesome 5 Free" !important; 
     font-weight: 900 !important; 
-    
-    color: #444 !important;
     font-size: 18px !important;
-    font-style: normal;
-    font-variant: normal;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
+    color: #444 !important;
+    display: block !important;
 }
 .leaflet-routing-container {
     overflow-y: auto !important;
