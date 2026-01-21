@@ -274,6 +274,28 @@
 				background: rgba(118, 199, 192, 0.15) !important;
 				box-shadow: none !important;
 		}
+			/* Pfeile wieder an die richtige Stelle rücken */
+.flatpickr-prev-month, 
+.flatpickr-next-month {
+    position: absolute !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    padding: 5px !important;
+    height: 30px !important;
+    display: flex !important;
+    align-items: center !important;
+    z-index: 5 !important;
+}
+
+/* Linker Pfeil */
+.flatpickr-prev-month {
+    left: 5px !important;
+}
+
+/* Rechter Pfeil */
+.flatpickr-next-month {
+    right: 5px !important;
+}
 			.legende-item {
 			    display: flex;
 			    align-items: center;
@@ -533,7 +555,7 @@
             </div>
         </div>
 
-        <div class="menu-wrapper" style="top: 12%; z-index: 9000;">
+        <div class="menu-wrapper" style="top: 11%; z-index: 9000;">
             <div id="filter-kategorie" class="multiselect-container">
                 <div class="select-box-header" onclick="toggleKatCheckboxes()">
                     <span id="selected-kat-text">- Festival-Kategorie -</span>
@@ -552,20 +574,20 @@
             </div>
         </div>
 
-        <div class="menu-wrapper" style="top: 23%;">
+        <div class="menu-wrapper" style="top: 21%;">
             <div class="slider-container">
                 <label for="preis-slider" class="slider-label">- Max. Preis: <span id="preis-wert">300</span> € -</label>
                 <input type="range" id="preis-slider" min="0" max="300" step="10" value="300" oninput="filterKarte()">
             </div>
         </div>
 
-        <div class="menu-wrapper" style="top: 34%;">
+        <div class="menu-wrapper" style="top: 31%;">
             <div class="slider-container" title="Tipp: Zeitraum wählen" style="background-color: rgb(30, 30, 30) !important;">
                 <input type="text" id="event-kalender" style="display: none;">
             </div>
         </div>
 
-        <div class="menu-wrapper" style="top: 88%;">
+        <div class="menu-wrapper" style="top: 89%;">
             <button id="reset-button" onclick="resetFilter()" style="background-color: rgb(30, 30, 30); color: white; border: none; border-radius: 9px; width: 100%; height: 40px; font-family: 'Montserrat', sans-serif; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; outline: none;">
                 Filter zurücksetzen
             </button>
