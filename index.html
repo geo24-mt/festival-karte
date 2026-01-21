@@ -226,20 +226,23 @@
 			#impressum-button:hover {
 				color: #f39c12 !important; 
 		}
-		
+		.menu-wrapper:has(#event-kalender) {
+    height: auto !important;      /* Box passt sich dem Inhalt an */
+    max-height: none !important;   /* Keine künstliche Grenze mehr */
+    padding-bottom: 10px !important;
+    overflow: visible !important;  /* Nichts wird mehr abgeschnitten */
+}
 			.flatpickr-calendar.inline {
-				background: transparent !important;
-				border: none !important;
-				box-shadow: none !important;
-				transform: scale(1); 
-				transform-origin: top center; 
-				margin: 0 auto !important;
-				width: 100% !important;
-		}
-			.flatpickr-day {
-				height: 28px !important;    
-				line-height: 28px !important;
-		}	
+    transform: none !important;    /* KEIN Schrumpfen mehr! */
+    margin: 0 auto !important;
+    width: 100% !important;
+    background: transparent !important;
+}
+
+.flatpickr-day {
+    height: 32px !important;       /* Standardgröße für gute Klickbarkeit */
+    line-height: 32px !important;
+}
 			flatpickr-innerContainer, .flatpickr-rContainer, .flatpickr-days, .dayContainer {
 				width: 100% !important;
 				min-width: 100% !important;
