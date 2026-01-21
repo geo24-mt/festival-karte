@@ -226,80 +226,35 @@
 			#impressum-button:hover {
 				color: #f39c12 !important; 
 		}
-		.menu-wrapper:has(#event-kalender) {
-    height: auto !important;      /* Box passt sich dem Inhalt an */
-    max-height: none !important;   /* Keine künstliche Grenze mehr */
-    padding-bottom: 10px !important;
-    overflow: visible !important;  /* Nichts wird mehr abgeschnitten */
+		/* 1. Die Kiste (Wrapper): Einfach nur Platz lassen */
+.menu-wrapper:has(#event-kalender) {
+    height: auto !important;
+    padding-bottom: 5px !important;
 }
-			.flatpickr-calendar.inline {
-    transform: none !important;    /* KEIN Schrumpfen mehr! */
-    margin: 0 auto !important;
-    width: 100% !important;
+
+/* 2. Der Header: Farbe setzen, Rest macht Flatpickr selbst */
+.flatpickr-months {
+    background: #3f4853 !important;
+    border-radius: 10px 10px 0 0; /* Oben abrunden passend zur Box */
+}
+
+/* 3. Die Pfeile: Einfach nur transparent und weiß */
+.flatpickr-prev-month, .flatpickr-next-month {
     background: transparent !important;
-}
-
-.flatpickr-day {
-    height: 32px !important;       /* Standardgröße für gute Klickbarkeit */
-    line-height: 32px !important;
-}
-			flatpickr-innerContainer, .flatpickr-rContainer, .flatpickr-days, .dayContainer {
-				width: 100% !important;
-				min-width: 100% !important;
-				max-width: 100% !important;
-		}
-	/* 1. Header-Zeile als flexibler Container */
-.flatpickr-month {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important; /* Pfeile links/rechts, Text Mitte */
-    height: 45px !important;
-    position: relative !important;
-    padding: 0 10px !important;
-	background: #3f4853 !important; /* Dein Header-Grau */
-    padding: 0 5px !important;
-}
-
-/* 2. Die Pfeile als normale Elemente in der Reihe */
-.flatpickr-prev-month, 
-.flatpickr-next-month {
-    position: static !important; 
-    display: flex !important;
-    align-items: center !important;
-    cursor: pointer !important;
-    z-index: 10 !important;
-    padding: 10px !important;
-	background: transparent !important; /* KEIN eigener Hintergrund mehr */
-    border: none !important;
-}
-
-/* 3. Den Text in der Mitte fixieren */
-.flatpickr-current-month {
-    position: static !important;
-    width: auto !important;
-    display: flex !important;
-    align-items: center !important;
-    font-size: 1.1em !important;
-	background: transparent !important;
-}
-
-/* 4. Damit die Pfeile auch weiß/sichtbar sind */
-.flatpickr-prev-month svg, 
-.flatpickr-next-month svg {
     fill: white !important;
-    width: 14px !important;
-    height: 14px !important;
+    color: white !important;
 }
-			.flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange {
-				background: #76c7c0 !important;
-				border-color: #76c7c0 !important;
-				color: #1a1a1a !important; 
-				font-weight: bold;
-		}
-			.flatpickr-day.inRange {
-				background: rgba(118, 199, 192, 0.15) !important;
-				box-shadow: none !important;
-		}
+
+/* 4. Die Tage: Ein kleines bisschen kompakter für den kleinen Monitor */
+.flatpickr-day {
+    height: 30px !important;
+    line-height: 30px !important;
+}
+
+/* 5. Verhindert das Abschneiden der Wochentage (Mo, Di...) */
+.flatpickr-weekdaycontainer {
+    display: flex !important;
+}
 		
 			.legende-item {
 			    display: flex;
@@ -444,6 +399,7 @@
         flex-direction: column !important;
         align-items: center !important;
 		justify-content: flex-start !important; 
+		gap: 0 !important;
     }
     #Überschrift {
         order: -1 !important;
@@ -467,6 +423,8 @@
         height: auto !important; 
         width: 100% !important;
         order: 1 !important; 
+		margin-top: 0 !important;
+		padding-top: 0 !important;
     }
     #map {
         height: 400px !important;
@@ -510,6 +468,11 @@
     .menu-wrapper:has(#event-kalender) { order: 6 !important; }
     .menu-wrapper:has(#reset-button) { order: 7 !important; }
     .impressum-wrapper { order: 8 !important; } 
+	
+	#Überschrift, #Überschrift h1, .legende-links {
+	    margin-bottom: 0 !important;
+	    margin-top: 0 !important;
+	}
 }
 			
   </style>
