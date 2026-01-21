@@ -225,9 +225,9 @@
 			#impressum-button:hover {
 				color: #f39c12 !important; 
 		}
-	/* --- VOLLSTÄNDIGER KALENDER-FIX: MAẞE + FARBEN --- */
+/* --- VOLLSTÄNDIGER KALENDER-FIX: MAẞE, FARBEN & ZENTRIERUNG --- */
 
-/* 1. Der Container (Wrapper) bleibt so, wie du ihn erarbeitet hast */
+/* 1. Container/Wrapper */
 .menu-wrapper:has(#event-kalender) {
     height: auto !important;
     max-height: none !important;
@@ -235,39 +235,39 @@
     overflow: visible !important;
 }
 
-/* 2. Die Grundgröße und der dunkle Hintergrund */
+/* 2. Grundgröße & Hintergrund */
 .flatpickr-calendar.inline {
     transform: none !important;
     margin: 0 auto !important;
     width: 100% !important;
-    background: #1a1a1a !important; /* Dunkler Hintergrund für den ganzen Kalender */
+    background: #1a1a1a !important; 
     border: none !important;
     box-shadow: none !important;
 }
 
-/* 3. Die Tage: Deine 32px Maße + neue Farben */
+/* 3. Tage: Maße & Farben */
 .flatpickr-day {
     color: #ffffff !important;
     height: 32px !important;
     line-height: 32px !important;
 }
 
-/* Vormonat & Folgemonat: Deutlich dunkler (Anthrazit) */
+/* Vormonat & Folgemonat (Deine Farbwahl) */
 .flatpickr-day.prevMonthDay,
 .flatpickr-day.nextMonthDay {
-    color: #555555 !important; /* Dunkles Grau zur Abgrenzung */
+    color: #3f4853 !important; 
 }
 
-/* Breite auf 100% zwingen */
+/* Layout-Breite */
 .flatpickr-innerContainer, .flatpickr-rContainer, .flatpickr-days, .dayContainer {
     width: 100% !important;
     min-width: 100% !important;
     max-width: 100% !important;
 }
 
-/* 4. Der Header: Deine Flex-Struktur + dein Grau */
+/* 4. Der Header-Balken */
 .flatpickr-months {
-    background: #3f4853 !important; /* Dein Header-Grau */
+    background: #3f4853 !important; 
     border-radius: 10px 10px 0 0;
 }
 
@@ -278,10 +278,10 @@
     height: 45px !important;
     position: relative !important;
     padding: 0 10px !important;
-    background: transparent !important; /* Damit das Grau von .flatpickr-months durchscheint */
+    background: transparent !important;
 }
 
-/* 5. Die Pfeile: Transparent und Weiß */
+/* 5. Die Pfeile */
 .flatpickr-prev-month, .flatpickr-next-month {
     position: static !important; 
     display: flex !important;
@@ -298,32 +298,40 @@
     height: 14px !important;
 }
 
-/* 1. Monat & Jahr perfekt als Einheit zentrieren */
+/* 6. Monat & Jahr: Absolute Zentrierung (Fix für das Abschneiden) */
 .flatpickr-current-month {
-    position: static !important;
-    width: 100% !important; /* Nutzt den vollen Platz zwischen den Pfeilen */
+    position: absolute !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important; /* Schiebt die eigene Mitte in die Containermitte */
+    width: auto !important;
     display: flex !important;
-    justify-content: center !important; /* Zentriert den Inhalt horizontal */
+    justify-content: center !important;
     align-items: center !important;
-    gap: 8px !important; /* Kleiner Abstand zwischen Monat und Jahr */
+    white-space: nowrap !important; /* Verhindert das Umknicken des Jahres */
+    gap: 8px !important; 
     font-size: 1.1em !important;
     background: transparent !important;
     color: white !important;
     padding: 0 !important;
+    margin: 0 !important;
+    top: 50% !important;
+    height: auto !important;
 }
-/* Sicherstellen, dass keine alten Floats die Zentrierung stören */
+
+/* Korrektur für Dropdowns im Header */
 .flatpickr-current-month .flatpickr-monthDropdown-months {
     display: inline-block !important;
     margin-right: 0 !important;
 }
-* Wochentage (Mo-So) ebenfalls klar in Weiß */
+
+/* 7. Wochentage */
 .flatpickr-weekday {
     background: transparent !important;
-    color: #ffffff !important;
+    color: white !important;
     font-weight: bold !important;
 }
 
-/* 8. Deine Selektions-Farben (Türkis) */
+/* 8. Selektions-Farben (Türkis) */
 .flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange {
     background: #76c7c0 !important;
     border-color: #76c7c0 !important;
