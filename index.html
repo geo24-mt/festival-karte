@@ -351,39 +351,7 @@
 			    background-color: #444;
 		}
 		
-/* 1. Schriftart bleibt gleich */
-@font-face {
-    font-family: "Font Awesome 5 Free";
-    font-style: normal;
-    font-weight: 900;
-    src: url("webfonts/fa-solid-900.woff2") format("woff2"),
-         url("url/webfonts/fa-solid-900.woff2") format("woff2"), /* Sicherheits-Pfad falls 'url' Ordner wichtig ist */
-         url("webfonts/fa-solid-900.ttf") format("truetype");
-}
-
-/* 2. Den Standard-Hintergrund von Leaflet radikal löschen */
-/* Wir sprechen den Button extrem spezifisch an */
-.leaflet-control-container .leaflet-routing-container.leaflet-bar a,
-.leaflet-control-container .leaflet-routing-container a {
-    background-image: none !important;
-    background: transparent !important; /* Entfernt das Standard-Icon */
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-}
-
-/* 3. Dein Icon einfügen */
-.leaflet-routing-container.leaflet-bar a::before {
-    content: "\f277" !important; /* Dein Wegweiser aus der Liste */
-    font-family: "Font Awesome 5 Free" !important;
-    font-weight: 900 !important;
-    color: #444 !important;
-    font-size: 20px !important;
-    display: block !important;
-    visibility: visible !important;
-}
-
-/* 4. Dein Container-Design (unverändert, aber sicherheitshalber hier dabei) */
+/* 1. Den Container-Style beibehalten (Regenbogen-Rand & Schatten) */
 .leaflet-routing-container.leaflet-bar {
     background: 
         linear-gradient(white, white) padding-box, 
@@ -393,6 +361,29 @@
     box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
     min-width: 38px !important;
     min-height: 38px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer;
+    overflow: visible !important;
+}
+
+/* 2. Die Positionierung des Buttons im Inneren fixieren */
+.leaflet-control-container .leaflet-routing-container.leaflet-bar a,
+.leaflet-control-container .leaflet-routing-container a {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    height: 100% !important;
+    background-color: transparent !important;
+    text-decoration: none !important;
+}
+
+/* 3. Sicherstellen, dass keine zusätzlichen Ränder das Symbol verschieben */
+.leaflet-routing-container {
+    overflow-y: auto !important;
+    border: none !important;
 }
 
 			
