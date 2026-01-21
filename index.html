@@ -256,17 +256,21 @@
     height: 45px !important;
     position: relative !important;
     padding: 0 10px !important;
+	background: #3f4853 !important; /* Dein Header-Grau */
+    padding: 0 5px !important;
 }
 
 /* 2. Die Pfeile als normale Elemente in der Reihe */
 .flatpickr-prev-month, 
 .flatpickr-next-month {
-    position: static !important; /* Hebt das "Verschwinden" durch absolute Position auf */
+    position: static !important; 
     display: flex !important;
     align-items: center !important;
     cursor: pointer !important;
     z-index: 10 !important;
     padding: 10px !important;
+	background: transparent !important; /* KEIN eigener Hintergrund mehr */
+    border: none !important;
 }
 
 /* 3. Den Text in der Mitte fixieren */
@@ -276,6 +280,7 @@
     display: flex !important;
     align-items: center !important;
     font-size: 1.1em !important;
+	background: transparent !important;
 }
 
 /* 4. Damit die Pfeile auch weiß/sichtbar sind */
