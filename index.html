@@ -386,22 +386,33 @@
     background-image: none !important;
     background: white !important; /* Macht den Button erst mal leer und weiß */
 }
-/* Wir nutzen das, was du in der Datei gefunden hast */
+/* Wir definieren die Schriftart neu, ohne das störende "../" */
+@font-face {
+    font-family: "Font Awesome 5 Free";
+    font-style: normal;
+    font-weight: 900;
+    src: url("webfonts/fa-solid-900.woff2") format("woff2"),
+         url("webfonts/fa-solid-900.ttf") format("truetype");
+}
+
+/* Jetzt binden wir das Icon ein */
 .leaflet-routing-container.leaflet-bar a::before {
-    /* Das ist der Wert aus deiner Liste für fa-map-signs */
-    content: "\f277" !important; 
+    display: block !important;
+    content: "\f277" !important; /* Wegweiser-Symbol */
+    font-family: "Font Awesome 5 Free" !important;
+    font-weight: 900 !important;
     
-    /* Der Name muss EXAKT so sein wie oben im @font-face deiner Datei */
-    font-family: "Font Awesome 5 Free" !important; 
-    font-weight: 900 !important; 
-    
-    /* Damit man es sieht */
+    /* Styling für die Sichtbarkeit */
     color: #444 !important;
     font-size: 18px !important;
-    display: block !important;
-    text-align: center !important;
     line-height: 36px !important;
-    width: 100% !important;
+    text-align: center !important;
+}
+
+/* Falls das Icon noch irgendwo versteckt ist */
+.leaflet-routing-container.leaflet-bar a {
+    background-image: none !important;
+    text-decoration: none !important;
 }
 .leaflet-routing-container {
     overflow-y: auto !important;
