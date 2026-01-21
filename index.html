@@ -432,7 +432,6 @@
 			
 /* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
 @media (max-width: 768px) {
-    /* 1. Body öffnen: Erlaubt Scrollen nach unten, Buttons verschwinden nicht mehr */
     html, body {
         height: auto !important;
         overflow-y: auto !important;
@@ -440,14 +439,12 @@
         flex-direction: column !important;
         align-items: center !important;
     }
-
-    /* 2. Überschrift-Container: Höhe flexibel machen */
     #Überschrift {
         order: -1 !important;
         width: 100% !important;
         height: auto !important;     
         min-height: 80px !important; 
-        padding: 5px 0 !important;   
+        padding: 5px 0 !important;
         position: relative !important;
         overflow: visible !important; 
     }
@@ -456,7 +453,6 @@
         white-space: normal !important; 
         word-wrap: break-word !important;
         text-align: center !important;
-        margin: 5px 15px !important; 
     }
     .karten-zentrierer {
         display: flex !important;
@@ -487,7 +483,7 @@
         order: 1 !important; 
         position: relative !important;
         width: 90% !important;
-        margin: 5px auto !important;
+        margin: 10px auto !important;
         padding: 10px 5px !important;
         display: flex !important;
         flex-direction: row !important; 
@@ -507,7 +503,7 @@
     .menu-wrapper:has(#preis-slider) { order: 5 !important; }
     .menu-wrapper:has(#event-kalender) { order: 6 !important; }
     .menu-wrapper:has(#reset-button) { order: 7 !important; }
-    .impressum-wrapper { order: 8 !important; } /* Das Impressum ganz unten */
+    .impressum-wrapper { order: 8 !important; } 
 }
 			
   </style>
