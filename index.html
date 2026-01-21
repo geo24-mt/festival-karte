@@ -403,12 +403,25 @@
         align-items: center !important;
     }
 
-    /* 2. Überschrift: IMMER oben fixieren */
+    /* 2. Überschrift-Container: Höhe flexibel machen */
     #Überschrift {
-        order: -1 !important; /* Kleiner als alle anderen, also Platz 1 */
+        order: -1 !important;
         width: 100% !important;
+        height: auto !important;      /* ÄNDERUNG: Kasten wächst mit dem Text mit */
+        min-height: 80px !important;  /* Sorgt dafür, dass es nicht zu schmal wird */
+        padding: 10px 0 !important;   /* Etwas Puffer oben und unten */
         margin-bottom: 20px;
         position: relative !important;
+        overflow: visible !important; /* ÄNDERUNG: Text darf umbrechen */
+    }
+
+    /* 2b. Der eigentliche Text (h1) in der Überschrift */
+    #Überschrift h1 {
+        font-size: 1.8em !important;  /* ÄNDERUNG: Kleiner am Handy (vorher 2.8em) */
+        white-space: normal !important; /* ÄNDERUNG: Erlaubt Zeilenumbruch */
+        word-wrap: break-word !important;
+        text-align: center !important;
+        margin: 5px 15px !important;  /* Seitlicher Abstand zum Rand */
     }
 
     /* 3. Container: Muss flexibel sein, damit Inhalt nicht abgeschnitten wird */
