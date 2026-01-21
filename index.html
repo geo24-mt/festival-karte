@@ -225,35 +225,42 @@
 			#reset-button:hover,
 			#impressum-button:hover {
 				color: #f39c12 !important; 
-		}
-		/* 1. Die Kiste (Wrapper): Einfach nur Platz lassen */
+	/* 1. Die Kiste (Wrapper) bleibt flexibel */
 .menu-wrapper:has(#event-kalender) {
     height: auto !important;
     padding-bottom: 5px !important;
 }
 
-/* 2. Der Header: Farbe setzen, Rest macht Flatpickr selbst */
+/* 2. Den Header-Balken einfärben, aber Layout in Ruhe lassen */
 .flatpickr-months {
     background: #3f4853 !important;
-    border-radius: 10px 10px 0 0; /* Oben abrunden passend zur Box */
+    border-radius: 10px 10px 0 0;
 }
 
-/* 3. Die Pfeile: Einfach nur transparent und weiß */
-.flatpickr-prev-month, .flatpickr-next-month {
-    background: transparent !important;
-    fill: white !important;
-    color: white !important;
+/* 3. Pfeile: Transparent machen, aber ihre Position (absolute) lassen */
+.flatpickr-prev-month, 
+.flatpickr-next-month {
+    background: transparent !important; /* Kein schwarzer Hintergrund */
+    fill: white !important;             /* Pfeile weiß */
+    top: 5px !important;                /* Manuelle Justierung für die Höhe */
 }
 
-/* 4. Die Tage: Ein kleines bisschen kompakter für den kleinen Monitor */
+/* 4. DIE GRÖSSE: Hier holen wir uns die Lesbarkeit zurück */
+.flatpickr-calendar.inline {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
 .flatpickr-day {
-    height: 30px !important;
-    line-height: 30px !important;
+    height: 34px !important;      /* Schön groß zum Klicken */
+    line-height: 34px !important;
+    font-size: 14px !important;
 }
 
-/* 5. Verhindert das Abschneiden der Wochentage (Mo, Di...) */
-.flatpickr-weekdaycontainer {
-    display: flex !important;
+/* 5. Wochentage (Mo, Di...) lesbar machen */
+.flatpickr-weekday {
+    color: white !important;
+    font-weight: bold !important;
 }
 		
 			.legende-item {
