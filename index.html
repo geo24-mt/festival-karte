@@ -28,7 +28,8 @@
 			    gap: 40px;
 			    background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.8)), 
 			                url('background.png') center/cover fixed no-repeat;
-			   overflow: hidden;
+			   overflow-x: hidden; 
+    		   overflow-y: auto;
 		}
 			#map {
 			    width: 100%; 
@@ -126,6 +127,7 @@
 				width: 220px;     
 			    min-width: 180px; 
 			    max-width: 240px;  
+				margin-bottom: 20px !important;
 		}
 			.legende-links {
 			    top: 58%;
@@ -235,6 +237,8 @@
 				transform-origin: top center; 
 				margin: 0 auto !important;
 				width: 100% !important;
+				max-height: none !important; 
+				height: auto !important;
 		}
 			.flatpickr-day {
 				height: 28px !important;    
@@ -257,6 +261,11 @@
 			.flatpickr-day.inRange {
 				background: rgba(118, 199, 192, 0.15) !important;
 				box-shadow: none !important;
+		}
+			.menu-wrapper:has(#event-kalender) {
+			    height: auto !important;
+			    min-height: 300px; /* Gibt dem Kalender genug Raum */
+			    overflow: visible !important;
 		}
 			.legende-item {
 			    display: flex;
