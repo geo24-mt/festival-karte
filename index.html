@@ -28,8 +28,7 @@
 			    gap: 40px;
 			    background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.8)), 
 			                url('background.png') center/cover fixed no-repeat;
-			   overflow-x: hidden; 
-    		   overflow-y: auto;
+			   overflow: hidden;
 		}
 			#map {
 			    width: 100%; 
@@ -127,7 +126,6 @@
 				width: 220px;     
 			    min-width: 180px; 
 			    max-width: 240px;  
-				margin-bottom: 20px !important;
 		}
 			.legende-links {
 			    top: 58%;
@@ -237,8 +235,6 @@
 				transform-origin: top center; 
 				margin: 0 auto !important;
 				width: 100% !important;
-				max-height: none !important; 
-				height: auto !important;
 		}
 			.flatpickr-day {
 				height: 28px !important;    
@@ -261,11 +257,6 @@
 			.flatpickr-day.inRange {
 				background: rgba(118, 199, 192, 0.15) !important;
 				box-shadow: none !important;
-		}
-			.menu-wrapper:has(#event-kalender) {
-			    height: auto !important;
-			    min-height: 300px; /* Gibt dem Kalender genug Raum */
-			    overflow: visible !important;
 		}
 			.legende-item {
 			    display: flex;
@@ -403,6 +394,7 @@
 			
 /* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
 @media (max-width: 768px) {
+    /* 1. Body öffnen: Erlaubt Scrollen nach unten, Buttons verschwinden nicht mehr */
     html, body {
         height: auto !important;
         overflow-y: auto !important;
@@ -410,36 +402,34 @@
         flex-direction: column !important;
         align-items: center !important;
     }
+
+    /* 2. Überschrift: IMMER oben fixieren */
     #Überschrift {
-        order: -1 !important;
+        order: -1 !important; /* Kleiner als alle anderen, also Platz 1 */
         width: 100% !important;
-        height: auto !important;     
-        min-height: 80px !important;  
         margin-bottom: 20px;
         position: relative !important;
-        overflow: visible !important; 
     }
-    #Überschrift h1 {
-        font-size: 1.8em !important;  
-        white-space: normal !important; 
-        word-wrap: break-word !important;
-        text-align: center !important;
-        margin: 5px 15px !important;  
-    }
+
+    /* 3. Container: Muss flexibel sein, damit Inhalt nicht abgeschnitten wird */
     .karten-zentrierer {
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
         height: auto !important; 
         width: 100% !important;
-        order: 1 !important; 
+        order: 1 !important; /* Nach der Überschrift */
     }
+
+    /* 4. Karte: Feste Größe am Handy */
     #map {
         height: 400px !important;
         width: 90% !important;
-        order: 2 !important; 
+        order: 2 !important; /* Innerhalb des Zentrierers ganz oben */
         position: relative !important;
     }
+
+    /* 5. Menüs & Legende: Unter die Karte schieben */
     .menu-wrapper, .legende-links, .impressum-wrapper {
         position: relative !important;
         left: auto !important;
@@ -448,24 +438,29 @@
         margin: 10px auto !important;
         width: 90% !important;
         transform: none !important;
-		max-width: none !important; 
-        min-width: 0 !important; 
+		max-width: none !important; /* DAS HIER löscht die 240px-Begrenzung */
+        min-width: 0 !important;    /* Verhindert, dass alte Mindestmaße stören */
     }
+
+    /* Genaue Reihenfolge UNTER der Karte */
    .legende-links {
-        order: 1 !important; 
+        order: 1 !important; /* Zwischen Überschrift und Karte */
         position: relative !important;
         width: 90% !important;
         margin: 10px auto !important;
         padding: 10px 5px !important;
+        
+        /* Das hier sorgt für die Anordnung NEBENEINANDER */
         display: flex !important;
-        flex-direction: row !important; 
-        flex-wrap: wrap !important;   
-        justify-content: center !important; 
-        gap: 15px !important;         
+        flex-direction: row !important; /* Symbole in einer Reihe */
+        flex-wrap: wrap !important;    /* Wenn eine Reihe voll ist, wird umgebrochen */
+        justify-content: center !important; /* Mittig ausrichten */
+        gap: 15px !important;          /* Abstand zwischen den Symbolen */
     }
+
     .legende-item {
         display: flex !important;
-        flex-direction: row !important; 
+        flex-direction: row !important; /* Icon und Text nebeneinander */
         align-items: center !important;
         font-size: 13px !important;
         gap: 5px !important;
@@ -475,26 +470,9 @@
     .menu-wrapper:has(#preis-slider) { order: 5 !important; }
     .menu-wrapper:has(#event-kalender) { order: 6 !important; }
     .menu-wrapper:has(#reset-button) { order: 7 !important; }
-    .impressum-wrapper { order: 8 !important; } 
+    .impressum-wrapper { order: 8 !important; } /* Das Impressum ganz unten */
 }
-@media (max-height: 850px) {
-    .flatpickr-calendar.inline {
-        transform: scale(0.8) !important;
-        transform-origin: top center !important;
-        margin-bottom: -35px !important; 
-    }
-    .menu-wrapper:has(#event-kalender) {
-        max-height: 260px !important;
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: flex-start !important;
-        overflow: hidden !important;
-    }
-    .flatpickr-day {
-        height: 24px !important; 
-        line-height: 24px !important;
-    }
-}
+			
   </style>
         <title></title>
     </head>
