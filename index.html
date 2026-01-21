@@ -351,39 +351,47 @@
 			    background-color: #444;
 		}
 
-			.leaflet-control-container .leaflet-routing-container.leaflet-bar a,
-			.leaflet-control-container .leaflet-routing-container a {
-			    background: transparent !important;
-			    display: flex !important;
-			    align-items: center !important;
-			    justify-content: center !important;
-		}
-			.leaflet-routing-container.leaflet-bar {
-			    background: 
-			        linear-gradient(white, white) padding-box, 
-			        linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) border-box !important;
-			    border: 3px solid transparent !important;
-			    border-radius: 12px !important;
-			    box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
-			    min-width: 38px !important;
-			    min-height: 38px !important;
-		}
-/* Der Hover-Effekt (Zusatzblock ganz unten) */
-.leaflet-routing-container.leaflet-bar a:hover {
-    transform: scale(1.1); /* Vergrößert den Button um 10% */
-    transition: transform 0.2s ease-in-out; /* Macht die Bewegung geschmeidig */
-    box-shadow: 0 6px 20px rgba(0,0,0,0.4) !important; /* Verstärkt den Schatten */
-	cursor: pointer !important;
+			/* 1. Der Icon-Link (Der Teil, der zoomen soll) */
+.leaflet-control-container .leaflet-routing-container.leaflet-bar a,
+.leaflet-control-container .leaflet-routing-container a {
+    background: transparent !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    
+    /* WICHTIG: Die Bewegung muss hier definiert sein, damit sie zurückgleitet */
+    transition: transform 0.2s ease-in-out !important;
+    cursor: pointer !important;
+    width: 38px !important;  /* Gleiche Größe wie der Button-Kopf */
+    height: 38px !important;
 }
 
-/* Sorgt dafür, dass es auch beim Runtergehen der Maus weich zurückgleitet */
-.leaflet-routing-container.leaflet-bar {
-    transition: transform 0.2s ease-in-out !important;
+/* 2. Der Effekt: Nur das 'a' wird beim Hover größer */
+.leaflet-routing-container.leaflet-bar a:hover {
+    transform: scale(1.2) !important; 
 }
-	.leaflet-routing-alt {
-    transform: none !important; /* Die Liste darf nicht zoomen */
-    cursor: default !important; /* Hier soll kein Pointer sein */
-}		
+
+/* 3. Der Container (Der bunte Rahmen) */
+.leaflet-routing-container.leaflet-bar {
+    background: 
+        linear-gradient(white, white) padding-box, 
+        linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) border-box !important;
+    border: 3px solid transparent !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
+    min-width: 38px !important;
+    min-height: 38px !important;
+    
+    /* Wir nehmen den Übergang hier raus, damit die Liste nicht "wabbelt" */
+    transition: none !important; 
+}
+
+/* 4. Die Wegbeschreibung (Liste) - absolut neutral lassen */
+.leaflet-routing-alt {
+    transform: none !important;
+    transition: none !important;
+    cursor: default !important;
+}
 			
 /* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
 @media (max-width: 768px) {
