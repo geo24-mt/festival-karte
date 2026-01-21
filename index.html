@@ -351,16 +351,39 @@
 			    background-color: #444;
 		}
 		
-/* 1. Schriftart registrieren */
+/* 1. Schriftart bleibt gleich */
 @font-face {
     font-family: "Font Awesome 5 Free";
     font-style: normal;
     font-weight: 900;
     src: url("webfonts/fa-solid-900.woff2") format("woff2"),
+         url("url/webfonts/fa-solid-900.woff2") format("woff2"), /* Sicherheits-Pfad falls 'url' Ordner wichtig ist */
          url("webfonts/fa-solid-900.ttf") format("truetype");
 }
 
-/* 2. Container mit deinem coolen Regenbogen-Rand */
+/* 2. Den Standard-Hintergrund von Leaflet radikal löschen */
+/* Wir sprechen den Button extrem spezifisch an */
+.leaflet-control-container .leaflet-routing-container.leaflet-bar a,
+.leaflet-control-container .leaflet-routing-container a {
+    background-image: none !important;
+    background: transparent !important; /* Entfernt das Standard-Icon */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* 3. Dein Icon einfügen */
+.leaflet-routing-container.leaflet-bar a::before {
+    content: "\f277" !important; /* Dein Wegweiser aus der Liste */
+    font-family: "Font Awesome 5 Free" !important;
+    font-weight: 900 !important;
+    color: #444 !important;
+    font-size: 20px !important;
+    display: block !important;
+    visibility: visible !important;
+}
+
+/* 4. Dein Container-Design (unverändert, aber sicherheitshalber hier dabei) */
 .leaflet-routing-container.leaflet-bar {
     background: 
         linear-gradient(white, white) padding-box, 
@@ -370,43 +393,9 @@
     box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
     min-width: 38px !important;
     min-height: 38px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    cursor: pointer;
-    overflow: hidden !important; /* Wichtig, damit nichts übersteht */
 }
 
-/* 3. Der Button-Link im Inneren */
-.leaflet-routing-container.leaflet-bar a {
-    background: transparent !important; /* Transparent, damit man den Container-Hintergrund sieht */
-    background-image: none !important;
-    width: 100% !important;
-    height: 100% !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    text-decoration: none !important;
-    position: relative !important; /* Schafft eine Ebene für das Icon */
-}
-
-/* 4. Das Icon (::before) */
-.leaflet-routing-container.leaflet-bar a::before {
-    content: "\f277" !important; /* Wegweiser aus deiner Liste */
-    font-family: "Font Awesome 5 Free" !important;
-    font-weight: 900 !important;
-    color: #444 !important;
-    font-size: 20px !important;
-    position: relative !important;
-    z-index: 10 !important; /* Zwingt das Icon in den Vordergrund */
-    display: block !important;
-}
-
-/* 5. Alle alten Leaflet-Icons radikal löschen */
-.leaflet-routing-container a, 
-.leaflet-control-routing a {
-    background-image: none !important;
-}
+			
 /* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
 @media (max-width: 768px) {
     /* 1. Body öffnen: Erlaubt Scrollen nach unten, Buttons verschwinden nicht mehr */
