@@ -443,18 +443,25 @@
 		max-width: none !important; 
         min-width: 0 !important;  
     }
-   .legende-links {
-        order: 0 !important; 
-        position: relative !important;
-        width: 90% !important;
-        margin-top: 0 !important; /* Verringert den Abstand nach oben */
-        padding: 10px 5px !important;
-        display: flex !important;
-        flex-direction: row !important; 
-        flex-wrap: wrap !important;   
-        justify-content: center !important;
-        gap: 15px !important; 
-    }
+  .legende-links {
+    order: 0 !important; 
+    position: relative !important;
+    width: 90% !important;
+    
+    /* Hier ist die Magie: */
+    margin-top: 15px !important;    /* Abstand zur Überschrift oben */
+    margin-bottom: 15px !important; /* Abstand zur Karte unten */
+    margin-left: auto !important;   /* Zentrierung links */
+    margin-right: auto !important;  /* Zentrierung rechts */
+    
+    padding: 10px 5px !important;   /* Innenabstand, damit Symbole nicht am Rahmen kleben */
+    
+    display: flex !important;
+    flex-direction: row !important; 
+    flex-wrap: wrap !important;   
+    justify-content: center !important;
+    gap: 15px !important; 
+}
     .legende-item {
         display: flex !important;
         flex-direction: row !important; 
