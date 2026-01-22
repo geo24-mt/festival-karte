@@ -14,14 +14,12 @@
         <link rel="stylesheet" href="css/leaflet-search.css">
         <link rel="stylesheet" href="css/leaflet.photon.css">
         <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
-		<link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
         <style>
 	       html, body {
 			    width: 100%; 
 			    height: 100%;
 			    margin: 0;
-			    gap: 40px;
 			    background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.8)), 
 			                url('background.png') center/cover fixed no-repeat;
 			   overflow: hidden;
@@ -110,7 +108,7 @@
 			    width: 60%;         
 			    min-width: 350px;   
 			    margin: 0 auto;    
-				height: calc(100vh - 150px); /* Gibt dem Container eine feste Höhe */		
+				height: calc(100vh - 150px);
 		}
 			.menu-wrapper, .impressum-wrapper, .legende-links {
 			    position: absolute !important;
@@ -146,19 +144,17 @@
 				border-radius: 9px;
 				width: 100%;
 				box-sizing: border-box;
+				cursor: pointer;
 		}
 			#filter-menu, #filter-kategorie {
 				font-family: 'Montserrat', sans-serif;
 				font-size: 14px;
 				font-weight: bold;
-				cursor: pointer;
 				text-align: center;
     			text-align-last: center;
 				height: 40px;
 		}
 			.slider-container {
-				background-color: rgba(30, 30, 30, 0.95) !important;
-				border-radius: 9px;
 				padding: 5px;
 				display: flex;
 				flex-direction: column;
@@ -220,106 +216,94 @@
 		}
 			#reset-button:hover,
 			#impressum-button:hover {
-				color: rgba(79, 209, 197, 0.5) !important;
+				color: rgba(79, 209, 197, 0.8) !important;
 		}
-			/************** NEUER KALENDER STYLE (Holi-Design) *****************/
-#calendar-container {
-    background: transparent;
-    color: white;
-    font-family: 'Montserrat', sans-serif;
-	padding: 5px 0;
-}
-
-#calendar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 3px;
-}
-
-#calendar-header h2 {
-    font-size: 14px !important; 
-    text-transform: none !important; 
-    font-variant: normal !important;
-    letter-spacing: 0.5px;
-    font-weight: 600;
-    color: white;
-    margin: 0;
-    flex: 1;
-    text-align: center;
-}
-
-#calendar-header button {
-    background: rgba(255, 255, 255, 0.1);
-    border: transparent;
-    color: #e0e0e0;
-    border-radius: 7px;
-    cursor: pointer;
-    padding: 5px 8px;
- 	transition: all 0.3s ease;
-}
-
-#calendar-header button:hover {
-    background: rgba(79, 209, 197, 0.5);
-    border-color: transparent;
-}
-
-#calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 4px; /* Etwas mehr Luft zwischen den Tagen */
-    padding: 10px 5px;
-}
-
-.day-name {
-    aspect-ratio: 1 / 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    font-weight: bold;
-    color: #4fd1c5 !important;
-    padding: 0 !important;
-}
-
-.calendar-day {
-    aspect-ratio: 1 / 1;      /* Die Höhe wird automatisch gleich der Breite gesetzt */
-    display: flex;            /* Ermöglicht das Zentrieren der Zahl */
-    align-items: center;      /* Vertikal zentrieren */
-    justify-content: center;  /* Horizontal zentrieren */ 
-    padding: 0 !important;    /* Padding entfernen, damit das Quadrat nicht verzerrt wird */
-    font-size: 13px;
-    cursor: pointer;
-    border-radius: 6px;
-    background: rgba(255, 255, 255, 0.05);
-    transition: 0.2s;
-}
-
-.calendar-day:hover {
-    background: rgba(255, 255, 255, 0.2);
-}
-
-/* 3. Ausgewählte Tage (Start/Ende) ebenfalls in Türkis */
-.calendar-day.selected {
-    background: rgba(79, 209, 197, 0.8) !important;
-    color: #1e1e1e !important;    /* Dunkler Text für den Kontrast */
-    font-weight: bold;
-    box-shadow: 0 0 12px rgba(0, 242, 255, 0.5); /* Türkises Leuchten */
-}
-
-/* Der Zeitraum dazwischen */
-.calendar-day.in-range {
-    background: rgba(0, 242, 255, 0.15) !important;
-    color: #4fd1c5 !important;
-    border-radius: 0;
-}
-
-/* Verhindert unschöne Abstände im menu-wrapper */
-.menu-wrapper {
-    height: auto !important;
-}
-			
-			/*********************************/
+			#reset-button, #impressum-button{
+				transition: all 0.3s ease;
+			}
+/***********************KALENDER STYLE (Holi-Design)**********************/
+			#calendar-container {
+			    background: transparent;
+			    color: white;
+			    font-family: 'Montserrat', sans-serif;
+				padding: 5px 0;
+			}
+			#calendar-header {
+			    display: flex;
+			    justify-content: space-between;
+			    align-items: center;
+			    padding: 5px 3px;
+			}
+			#calendar-header h2 {
+			    font-size: 14px !important; 
+			    text-transform: none !important; 
+			    font-variant: normal !important;
+			    letter-spacing: 0.5px;
+			    font-weight: 600;
+			    color: white;
+			    margin: 0;
+			    flex: 1;
+			    text-align: center;
+			}
+			#calendar-header button {
+			    background: rgba(255, 255, 255, 0.1);
+			    border: transparent;
+			    color: #e0e0e0;
+			    border-radius: 7px;
+			    cursor: pointer;
+			    padding: 5px 8px;
+			 	transition: all 0.3s ease;
+			}
+			#calendar-header button:hover {
+			    background: rgba(79, 209, 197, 0.5);
+			    border-color: transparent;
+			}
+			#calendar-grid {
+			    display: grid;
+			    grid-template-columns: repeat(7, 1fr);
+			    gap: 4px;
+			    padding: 10px 5px;
+			}
+			.day-name {
+			    aspect-ratio: 1 / 1;
+			    display: flex;
+			    align-items: center;
+			    justify-content: center;
+			    font-size: 12px;
+			    font-weight: bold;
+			    color: #4fd1c5 !important;
+			    padding: 0 !important;
+			}
+			.calendar-day {
+			    aspect-ratio: 1 / 1; 
+			    display: flex; 
+			    align-items: center;     
+			    justify-content: center; 
+			    padding: 0 !important;   
+			    font-size: 13px;
+			    cursor: pointer;
+			    border-radius: 6px;
+			    background: rgba(255, 255, 255, 0.05);
+			    transition: 0.2s;
+			}
+			.calendar-day:hover {
+			    background: rgba(255, 255, 255, 0.2);
+			}
+			.calendar-day.selected {
+			    background: rgba(79, 209, 197, 0.8) !important;
+			    color: #1e1e1e !important;  
+			    font-weight: bold;
+			    box-shadow: 0 0 12px rgba(0, 242, 255, 0.5); 
+			}
+			.calendar-day.in-range {
+			    background: rgba(0, 242, 255, 0.15) !important;
+			    color: #4fd1c5 !important;
+			    border-radius: 0;
+			}
+			.menu-wrapper {
+			    height: auto !important;
+			}
+/*************************************************************/
 			.legende-item {
 			    display: flex;
 			    align-items: center;
@@ -412,132 +396,121 @@
 			.checkbox-item:hover {
 			    background-color: #444;
 		}
-
-			/* Block 1: Die Ausrichtung im Inneren (unverändert) */
-.leaflet-control-container .leaflet-routing-container.leaflet-bar a,
-.leaflet-control-container .leaflet-routing-container a {
-    background: transparent !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-}
-
-/* Block 2: Der Container (Basis-Einstellungen) */
-.leaflet-routing-container.leaflet-bar {
-    background: 
-        linear-gradient(white, white) padding-box, 
-        linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) border-box !important;
-    border: 3px solid transparent !important;
-    border-radius: 12px !important;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
-    min-width: 38px !important;
-    min-height: 38px !important;
-    margin-top: 10px !important;
-    
-    /* REPARATUR HIER: Damit er beim Zurückfahren weiß, wo er "festklebt" */
-    transform-origin: top right !important; 
-    overflow: visible !important;
-}
-
-/* Block 3: Der Hover-Effekt (Zusatzblock ganz unten) */
-.leaflet-routing-container.leaflet-bar:hover {
-    transform: scale(1.1);
-    /* transform-origin hier auch zur Sicherheit lassen */
-    transform-origin: top right; 
-    transition: transform 0.2s ease-in-out;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.4) !important;
-    cursor: pointer !important;
-}
-
-/* Block 4: Das weiche Zurückgleiten (unverändert am Ende) */
-.leaflet-routing-container.leaflet-bar {
-    transition: transform 0.2s ease-in-out !important;
-}
+/********************Routing-Symbol************************/
+			.leaflet-control-container .leaflet-routing-container.leaflet-bar a,
+			.leaflet-control-container .leaflet-routing-container a {
+			    background: transparent !important;
+			    display: flex !important;
+			    align-items: center !important;
+			    justify-content: center !important;
+			}
+			.leaflet-routing-container.leaflet-bar {
+			    background: 
+			        linear-gradient(white, white) padding-box, 
+			        linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db, #2ecc71) border-box !important;
+			    border: 3px solid transparent !important;
+			    border-radius: 12px !important;
+			    box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
+			    min-width: 38px !important;
+			    min-height: 38px !important;
+			    margin-top: 10px !important;
+			    transform-origin: top right !important; 
+			    overflow: visible !important;
+				transition: transform 0.3s ease-in-out !important;
+			}
+			.leaflet-routing-container.leaflet-bar:hover {
+			    transform: scale(1.1);
+			    transform-origin: top right; 
+			    transition: transform 0.2s ease-in-out;
+			    box-shadow: 0 6px 20px rgba(0,0,0,0.4) !important;
+			    cursor: pointer !important;
+			}
+/**********************************************************/
 			
-/* --- RESPONSIVE OPTIMIERUNG FÜR HANDYS --- */
-@media (max-width: 768px) {
-    html, body {
-        height: auto !important;
-        overflow-y: auto !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-		justify-content: flex-start !important; 
-		gap: 0 !important;
-    }
-    #Überschrift {
-        order: -1 !important;
-        width: 100% !important;
-        height: auto !important;     
-        min-height: 80px !important; 
-        padding: 5px 0 !important;
-        position: relative !important;
-        overflow: visible !important; 
-    }
-    #Überschrift h1 {
-        font-size: 1.8em !important;  
-        white-space: normal !important; 
-        word-wrap: break-word !important;
-        text-align: center !important;
-    }
-    .karten-zentrierer {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        height: auto !important; 
-        width: 100% !important;
-        order: 1 !important; 
-		margin-top: 0 !important;
-		padding-top: 0 !important;
-    }
-    #map {
-        height: 400px !important;
-        width: 90% !important;
-        order: 2 !important; 
-        position: relative !important;
-    }
-    .menu-wrapper, .legende-links, .impressum-wrapper {
-        position: relative !important;
-        left: auto !important;
-        right: auto !important;
-        top: auto !important;
-        margin: 10px auto !important;
-        width: 90% !important;
-        transform: none !important;
-		max-width: none !important; 
-        min-width: 0 !important;  
-    }
-   .legende-links {
-        order: 0 !important; 
-        position: relative !important;
-        width: 90% !important;
-        margin: 15px !important;
-        padding: 10px 5px !important;
-        display: flex !important;
-        flex-direction: row !important; 
-        flex-wrap: wrap !important;   
-        justify-content: center !important;
-        gap: 15px !important; 
-    }
-    .legende-item {
-        display: flex !important;
-        flex-direction: row !important; 
-        align-items: center !important;
-        font-size: 13px !important;
-        gap: 5px !important;
-    }
-    .menu-wrapper:has(#filter-menu) { order: 3 !important; }
-    .menu-wrapper:has(#filter-kategorie) { order: 4 !important; }
-    .menu-wrapper:has(#preis-slider) { order: 5 !important; }
-    .menu-wrapper:has(#event-kalender) { order: 6 !important; }
-    .menu-wrapper:has(#reset-button) { order: 7 !important; }
-    .impressum-wrapper { order: 8 !important; } 
-	
-	#Überschrift, #Überschrift h1 {
-	    margin-bottom: 0 !important;
-	    margin-top: 0 !important;
-	}
-}
+/***********RESPONSIVE OPTIMIERUNG FÜR HANDYS**************/
+		@media (max-width: 768px) {
+		    html, body {
+		        height: auto !important;
+		        overflow-y: auto !important;
+		        display: flex !important;
+		        flex-direction: column !important;
+		        align-items: center !important;
+				justify-content: flex-start !important; 
+				gap: 0 !important;
+		    }
+		    #Überschrift {
+		        order: -1 !important;
+		        width: 100% !important;
+		        height: auto !important;     
+		        min-height: 80px !important; 
+		        padding: 5px 0 !important;
+		        position: relative !important;
+		        overflow: visible !important; 
+		    }
+		    #Überschrift h1 {
+		        font-size: 1.8em !important;  
+		        white-space: normal !important; 
+		        word-wrap: break-word !important;
+		        text-align: center !important;
+		    }
+		    .karten-zentrierer {
+		        display: flex !important;
+		        flex-direction: column !important;
+		        align-items: center !important;
+		        height: auto !important; 
+		        width: 100% !important;
+		        order: 1 !important; 
+				margin-top: 0 !important;
+				padding-top: 0 !important;
+		    }
+		    #map {
+		        height: 400px !important;
+		        width: 90% !important;
+		        order: 2 !important; 
+		        position: relative !important;
+		    }
+		    .menu-wrapper, .legende-links, .impressum-wrapper {
+		        position: relative !important;
+		        left: auto !important;
+		        right: auto !important;
+		        top: auto !important;
+		        margin: 10px auto !important;
+		        width: 90% !important;
+		        transform: none !important;
+				max-width: none !important; 
+		        min-width: 0 !important;  
+		    }
+		   .legende-links {
+		        order: 0 !important; 
+		        position: relative !important;
+		        width: 90% !important;
+		        margin: 15px !important;
+		        padding: 10px 5px !important;
+		        display: flex !important;
+		        flex-direction: row !important; 
+		        flex-wrap: wrap !important;   
+		        justify-content: center !important;
+		        gap: 15px !important; 
+		    }
+		    .legende-item {
+		        display: flex !important;
+		        flex-direction: row !important; 
+		        align-items: center !important;
+		        font-size: 13px !important;
+		        gap: 5px !important;
+		    }
+		    .menu-wrapper:has(#filter-menu) { order: 3 !important; }
+		    .menu-wrapper:has(#filter-kategorie) { order: 4 !important; }
+		    .menu-wrapper:has(#preis-slider) { order: 5 !important; }
+		    .menu-wrapper:has(#calendar-container) { order: 6 !important; }
+		    .menu-wrapper:has(#reset-button) { order: 7 !important; }
+		    .impressum-wrapper { order: 8 !important; } 
+			
+			#Überschrift, #Überschrift h1 {
+			    margin-bottom: 0 !important;
+			    margin-top: 0 !important;
+			}
+		}
 			
   </style>
         <title></title>
