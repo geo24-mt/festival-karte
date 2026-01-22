@@ -238,14 +238,15 @@
 }
 
 #calendar-header h2 {
-    font-size: 14px;
+    font-size: 14px !important; 
+    text-transform: none !important; 
+    font-variant: normal !important;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    color: white;
     margin: 0;
-    letter-spacing: 1px;
-	text-align: center;
-    flex: 1;    
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    flex: 1;
+    text-align: center;
 }
 
 #calendar-header button {
@@ -270,14 +271,14 @@
     padding: 10px 5px;
 }
 
-.day-name {
+..day-name {
     aspect-ratio: 1 / 1;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 11px;
     font-weight: bold;
-    color: #f39c12;
+    color: #2ecc71 !important; /* Das frische Türkis/Grün aus deinem Verlauf */
     padding: 0 !important;
 }
 
@@ -298,18 +299,18 @@
     background: rgba(255, 255, 255, 0.2);
 }
 
-/* Dein Auswahl-Blau (angepasst an das dunkle Design) */
+/* 3. Ausgewählte Tage (Start/Ende) ebenfalls in Türkis */
 .calendar-day.selected {
-    background: #3498db !important; /* Dein Holi-Blau */
-    color: white !important;
+    background: #2ecc71 !important; /* Türkis statt Blau */
+    color: #1e1e1e !important;    /* Dunkler Text für besseren Kontrast auf Türkis */
     font-weight: bold;
-    box-shadow: 0 0 8px rgba(52, 152, 219, 0.6);
+    box-shadow: 0 0 12px rgba(46, 204, 113, 0.5); /* Passendes Leuchten */
 }
 
 /* Der Zeitraum dazwischen */
 .calendar-day.in-range {
-    background: rgba(52, 152, 219, 0.2);
-    color: #3498db;
+    background: rgba(46, 204, 113, 0.2) !important;
+    color: #2ecc71 !important;
     border-radius: 0;
 }
 
