@@ -271,14 +271,14 @@
     padding: 10px 5px;
 }
 
-..day-name {
+.day-name {
     aspect-ratio: 1 / 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: bold;
-    color: #2ecc71 !important; /* Das frische Türkis/Grün aus deinem Verlauf */
+    color: #00f2ff !important; /* Dein leuchtendes Türkis */
     padding: 0 !important;
 }
 
@@ -301,16 +301,16 @@
 
 /* 3. Ausgewählte Tage (Start/Ende) ebenfalls in Türkis */
 .calendar-day.selected {
-    background: #2ecc71 !important; /* Türkis statt Blau */
-    color: #1e1e1e !important;    /* Dunkler Text für besseren Kontrast auf Türkis */
+    background: #00f2ff !important; 
+    color: #1e1e1e !important;    /* Dunkler Text für den Kontrast */
     font-weight: bold;
-    box-shadow: 0 0 12px rgba(46, 204, 113, 0.5); /* Passendes Leuchten */
+    box-shadow: 0 0 12px rgba(0, 242, 255, 0.5); /* Türkises Leuchten */
 }
 
 /* Der Zeitraum dazwischen */
 .calendar-day.in-range {
-    background: rgba(46, 204, 113, 0.2) !important;
-    color: #2ecc71 !important;
+    background: rgba(0, 242, 255, 0.15) !important;
+    color: #00f2ff !important;
     border-radius: 0;
 }
 
