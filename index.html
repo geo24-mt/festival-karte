@@ -227,16 +227,40 @@
 		}
 			/**************KALENDER*****************/
 			
-			.flatpickr-calendar, .flatpickr-innerContainer, .flatpickr-rContainer, .dayContainer, .flatpickr-days {
-			    width: 100% !important;
-		}
-			.flatpickr-day {
-			    flex-basis: 14.28% !important;
-			    max-width: 14.28% !important;
-		}
-			.flatpickr-weekdays {
-			    display: flex !important;
-		}
+			/* 1. Den Haupt-Container auf die volle verfügbare Breite setzen */
+.flatpickr-calendar {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* 2. Alle inneren Container ebenfalls auf 100% zwingen */
+.flatpickr-innerContainer, 
+.flatpickr-rContainer, 
+.flatpickr-days, 
+.dayContainer {
+    width: 100% !important;
+    display: flex !important;
+}
+
+/* 3. Die Tage mathematisch auf 1/7 der Breite aufteilen */
+.flatpickr-day {
+    flex-basis: 14.28% !important; /* 100% geteilt durch 7 Tage */
+    max-width: 14.28% !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+}
+
+/* 4. Auch die Wochentage (Mo-So) auf die Spalten aufteilen */
+.flatpickr-weekdays {
+    display: flex !important;
+    width: 100% !important;
+}
+
+.flatpickr-weekday {
+    flex: 1 !important;
+    text-align: center !important;
+}
 			
 			/*********************************/
 			.legende-item {
