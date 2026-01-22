@@ -3,7 +3,7 @@
 			    height: 100%;
 			    margin: 0;
 			    background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.8)), 
-			                url('Symbole/background.png') center/cover fixed no-repeat;
+			                url('../Symbole/background.png') center/cover fixed no-repeat;
 			   overflow: hidden;
 		}
 			#map {
@@ -508,3 +508,4 @@
 		}
 
 			
+
