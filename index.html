@@ -14,9 +14,6 @@
         <link rel="stylesheet" href="css/leaflet-search.css">
         <link rel="stylesheet" href="css/leaflet.photon.css">
         <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
-		<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/de.js"></script>
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-		<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 		<link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
         <style>
@@ -226,34 +223,35 @@
 				color: #f39c12 !important; 
 		}
 			/**************KALENDER*****************/
-			/* 1. Haupt-Kalender: Sperre lösen */
-.flatpickr-calendar {
-    width: 100% !important;
+#calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 Spalten für Mo-So */
+    gap: 2px;
+    background-color: #eee; /* Gitterlinien-Farbe */
+    border: 1px solid #ccc;
 }
 
-/* 2. Container: Flex-Steuerung aktivieren */
-/* Ohne 'flex-wrap' schieben sich die Tage in eine einzige lange Zeile */
-.dayContainer {
-    width: 100% !important;
-    min-width: 100% !important;
-    max-width: 100% !important;
-    display: flex !important;
-    flex-wrap: wrap !important; 
+.calendar-day {
+    background: white;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    min-height: 40px;
 }
 
-/* 3. Die Tage: Das 7-Spalten-Raster */
-.flatpickr-day {
-    flex: 0 0 14.28% !important; /* Kein Wachsen, kein Schrumpfen, exakt 1/7 */
-    max-width: 14.28% !important;
+.calendar-day:hover { background: #f0f0f0; }
+
+.calendar-day.selected { 
+    background: #0055aa; /* Dein Blau */
+    color: white; 
 }
 
-/* 4. Wochentage: Platz gleichmäßig verteilen */
-.flatpickr-weekdays {
-    display: flex !important;
-    width: 100% !important;
-}
-.flatpickr-weekday {
-    flex: 1 !important;
+.day-name { 
+    background: #333; 
+    color: white; 
+    font-weight: bold; 
+    padding: 5px;
+    text-align: center;
 }
 			
 			/*********************************/
@@ -533,11 +531,17 @@
             </div>
         </div>
 
-        <div class="menu-wrapper" style="top: 31%;">
-            <div class="slider-container" title="Tipp: Zeitraum wählen" style="background-color: rgb(30, 30, 30) !important;">
-                <input type="text" id="event-kalender" style="display: none;">
-            </div>
+ <div class="menu-wrapper" style="top: 31%;">
+    <div id="calendar-container">
+        <div id="calendar-header">
+            <button onclick="changeMonth(-1)">◀</button>
+            <h2 id="month-display"></h2>
+            <button onclick="changeMonth(1)">▶</button>
         </div>
+        <div id="calendar-grid">
+            </div>
+    </div>
+</div>
 
         <div class="menu-wrapper" style="top: 89%;">
             <button id="reset-button" onclick="resetFilter()" style="background-color: rgb(30, 30, 30); color: white; border: none; border-radius: 9px; width: 100%; height: 40px; font-family: 'Montserrat', sans-serif; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; outline: none;">
@@ -956,15 +960,14 @@ function filterKarte() {
     var alleKatAktiv = document.getElementById('all-kategorien').checked;
     var gewaehlteKat = Array.from(document.querySelectorAll('.kat-check:checked')).map(cb => cb.value);
     var gewaehlterPreis = parseFloat(document.getElementById('preis-slider').value);
-    var gewaehlteDaten = festivalKalender.selectedDates;
-    var startFilter = null;
-    var endFilter = null;
-    if (gewaehlteDaten.length > 0) {
-        startFilter = gewaehlteDaten[0];
-        endFilter = gewaehlteDaten[1] ? gewaehlteDaten[1] : startFilter;
-    }
+    
+    // NEU: Nutzt die Variablen vom neuen Kalender statt festivalKalender.selectedDates
+    var effektiverStart = startFilter;
+    var effektiverEnd = endFilter ? endFilter : startFilter;
+
     var wertAnzeige = document.getElementById('preis-wert');
     if (wertAnzeige) wertAnzeige.innerText = gewaehlterPreis;
+
     var parseDate = function(str) {
         if(!str) return null;
         var d = str.trim().split('.');
@@ -973,6 +976,7 @@ function filterKarte() {
         var jahr = d[2] ? parseInt(d[2]) : 2026;
         return new Date(jahr, monat, tag);
     };
+
     layer_Kreise_1.eachLayer(function(layer) {
         var name = String(layer.feature.properties['gen']);
         if (alleKreiseAktiv || gewaehlteKreise.includes(name)) {
@@ -981,6 +985,7 @@ function filterKarte() {
             layer.setStyle({opacity: 0, weight: 0, interactive: false});
         }
     });
+
     layer_Festivals_kreis_2.eachLayer(function(layer) {
         if (layer.feature && layer.feature.properties) {
             var props = layer.feature.properties;
@@ -989,15 +994,19 @@ function filterKarte() {
             var fPreis = parseFloat(props['Preise ab']);
             var fDatumRaw = String(props['Datum']); 
             var datumCheck = true; 
-            if (startFilter && endFilter) {
+
+            // NEU: Vergleich mit den neuen Kalender-Variablen
+            if (effektiverStart && effektiverEnd) {
                 var teile = fDatumRaw.split(/[-–]| bis /);
                 var festivalStart = parseDate(teile[0]);
                 var festivalEnd = teile[1] ? parseDate(teile[1]) : festivalStart;
-                datumCheck = (festivalStart <= endFilter && festivalEnd >= startFilter);
+                datumCheck = (festivalStart <= effektiverEnd && festivalEnd >= effektiverStart);
             }
-			var kreisCheck = (alleKreiseAktiv || gewaehlteKreise.includes(fKreis));
+
+            var kreisCheck = (alleKreiseAktiv || gewaehlteKreise.includes(fKreis));
             var katCheck = (alleKatAktiv || gewaehlteKat.includes(fKat));
             var preisCheck = (isNaN(fPreis) || fPreis === null || fPreis <= gewaehlterPreis);
+
             if (layer.getElement()) {
                 if (kreisCheck && katCheck && preisCheck && datumCheck) {
                     layer.getElement().style.display = 'block';
@@ -1008,6 +1017,7 @@ function filterKarte() {
         }
     });
 }
+
 function zentriereAufAuswahl() {
     var gewaehlteKreise = Array.from(document.querySelectorAll('.kreis-check:checked')).map(cb => cb.value);
     var alleKreiseAktiv = document.getElementById('all-kreise').checked;
@@ -1016,78 +1026,121 @@ function zentriereAufAuswahl() {
     layer_Kreise_1.eachLayer(function(layer) {
         var name = String(layer.feature.properties['gen']);
         if (alleKreiseAktiv || gewaehlteKreise.includes(name)) {
-            bounds.extend(layer.getBounds()); // Berechnet die Ausdehnung (Extents)
+            bounds.extend(layer.getBounds());
             hatSichtbareKreise = true;
         }
     });
     if (hatSichtbareKreise) {
         map.fitBounds(bounds, {
-            padding: [30, 30], // Abstand zum Rand
-            maxZoom: 12,       // Verhindert zu nahes Heranzoomen bei einem einzelnen Kreis
-            animate: true      // Schwenkt die Karte weich
+            padding: [30, 30],
+            maxZoom: 12,
+            animate: true
         });
     }
 }
-		function resetFilter() {
+
+function resetFilter() {
     document.getElementById('all-kreise').checked = true;
     document.querySelectorAll('.kreis-check').forEach(cb => cb.checked = true);
     document.querySelectorAll('.kat-check').forEach(cb => cb.checked = true);
     document.getElementById('preis-slider').value = 300;
     var preisAnzeige = document.getElementById('preis-wert');
     if (preisAnzeige) preisAnzeige.innerText = '300';
-    if (festivalKalender) {
-        festivalKalender.clear();
-        festivalKalender.jumpToDate(new Date());
-    }
+    
+    // NEU: Reset für den neuen Kalender
+    startFilter = null;
+    endFilter = null;
+    currentViewDate = new Date();
+    renderKalender();
+    
     filterKarte();
 }
-	let festivalKalender;
-		document.addEventListener("DOMContentLoaded", function() {
-			const deCfg = {
-				weekdays: {
-				shorthand: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
-				longhand: ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"]},
-				months: {
-				shorthand: ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
-				longhand: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"]},
-			rangeSeparator: " bis ",
-			firstDayOfWeek: 1 
-		};
-		festivalKalender = flatpickr("#event-kalender", {
-			mode: "range",
-			inline: true,
-			static: true,
-			locale: deCfg, 
-			dateFormat: "d.m.Y",
-			theme: "dark",
-			monthSelectorType: "static",
-				closeOnSelect: false,
-				onChange: function(selectedDates, dateStr, instance) {
-				        if (selectedDates.length > 0) {
-				            filterKarte();
-				        }
-				    }
-				});
-			});
-function toggleCheckboxes() {
-    var list = document.getElementById("checkbox-list");
-    if (list.style.display === "block") {
-        list.style.display = "none";
-    } else {
-        list.style.display = "block";
+
+// --- AB HIER DIE NEUE KALENDER-LOGIK ---
+
+let startFilter = null;
+let endFilter = null;
+let currentViewDate = new Date();
+
+function renderKalender() {
+    const grid = document.getElementById('calendar-grid');
+    const monthDisplay = document.getElementById('month-display');
+    if (!grid) return;
+
+    grid.innerHTML = '';
+    const monthNames = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
+    monthDisplay.innerText = `${monthNames[currentViewDate.getMonth()]} ${currentViewDate.getFullYear()}`;
+
+    ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"].forEach(day => {
+        const div = document.createElement('div');
+        div.className = 'day-name';
+        div.innerText = day;
+        grid.appendChild(div);
+    });
+
+    const year = currentViewDate.getFullYear();
+    const month = currentViewDate.getMonth();
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const offset = firstDay === 0 ? 6 : firstDay - 1;
+
+    for (let i = 0; i < offset; i++) grid.appendChild(document.createElement('div'));
+
+    for (let d = 1; d <= daysInMonth; d++) {
+        const date = new Date(year, month, d);
+        const dayEl = document.createElement('div');
+        dayEl.className = 'calendar-day';
+        dayEl.innerText = d;
+
+        if (startFilter && date.toDateString() === startFilter.toDateString()) dayEl.classList.add('selected');
+        if (endFilter && date.toDateString() === endFilter.toDateString()) dayEl.classList.add('selected');
+        if (startFilter && endFilter && date > startFilter && date < endFilter) dayEl.classList.add('in-range');
+
+        dayEl.onclick = () => {
+            if (!startFilter || (startFilter && endFilter)) {
+                startFilter = date;
+                endFilter = null;
+            } else if (date < startFilter) {
+                startFilter = date;
+            } else {
+                endFilter = date;
+            }
+            renderKalender();
+            filterKarte();
+        };
+        grid.appendChild(dayEl);
     }
 }
+
+function changeMonth(diff) {
+    currentViewDate.setMonth(currentViewDate.getMonth() + diff);
+    renderKalender();
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    renderKalender();
+});
+
+// --- AB HIER DEINE UNVERÄNDERTEN CHECKBOX-FUNKTIONEN ---
+
+function toggleCheckboxes() {
+    var list = document.getElementById("checkbox-list");
+    list.style.display = (list.style.display === "block") ? "none" : "block";
+}
+
 function setAll(status) {
     document.getElementById('all-kreise').checked = status;
     var checks = document.querySelectorAll('.kreis-check');
     checks.forEach(c => c.checked = status);
     filterKarte();
 }
+
 function toggleAllKreise(source) {
     var checks = document.querySelectorAll('.kreis-check');
     checks.forEach(c => c.checked = source.checked);
     filterKarte();
 }
+
 function updateAllCheckbox() {
     var allCheckbox = document.getElementById('all-kreise');
     var checks = document.querySelectorAll('.kreis-check');
@@ -1095,7 +1148,7 @@ function updateAllCheckbox() {
     var checkedCount = document.querySelectorAll('.kreis-check:checked').length;
     allCheckbox.checked = (total === checkedCount);
 }
-// einstellungen für Checkbox Kategorie
+
 function updateAllKatCheckbox() {
     var allCheckbox = document.getElementById('all-kategorien'); 
     var checks = document.querySelectorAll('.kat-check');
@@ -1103,25 +1156,24 @@ function updateAllKatCheckbox() {
     var checkedCount = document.querySelectorAll('.kat-check:checked').length;
     allCheckbox.checked = (total === checkedCount);
 }
+
 function setAllKat(status) {
     document.getElementById('all-kategorien').checked = status;
     var checks = document.querySelectorAll('.kat-check');
     checks.forEach(c => c.checked = status);
     filterKarte();
 }
+
 function toggleAllKat(source) {
     var checks = document.querySelectorAll('.kat-check');
     checks.forEach(c => c.checked = source.checked);
     filterKarte();
 }
+
 function toggleKatCheckboxes() {
     var list = document.getElementById("kat-checkbox-list");
-    if (list.style.display === "block") {
-        list.style.display = "none";
-    } else {
-        list.style.display = "block";
-    }
-}	
+    list.style.display = (list.style.display === "block") ? "none" : "block";
+}
 	
        </script>
     </body>
