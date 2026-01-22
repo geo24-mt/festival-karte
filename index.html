@@ -226,40 +226,34 @@
 				color: #f39c12 !important; 
 		}
 			/**************KALENDER*****************/
-			
-			/* 1. Den Haupt-Container auf die volle verfügbare Breite setzen */
+			/* 1. Haupt-Kalender: Sperre lösen */
 .flatpickr-calendar {
     width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
 }
 
-/* 2. Alle inneren Container ebenfalls auf 100% zwingen */
-.flatpickr-innerContainer, 
-.flatpickr-rContainer, 
-.flatpickr-days, 
+/* 2. Container: Flex-Steuerung aktivieren */
+/* Ohne 'flex-wrap' schieben sich die Tage in eine einzige lange Zeile */
 .dayContainer {
     width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
     display: flex !important;
+    flex-wrap: wrap !important; 
 }
 
-/* 3. Die Tage mathematisch auf 1/7 der Breite aufteilen */
+/* 3. Die Tage: Das 7-Spalten-Raster */
 .flatpickr-day {
-    flex-basis: 14.28% !important; /* 100% geteilt durch 7 Tage */
+    flex: 0 0 14.28% !important; /* Kein Wachsen, kein Schrumpfen, exakt 1/7 */
     max-width: 14.28% !important;
-    margin: 0 !important;
-    box-sizing: border-box !important;
 }
 
-/* 4. Auch die Wochentage (Mo-So) auf die Spalten aufteilen */
+/* 4. Wochentage: Platz gleichmäßig verteilen */
 .flatpickr-weekdays {
     display: flex !important;
     width: 100% !important;
 }
-
 .flatpickr-weekday {
     flex: 1 !important;
-    text-align: center !important;
 }
 			
 			/*********************************/
