@@ -947,14 +947,10 @@ function filterKarte() {
     var alleKatAktiv = document.getElementById('all-kategorien').checked;
     var gewaehlteKat = Array.from(document.querySelectorAll('.kat-check:checked')).map(cb => cb.value);
     var gewaehlterPreis = parseFloat(document.getElementById('preis-slider').value);
-    
-    // NEU: Nutzt die Variablen vom neuen Kalender statt festivalKalender.selectedDates
     var effektiverStart = startFilter;
     var effektiverEnd = endFilter ? endFilter : startFilter;
-
     var wertAnzeige = document.getElementById('preis-wert');
     if (wertAnzeige) wertAnzeige.innerText = gewaehlterPreis;
-
     var parseDate = function(str) {
         if(!str) return null;
         var d = str.trim().split('.');
@@ -963,7 +959,6 @@ function filterKarte() {
         var jahr = d[2] ? parseInt(d[2]) : 2026;
         return new Date(jahr, monat, tag);
     };
-
     layer_Kreise_1.eachLayer(function(layer) {
         var name = String(layer.feature.properties['gen']);
         if (alleKreiseAktiv || gewaehlteKreise.includes(name)) {
@@ -972,7 +967,6 @@ function filterKarte() {
             layer.setStyle({opacity: 0, weight: 0, interactive: false});
         }
     });
-
     layer_Festivals_kreis_2.eachLayer(function(layer) {
         if (layer.feature && layer.feature.properties) {
             var props = layer.feature.properties;
@@ -981,15 +975,12 @@ function filterKarte() {
             var fPreis = parseFloat(props['Preise ab']);
             var fDatumRaw = String(props['Datum']); 
             var datumCheck = true; 
-
-            // NEU: Vergleich mit den neuen Kalender-Variablen
             if (effektiverStart && effektiverEnd) {
                 var teile = fDatumRaw.split(/[-–]| bis /);
                 var festivalStart = parseDate(teile[0]);
                 var festivalEnd = teile[1] ? parseDate(teile[1]) : festivalStart;
                 datumCheck = (festivalStart <= effektiverEnd && festivalEnd >= effektiverStart);
             }
-
             var kreisCheck = (alleKreiseAktiv || gewaehlteKreise.includes(fKreis));
             var katCheck = (alleKatAktiv || gewaehlteKat.includes(fKat));
             var preisCheck = (isNaN(fPreis) || fPreis === null || fPreis <= gewaehlterPreis);
@@ -1004,7 +995,6 @@ function filterKarte() {
         }
     });
 }
-
 function zentriereAufAuswahl() {
     var gewaehlteKreise = Array.from(document.querySelectorAll('.kreis-check:checked')).map(cb => cb.value);
     var alleKreiseAktiv = document.getElementById('all-kreise').checked;
@@ -1025,7 +1015,6 @@ function zentriereAufAuswahl() {
         });
     }
 }
-
 function resetFilter() {
     document.getElementById('all-kreise').checked = true;
     document.querySelectorAll('.kreis-check').forEach(cb => cb.checked = true);
@@ -1033,56 +1022,42 @@ function resetFilter() {
     document.getElementById('preis-slider').value = 300;
     var preisAnzeige = document.getElementById('preis-wert');
     if (preisAnzeige) preisAnzeige.innerText = '300';
-    
-    // NEU: Reset für den neuen Kalender
     startFilter = null;
     endFilter = null;
     currentViewDate = new Date();
     renderKalender();
-    
     filterKarte();
 }
-
-// --- AB HIER DIE NEUE KALENDER-LOGIK ---
-
 let startFilter = null;
 let endFilter = null;
 let currentViewDate = new Date();
-
 function renderKalender() {
     const grid = document.getElementById('calendar-grid');
     const monthDisplay = document.getElementById('month-display');
     if (!grid) return;
-
     grid.innerHTML = '';
     const monthNames = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
     monthDisplay.innerText = `${monthNames[currentViewDate.getMonth()]} ${currentViewDate.getFullYear()}`;
-
     ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"].forEach(day => {
         const div = document.createElement('div');
         div.className = 'day-name';
         div.innerText = day;
         grid.appendChild(div);
     });
-
     const year = currentViewDate.getFullYear();
     const month = currentViewDate.getMonth();
     const firstDay = new Date(year, month, 1).getDay();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
     const offset = firstDay === 0 ? 6 : firstDay - 1;
-
     for (let i = 0; i < offset; i++) grid.appendChild(document.createElement('div'));
-
     for (let d = 1; d <= daysInMonth; d++) {
         const date = new Date(year, month, d);
         const dayEl = document.createElement('div');
         dayEl.className = 'calendar-day';
         dayEl.innerText = d;
-
         if (startFilter && date.toDateString() === startFilter.toDateString()) dayEl.classList.add('selected');
         if (endFilter && date.toDateString() === endFilter.toDateString()) dayEl.classList.add('selected');
         if (startFilter && endFilter && date > startFilter && date < endFilter) dayEl.classList.add('in-range');
-
         dayEl.onclick = () => {
             if (!startFilter || (startFilter && endFilter)) {
                 startFilter = date;
@@ -1098,36 +1073,28 @@ function renderKalender() {
         grid.appendChild(dayEl);
     }
 }
-
 function changeMonth(diff) {
     currentViewDate.setMonth(currentViewDate.getMonth() + diff);
     renderKalender();
 }
-
 document.addEventListener("DOMContentLoaded", function() {
     renderKalender();
 });
-
-// --- AB HIER DEINE UNVERÄNDERTEN CHECKBOX-FUNKTIONEN ---
-
 function toggleCheckboxes() {
     var list = document.getElementById("checkbox-list");
     list.style.display = (list.style.display === "block") ? "none" : "block";
 }
-
 function setAll(status) {
     document.getElementById('all-kreise').checked = status;
     var checks = document.querySelectorAll('.kreis-check');
     checks.forEach(c => c.checked = status);
     filterKarte();
 }
-
 function toggleAllKreise(source) {
     var checks = document.querySelectorAll('.kreis-check');
     checks.forEach(c => c.checked = source.checked);
     filterKarte();
 }
-
 function updateAllCheckbox() {
     var allCheckbox = document.getElementById('all-kreise');
     var checks = document.querySelectorAll('.kreis-check');
@@ -1135,7 +1102,6 @@ function updateAllCheckbox() {
     var checkedCount = document.querySelectorAll('.kreis-check:checked').length;
     allCheckbox.checked = (total === checkedCount);
 }
-
 function updateAllKatCheckbox() {
     var allCheckbox = document.getElementById('all-kategorien'); 
     var checks = document.querySelectorAll('.kat-check');
@@ -1143,25 +1109,21 @@ function updateAllKatCheckbox() {
     var checkedCount = document.querySelectorAll('.kat-check:checked').length;
     allCheckbox.checked = (total === checkedCount);
 }
-
 function setAllKat(status) {
     document.getElementById('all-kategorien').checked = status;
     var checks = document.querySelectorAll('.kat-check');
     checks.forEach(c => c.checked = status);
     filterKarte();
 }
-
 function toggleAllKat(source) {
     var checks = document.querySelectorAll('.kat-check');
     checks.forEach(c => c.checked = source.checked);
     filterKarte();
 }
-
 function toggleKatCheckboxes() {
     var list = document.getElementById("kat-checkbox-list");
     list.style.display = (list.style.display === "block") ? "none" : "block";
-}
-	
+}	
        </script>
     </body>
 </html>
