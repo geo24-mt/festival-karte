@@ -1090,11 +1090,6 @@ function setAll(status) {
     checks.forEach(c => c.checked = status);
     filterKarte();
 }
-/*function toggleAllKreise(source) {
-    var checks = document.querySelectorAll('.kreis-check');
-    checks.forEach(c => c.checked = source.checked);
-    filterKarte();
-}*/
 function updateAllCheckbox() {
     var allCheckbox = document.getElementById('all-kreise');
     var checks = document.querySelectorAll('.kreis-check');
@@ -1115,11 +1110,6 @@ function setAllKat(status) {
     checks.forEach(c => c.checked = status);
     filterKarte();
 }
-/*function toggleAllKat(source) {
-    var checks = document.querySelectorAll('.kat-check');
-    checks.forEach(c => c.checked = source.checked);
-    filterKarte();
-}*/
 function toggleKatCheckboxes() {
     var list = document.getElementById("kat-checkbox-list");
     list.style.display = (list.style.display === "block") ? "none" : "block";
